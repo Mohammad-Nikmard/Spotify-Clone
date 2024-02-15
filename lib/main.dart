@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:spotify_clone/ui/choose_gender_screen.dart';
+import 'package:spotify_clone/ui/create_name_screen.dart';
 import 'package:spotify_clone/ui/create_password_screen.dart';
 
 void main() {
@@ -13,7 +14,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: ChooseGenderScreen(),
+      home: CreateNameScreen(),
     );
   }
 }
