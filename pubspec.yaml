@@ -1,0 +1,43 @@
+name: spotify_clone
+description: "A new Flutter project."
+
+publish_to: 'none' 
+
+
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.2.6 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  cupertino_icons: ^1.0.2
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+
+  flutter_lints: ^2.0.0
+
+
+flutter:
+
+
+  uses-material-design: true
+
+
+  assets:
+    - images/
+  #   - images/a_dot_ham.jpeg
+
+  fonts:
+    - family: AM
+      fonts:
+        - asset: fonts/Avenir Medium.ttf
+
+    - family: AB
+      fonts:
+        - asset: fonts/Avenir Next LT Pro Bold.otf
