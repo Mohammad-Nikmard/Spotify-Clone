@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:spotify_clone/constants/constants.dart';
+import 'package:spotify_clone/ui/create_password_screen.dart';
 
 class CreateEmailScreen extends StatefulWidget {
   const CreateEmailScreen({super.key});
@@ -9,7 +10,7 @@ class CreateEmailScreen extends StatefulWidget {
 }
 
 class _CreateEmailScreenState extends State<CreateEmailScreen> {
-  final TextEditingController _controller = TextEditingController();
+  String text = "";
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -44,10 +45,15 @@ class _CreateEmailScreenState extends State<CreateEmailScreen> {
                   ),
                 ),
                 child: TextField(
-                  controller: _controller,
+                  onChanged: (value) {
+                    setState(() {
+                      text = value;
+                    });
+                  },
                   style: const TextStyle(
-                    fontFamily: "AB",
+                    fontFamily: "AM",
                     fontSize: 14,
+                    color: MyColors.whiteColor,
                   ),
                   decoration: const InputDecoration(
                     border: OutlineInputBorder(
@@ -79,24 +85,36 @@ class _CreateEmailScreenState extends State<CreateEmailScreen> {
               const SizedBox(
                 height: 35,
               ),
-              Container(
-                height: 45,
-                width: 90,
-                decoration: BoxDecoration(
-                  color: _controller.text.isNotEmpty
-                      ? MyColors.whiteColor
-                      : MyColors.lightGrey,
-                  borderRadius: const BorderRadius.all(
-                    Radius.circular(25),
+              GestureDetector(
+                onTap: () {
+                  if (text.length >= 6) {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const CreatePasswordScreen(),
+                      ),
+                    );
+                  }
+                },
+                child: Container(
+                  height: 45,
+                  width: 90,
+                  decoration: BoxDecoration(
+                    color: (text.length >= 6)
+                        ? MyColors.whiteColor
+                        : MyColors.lightGrey,
+                    borderRadius: const BorderRadius.all(
+                      Radius.circular(25),
+                    ),
                   ),
-                ),
-                child: const Center(
-                  child: Text(
-                    "Next",
-                    style: TextStyle(
-                      fontFamily: "AB",
-                      color: Colors.black,
-                      fontSize: 15,
+                  child: const Center(
+                    child: Text(
+                      "Next",
+                      style: TextStyle(
+                        fontFamily: "AB",
+                        color: Colors.black,
+                        fontSize: 15,
+                      ),
                     ),
                   ),
                 ),
@@ -119,18 +137,23 @@ class Header extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Container(
-            height: 32,
-            width: 32,
-            decoration: const BoxDecoration(
-              shape: BoxShape.circle,
-              color: MyColors.blackColor,
-            ),
-            child: Center(
-              child: Image.asset(
-                "images/icon_arrow_left.png",
-                height: 16,
-                width: 16,
+          GestureDetector(
+            onTap: () {
+              Navigator.pop(context);
+            },
+            child: Container(
+              height: 32,
+              width: 32,
+              decoration: const BoxDecoration(
+                shape: BoxShape.circle,
+                color: MyColors.blackColor,
+              ),
+              child: Center(
+                child: Image.asset(
+                  "images/icon_arrow_left.png",
+                  height: 16,
+                  width: 16,
+                ),
               ),
             ),
           ),
@@ -143,8 +166,8 @@ class Header extends StatelessWidget {
             ),
           ),
           const SizedBox(
-            height: 1,
-            width: 50,
+            height: 32,
+            width: 32,
           ),
         ],
       ),

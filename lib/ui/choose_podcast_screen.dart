@@ -8,7 +8,7 @@ class ChoosePodcastScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: MyColors.blackColor,
+      backgroundColor: MyColors.darGreyColor,
       body: SafeArea(
         child: Stack(
           alignment: AlignmentDirectional.bottomCenter,
@@ -42,6 +42,20 @@ class ChoosePodcastScreen extends StatelessWidget {
                 SearchBox(),
                 PodcastList(),
               ],
+            ),
+            Container(
+              height: 170,
+              width: MediaQuery.of(context).size.width,
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  colors: [
+                    Colors.transparent,
+                    MyColors.blackColor.withOpacity(0.7),
+                  ],
+                ),
+              ),
             ),
             Positioned(
               bottom: 30,
@@ -118,24 +132,15 @@ class SearchBox extends StatelessWidget {
             child: Row(
               children: [
                 Image.asset("images/icon_Search.png"),
-
-                // const Text(
-                //   "Search",
-                //   style: TextStyle(
-                //     fontFamily: "AM",
-                //     fontSize: 14,
-                //     color: MyColors.blackColor,
-                //   ),
-                // ),
                 const Expanded(
                   child: TextField(
                     style: TextStyle(
                       fontFamily: "AM",
-                      fontSize: 14,
+                      fontSize: 16,
                       color: MyColors.blackColor,
                     ),
                     decoration: InputDecoration(
-                      contentPadding: EdgeInsets.only(top: 2, left: 15),
+                      contentPadding: EdgeInsets.only(top: 15, left: 15),
                       hintText: "Search",
                       hintStyle: TextStyle(
                         fontFamily: "AM",

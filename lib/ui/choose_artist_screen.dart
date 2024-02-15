@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:spotify_clone/constants/constants.dart';
+import 'package:spotify_clone/ui/choose_podcast_screen.dart';
 import 'package:spotify_clone/widgets/artist_avatar_widget.dart';
 
 class ChooseArtistScreen extends StatelessWidget {
@@ -21,7 +22,7 @@ class ChooseArtistScreen extends StatelessWidget {
               ],
             ),
             Container(
-              height: 200,
+              height: 170,
               width: MediaQuery.of(context).size.width,
               decoration: BoxDecoration(
                 gradient: LinearGradient(
@@ -31,6 +32,36 @@ class ChooseArtistScreen extends StatelessWidget {
                     Colors.transparent,
                     MyColors.blackColor.withOpacity(0.7),
                   ],
+                ),
+              ),
+            ),
+            Positioned(
+              bottom: 30,
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  minimumSize: const Size(90, 42),
+                  shape: const RoundedRectangleBorder(
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(25),
+                    ),
+                  ),
+                  backgroundColor: MyColors.whiteColor,
+                ),
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const ChoosePodcastScreen(),
+                    ),
+                  );
+                },
+                child: const Text(
+                  "Done",
+                  style: TextStyle(
+                    fontFamily: "AB",
+                    color: Colors.black,
+                    fontSize: 14,
+                  ),
                 ),
               ),
             ),
@@ -53,18 +84,23 @@ class Header extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Container(
-              height: 32,
-              width: 32,
-              decoration: const BoxDecoration(
-                shape: BoxShape.circle,
-                color: MyColors.blackColor,
-              ),
-              child: Center(
-                child: Image.asset(
-                  "images/icon_arrow_left.png",
-                  height: 16,
-                  width: 16,
+            GestureDetector(
+              onTap: () {
+                Navigator.pop(context);
+              },
+              child: Container(
+                height: 32,
+                width: 32,
+                decoration: const BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: MyColors.blackColor,
+                ),
+                child: Center(
+                  child: Image.asset(
+                    "images/icon_arrow_left.png",
+                    height: 16,
+                    width: 16,
+                  ),
                 ),
               ),
             ),
@@ -132,24 +168,15 @@ class SearchBox extends StatelessWidget {
             child: Row(
               children: [
                 Image.asset("images/icon_Search.png"),
-
-                // const Text(
-                //   "Search",
-                //   style: TextStyle(
-                //     fontFamily: "AM",
-                //     fontSize: 14,
-                //     color: MyColors.blackColor,
-                //   ),
-                // ),
                 const Expanded(
                   child: TextField(
                     style: TextStyle(
                       fontFamily: "AM",
-                      fontSize: 14,
+                      fontSize: 16,
                       color: MyColors.blackColor,
                     ),
                     decoration: InputDecoration(
-                      contentPadding: EdgeInsets.only(top: 2, left: 15),
+                      contentPadding: EdgeInsets.only(top: 15, left: 15),
                       hintText: "Search",
                       hintStyle: TextStyle(
                         fontFamily: "AM",

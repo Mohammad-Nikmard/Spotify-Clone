@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:spotify_clone/constants/constants.dart';
+import 'package:spotify_clone/ui/choose_artist_screen.dart';
 
 class CreateNameScreen extends StatefulWidget {
   const CreateNameScreen({super.key});
@@ -8,14 +9,15 @@ class CreateNameScreen extends StatefulWidget {
   State<CreateNameScreen> createState() => _CreateNameScreenState();
 }
 
-final TextEditingController _controller = TextEditingController();
-bool newsCheck = false;
-bool marketPurposeCheck = false;
-
 class _CreateNameScreenState extends State<CreateNameScreen> {
+  bool newsCheck = false;
+  bool marketPurposeCheck = false;
+  String text = "";
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       backgroundColor: MyColors.darGreyColor,
       body: SafeArea(
         child: Padding(
@@ -55,10 +57,15 @@ class _CreateNameScreenState extends State<CreateNameScreen> {
                     children: [
                       Expanded(
                         child: TextField(
-                          controller: _controller,
+                          onChanged: (value) {
+                            setState(() {
+                              text = value;
+                            });
+                          },
                           style: const TextStyle(
-                            fontFamily: "AB",
+                            fontFamily: "AM",
                             fontSize: 14,
+                            color: MyColors.whiteColor,
                           ),
                           decoration: const InputDecoration(
                             border: OutlineInputBorder(
@@ -70,7 +77,10 @@ class _CreateNameScreenState extends State<CreateNameScreen> {
                           ),
                         ),
                       ),
-                      Image.asset("images/icon_tic.png"),
+                      Visibility(
+                        visible: (text.length > 6) ? true : false,
+                        child: Image.asset("images/icon_tic.png"),
+                      ),
                     ],
                   ),
                 ),
@@ -102,14 +112,12 @@ class _CreateNameScreenState extends State<CreateNameScreen> {
               const SizedBox(
                 height: 15,
               ),
-              const Flexible(
-                child: Text(
-                  'By tapping on "Create account" you agree to the spotify Terms of Use.',
-                  style: TextStyle(
-                    fontFamily: "AM",
-                    fontSize: 12,
-                    color: MyColors.whiteColor,
-                  ),
+              const Text(
+                'By tapping on "Create account" you agree to the spotify Terms of Use.',
+                style: TextStyle(
+                  fontFamily: "AM",
+                  fontSize: 12,
+                  color: MyColors.whiteColor,
                 ),
               ),
               const SizedBox(
@@ -127,14 +135,12 @@ class _CreateNameScreenState extends State<CreateNameScreen> {
               const SizedBox(
                 height: 15,
               ),
-              const Flexible(
-                child: Text(
-                  'To learn more about how spotify collect, uses, shares and portects your personal data, Please see the spotify Privacy Policy.',
-                  style: TextStyle(
-                    fontFamily: "AM",
-                    fontSize: 12,
-                    color: MyColors.whiteColor,
-                  ),
+              const Text(
+                'To learn more about how spotify collect, uses, shares and portects your personal data, Please see the spotify Privacy Policy.',
+                style: TextStyle(
+                  fontFamily: "AM",
+                  fontSize: 12,
+                  color: MyColors.whiteColor,
                 ),
               ),
               const SizedBox(
@@ -167,13 +173,14 @@ class _CreateNameScreenState extends State<CreateNameScreen> {
                   Transform.scale(
                     scale: 1.5,
                     child: Checkbox(
+                      visualDensity: VisualDensity.adaptivePlatformDensity,
                       shape: const CircleBorder(),
                       activeColor: MyColors.greenColor,
                       checkColor: MyColors.whiteColor,
-                      value: false,
+                      value: newsCheck,
                       onChanged: (onChanged) {
                         setState(() {
-                          newsCheck = !newsCheck;
+                          newsCheck = onChanged!;
                         });
                       },
                     ),
@@ -205,10 +212,10 @@ class _CreateNameScreenState extends State<CreateNameScreen> {
                       shape: const CircleBorder(),
                       activeColor: MyColors.greenColor,
                       checkColor: MyColors.whiteColor,
-                      value: false,
+                      value: marketPurposeCheck,
                       onChanged: (onChanged) {
                         setState(() {
-                          marketPurposeCheck = !marketPurposeCheck;
+                          marketPurposeCheck = onChanged!;
                         });
                       },
                     ),
@@ -217,22 +224,39 @@ class _CreateNameScreenState extends State<CreateNameScreen> {
               ),
               const Spacer(),
               Center(
-                child: Container(
-                  height: 42,
-                  width: 179,
-                  decoration: const BoxDecoration(
-                    color: MyColors.whiteColor,
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(25),
-                    ),
-                  ),
-                  child: const Center(
-                    child: Text(
-                      "Create an account",
-                      style: TextStyle(
-                        fontFamily: "AB",
-                        color: Colors.black,
-                        fontSize: 15,
+                child: GestureDetector(
+                  onTap: () {
+                    if (text.length > 6) {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const ChooseArtistScreen(),
+                        ),
+                      );
+                    }
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.only(bottom: 35),
+                    child: Container(
+                      height: 42,
+                      width: 179,
+                      decoration: BoxDecoration(
+                        color: (text.length > 6)
+                            ? MyColors.whiteColor
+                            : MyColors.lightGrey,
+                        borderRadius: const BorderRadius.all(
+                          Radius.circular(25),
+                        ),
+                      ),
+                      child: const Center(
+                        child: Text(
+                          "Create an account",
+                          style: TextStyle(
+                            fontFamily: "AB",
+                            color: Colors.black,
+                            fontSize: 15,
+                          ),
+                        ),
                       ),
                     ),
                   ),
@@ -256,18 +280,23 @@ class Header extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Container(
-            height: 32,
-            width: 32,
-            decoration: const BoxDecoration(
-              shape: BoxShape.circle,
-              color: MyColors.blackColor,
-            ),
-            child: Center(
-              child: Image.asset(
-                "images/icon_arrow_left.png",
-                height: 16,
-                width: 16,
+          GestureDetector(
+            onTap: () {
+              Navigator.pop(context);
+            },
+            child: Container(
+              height: 32,
+              width: 32,
+              decoration: const BoxDecoration(
+                shape: BoxShape.circle,
+                color: MyColors.blackColor,
+              ),
+              child: Center(
+                child: Image.asset(
+                  "images/icon_arrow_left.png",
+                  height: 16,
+                  width: 16,
+                ),
               ),
             ),
           ),
@@ -280,8 +309,8 @@ class Header extends StatelessWidget {
             ),
           ),
           const SizedBox(
-            height: 1,
-            width: 50,
+            height: 32,
+            width: 32,
           ),
         ],
       ),

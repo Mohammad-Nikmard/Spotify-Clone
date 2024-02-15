@@ -9,7 +9,7 @@ class ArtistAvatar extends StatelessWidget {
     return const Column(
       children: [
         CircleAvatar(
-          radius: 60,
+          radius: 55,
           backgroundColor: MyColors.greenColor,
         ),
         SizedBox(height: 10),
