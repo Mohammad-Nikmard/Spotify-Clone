@@ -1,9 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:spotify_clone/constants/constants.dart';
 
-class CreateEmailScreen extends StatelessWidget {
+class CreateEmailScreen extends StatefulWidget {
   const CreateEmailScreen({super.key});
 
+  @override
+  State<CreateEmailScreen> createState() => _CreateEmailScreenState();
+}
+
+class _CreateEmailScreenState extends State<CreateEmailScreen> {
+  final TextEditingController _controller = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -16,6 +22,7 @@ class CreateEmailScreen extends StatelessWidget {
               const Header(),
               const Row(
                 children: [
+                  SizedBox(width: 3),
                   Text(
                     "What's your email?",
                     style: TextStyle(
@@ -28,7 +35,7 @@ class CreateEmailScreen extends StatelessWidget {
                 ],
               ),
               Container(
-                height: 45,
+                height: 51,
                 width: MediaQuery.of(context).size.width,
                 decoration: const BoxDecoration(
                   color: Color(0xff777777),
@@ -36,17 +43,62 @@ class CreateEmailScreen extends StatelessWidget {
                     Radius.circular(8),
                   ),
                 ),
+                child: TextField(
+                  controller: _controller,
+                  style: const TextStyle(
+                    fontFamily: "AB",
+                    fontSize: 14,
+                  ),
+                  decoration: const InputDecoration(
+                    border: OutlineInputBorder(
+                      borderSide: BorderSide(
+                        style: BorderStyle.none,
+                        width: 0,
+                      ),
+                    ),
+                  ),
+                ),
               ),
               const SizedBox(
-                height: 5,
+                height: 8,
               ),
-              const Text(
-                "You'll need to confirm this email later.",
-                style: TextStyle(
-                  fontFamily: "AM",
-                  fontSize: 8,
-                  color: MyColors.whiteColor,
-                  fontWeight: FontWeight.w400,
+              const Row(
+                children: [
+                  Text(
+                    "You'll need to confirm this email later.",
+                    style: TextStyle(
+                      fontFamily: "AM",
+                      fontSize: 10,
+                      color: MyColors.whiteColor,
+                      fontWeight: FontWeight.w400,
+                    ),
+                    textAlign: TextAlign.start,
+                  ),
+                ],
+              ),
+              const SizedBox(
+                height: 35,
+              ),
+              Container(
+                height: 45,
+                width: 90,
+                decoration: BoxDecoration(
+                  color: _controller.text.isNotEmpty
+                      ? MyColors.whiteColor
+                      : MyColors.lightGrey,
+                  borderRadius: const BorderRadius.all(
+                    Radius.circular(25),
+                  ),
+                ),
+                child: const Center(
+                  child: Text(
+                    "Next",
+                    style: TextStyle(
+                      fontFamily: "AB",
+                      color: Colors.black,
+                      fontSize: 15,
+                    ),
+                  ),
                 ),
               ),
             ],
