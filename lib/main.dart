@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:spotify_clone/ui/profile_screen.dart';
+import 'package:spotify_clone/ui/scan_spotify_code.dart';
 import 'package:spotify_clone/ui/setting_screen.dart';
 
 void main() {
@@ -13,7 +14,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: ProfileScreen(),
+      home: ScanSpotifyCodeScreen(),
     );
   }
 }
