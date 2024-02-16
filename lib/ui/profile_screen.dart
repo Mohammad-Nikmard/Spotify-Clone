@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:spotify_clone/constants/constants.dart';
 
 class ProfileScreen extends StatelessWidget {
@@ -11,7 +12,7 @@ class ProfileScreen extends StatelessWidget {
       body: Column(
         children: [
           Expanded(
-            flex: 4,
+            flex: 5,
             child: Container(
               decoration: BoxDecoration(
                 border: Border.all(
@@ -32,7 +33,7 @@ class ProfileScreen extends StatelessWidget {
             ),
           ),
           Expanded(
-            flex: 6,
+            flex: 5,
             child: Container(
               decoration: BoxDecoration(
                 border: Border.all(
@@ -58,17 +59,6 @@ class LowerContainerContent extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        const Padding(
-          padding: EdgeInsets.only(left: 20),
-          child: Text(
-            "Playlists",
-            style: TextStyle(
-                fontFamily: "AM",
-                fontWeight: FontWeight.w400,
-                color: MyColors.whiteColor,
-                fontSize: 19),
-          ),
-        ),
         const SizedBox(
           height: 10,
         ),
@@ -114,9 +104,10 @@ class UpperContainerContent extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 15),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const SizedBox(
-            height: 20,
+            height: 40,
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -162,7 +153,7 @@ class UpperContainerContent extends StatelessWidget {
                 const SizedBox(
                   height: 65,
                 ),
-                const Row(
+                Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     Column(
@@ -171,7 +162,7 @@ class UpperContainerContent extends StatelessWidget {
                           '23',
                           style: TextStyle(
                             fontFamily: "AM",
-                            fontSize: 12,
+                            fontSize: ScreenUtil().setSp(12),
                             color: MyColors.whiteColor,
                           ),
                         ),
@@ -179,7 +170,7 @@ class UpperContainerContent extends StatelessWidget {
                           "PlayLists",
                           style: TextStyle(
                             fontFamily: "AM",
-                            fontSize: 10,
+                            fontSize: ScreenUtil().setSp(10),
                             color: MyColors.lightGrey,
                           ),
                         ),
@@ -191,7 +182,7 @@ class UpperContainerContent extends StatelessWidget {
                           '58',
                           style: TextStyle(
                             fontFamily: "AM",
-                            fontSize: 12,
+                            fontSize: ScreenUtil().setSp(12),
                             color: MyColors.whiteColor,
                           ),
                         ),
@@ -199,7 +190,7 @@ class UpperContainerContent extends StatelessWidget {
                           "Followers",
                           style: TextStyle(
                             fontFamily: "AM",
-                            fontSize: 10,
+                            fontSize: ScreenUtil().setSp(10),
                             color: MyColors.lightGrey,
                           ),
                         ),
@@ -211,7 +202,7 @@ class UpperContainerContent extends StatelessWidget {
                           '43',
                           style: TextStyle(
                             fontFamily: "AM",
-                            fontSize: 12,
+                            fontSize: ScreenUtil().setSp(12),
                             color: MyColors.whiteColor,
                           ),
                         ),
@@ -219,7 +210,7 @@ class UpperContainerContent extends StatelessWidget {
                           "Following",
                           style: TextStyle(
                             fontFamily: "AM",
-                            fontSize: 10,
+                            fontSize: ScreenUtil().setSp(10),
                             color: MyColors.lightGrey,
                           ),
                         ),
@@ -228,6 +219,18 @@ class UpperContainerContent extends StatelessWidget {
                   ],
                 ),
               ],
+            ),
+          ),
+          const Padding(
+            padding: EdgeInsets.only(top: 30),
+            child: Text(
+              "Playlists",
+              style: TextStyle(
+                fontFamily: "AM",
+                fontWeight: FontWeight.w400,
+                color: MyColors.whiteColor,
+                fontSize: 19,
+              ),
             ),
           ),
         ],

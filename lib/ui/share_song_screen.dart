@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:spotify_clone/constants/constants.dart';
 
 class ShareSongScreen extends StatelessWidget {
@@ -66,11 +67,11 @@ class SongInfo extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Image.asset("images/icon_back.png", height: 15, width: 15),
-              const Text(
+              Text(
                 "Share",
                 style: TextStyle(
                   fontFamily: "AM",
-                  fontSize: 18,
+                  fontSize: ScreenUtil().setSp(18),
                   color: MyColors.whiteColor,
                   fontWeight: FontWeight.w400,
                 ),
@@ -83,26 +84,27 @@ class SongInfo extends StatelessWidget {
           ),
         ),
         const SizedBox(
-          height: 90,
+          height: 60,
         ),
         Image.asset(
           "images/song_screen.png",
-          height: 220,
-          width: 220,
+          height: ScreenUtil().setHeight(220),
+          width: ScreenUtil().setWidth(220),
         ),
         const SizedBox(
           height: 25,
         ),
-        const Center(
+        Center(
           child: SizedBox(
-            width: 235,
+            width: ScreenUtil().setWidth(235),
             child: Text(
               "From Me to You - Mono / Remastered",
               style: TextStyle(
                 fontFamily: "AM",
                 color: MyColors.whiteColor,
-                fontSize: 25,
-                fontWeight: FontWeight.w400,
+                fontSize: ScreenUtil().setSp(25),
+                fontWeight: FontWeight.w700,
+                height: 1,
               ),
               textAlign: TextAlign.center,
             ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:spotify_clone/constants/constants.dart';
+import 'package:spotify_clone/ui/profile_screen.dart';
 
 class SettingScreen extends StatelessWidget {
   const SettingScreen({super.key});
@@ -81,43 +82,54 @@ class ProfileChip extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(top: 25, bottom: 45),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          const Row(
-            children: [
-              CircleAvatar(
-                radius: 27,
-                backgroundColor: MyColors.greenColor,
-              ),
-              SizedBox(
-                width: 10,
-              ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    "Mohammad",
-                    style: TextStyle(
-                      fontFamily: "AB",
-                      fontSize: 18,
-                      color: MyColors.whiteColor,
+      child: GestureDetector(
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const ProfileScreen(),
+            ),
+          );
+        },
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            const Row(
+              children: [
+                CircleAvatar(
+                  radius: 27,
+                  backgroundColor: MyColors.greenColor,
+                ),
+                SizedBox(
+                  width: 10,
+                ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Text(
+                      "Mohammad",
+                      style: TextStyle(
+                        fontFamily: "AB",
+                        fontSize: 18,
+                        color: MyColors.whiteColor,
+                      ),
                     ),
-                  ),
-                  Text(
-                    "View Profile",
-                    style: TextStyle(
-                      fontFamily: "AM",
-                      fontSize: 13,
-                      color: MyColors.lightGrey,
+                    Text(
+                      "View Profile",
+                      style: TextStyle(
+                        fontFamily: "AM",
+                        fontSize: 13,
+                        color: MyColors.lightGrey,
+                      ),
                     ),
-                  ),
-                ],
-              ),
-            ],
-          ),
-          Image.asset("images/icon_arrow_right.png"),
-        ],
+                  ],
+                ),
+              ],
+            ),
+            Image.asset("images/icon_arrow_right.png"),
+          ],
+        ),
       ),
     );
   }

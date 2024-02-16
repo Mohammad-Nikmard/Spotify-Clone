@@ -8,82 +8,84 @@ class LibraryScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: MyColors.blackColor,
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 15),
-        child: CustomScrollView(
-          slivers: [
-            SliverToBoxAdapter(
-              child: Padding(
-                padding: const EdgeInsets.only(bottom: 25, top: 25),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    const Row(
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      children: [
-                        CircleAvatar(
-                          radius: 20,
-                          backgroundColor: MyColors.greenColor,
-                        ),
-                        SizedBox(width: 10),
-                        Text(
-                          "Your Library",
-                          style: TextStyle(
-                            fontFamily: "AB",
-                            fontSize: 24,
-                            color: MyColors.whiteColor,
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 15),
+          child: CustomScrollView(
+            slivers: [
+              SliverToBoxAdapter(
+                child: Padding(
+                  padding: const EdgeInsets.only(bottom: 25, top: 25),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const Row(
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          CircleAvatar(
+                            radius: 20,
+                            backgroundColor: MyColors.greenColor,
                           ),
-                        ),
-                      ],
-                    ),
-                    Image.asset("images/icon_add.png"),
-                  ],
+                          SizedBox(width: 10),
+                          Text(
+                            "Your Library",
+                            style: TextStyle(
+                              fontFamily: "AB",
+                              fontSize: 24,
+                              color: MyColors.whiteColor,
+                            ),
+                          ),
+                        ],
+                      ),
+                      Image.asset("images/icon_add.png"),
+                    ],
+                  ),
                 ),
               ),
-            ),
-            const SliverToBoxAdapter(
-              child: OptionsList(),
-            ),
-            SliverToBoxAdapter(
-              child: Padding(
-                padding: const EdgeInsets.only(top: 25, bottom: 5),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Row(
-                      children: [
-                        Row(
-                          children: [
-                            Image.asset(
-                              "images/arrow_component_down.png",
-                            ),
-                            Image.asset(
-                              "images/arrow_component_up.png",
-                            ),
-                          ],
-                        ),
-                        const SizedBox(
-                          width: 5,
-                        ),
-                        const Text(
-                          "Recently Played",
-                          style: TextStyle(
-                            fontFamily: "AM",
-                            fontSize: 12,
-                            fontWeight: FontWeight.w400,
-                            color: MyColors.whiteColor,
+              const SliverToBoxAdapter(
+                child: OptionsList(),
+              ),
+              SliverToBoxAdapter(
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 30, bottom: 10),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Row(
+                        children: [
+                          Row(
+                            children: [
+                              Image.asset(
+                                "images/arrow_component_down.png",
+                              ),
+                              Image.asset(
+                                "images/arrow_component_up.png",
+                              ),
+                            ],
                           ),
-                        ),
-                      ],
-                    ),
-                    Image.asset("images/icon_category.png"),
-                  ],
+                          const SizedBox(
+                            width: 5,
+                          ),
+                          const Text(
+                            "Recently Played",
+                            style: TextStyle(
+                              fontFamily: "AM",
+                              fontSize: 12,
+                              fontWeight: FontWeight.w400,
+                              color: MyColors.whiteColor,
+                            ),
+                          ),
+                        ],
+                      ),
+                      Image.asset("images/icon_category.png"),
+                    ],
+                  ),
                 ),
               ),
-            ),
-            const LikedSongs(),
-            const NewEpisodes(),
-          ],
+              const LikedSongs(),
+              const NewEpisodes(),
+            ],
+          ),
         ),
       ),
     );
@@ -96,50 +98,53 @@ class NewEpisodes extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SliverToBoxAdapter(
-      child: Row(
-        children: [
-          Stack(
-            alignment: AlignmentDirectional.center,
-            children: [
-              Image.asset("images/new_episods.png"),
-              Image.asset("images/icon_bell_fill.png"),
-            ],
-          ),
-          const SizedBox(
-            width: 10,
-          ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const Text(
-                "Liked Songs",
-                style: TextStyle(
-                  fontFamily: "AM",
-                  fontSize: 15,
-                  color: MyColors.whiteColor,
-                  fontWeight: FontWeight.w400,
-                ),
-              ),
-              const SizedBox(
-                height: 2,
-              ),
-              Row(
-                children: [
-                  Image.asset("images/icon_pin.png"),
-                  const SizedBox(width: 3),
-                  const Text(
-                    "Updated 2 days ago",
-                    style: TextStyle(
-                      fontFamily: "AM",
-                      color: MyColors.lightGrey,
-                      fontSize: 13,
-                    ),
+      child: Padding(
+        padding: const EdgeInsets.only(top: 5),
+        child: Row(
+          children: [
+            Stack(
+              alignment: AlignmentDirectional.center,
+              children: [
+                Image.asset("images/new_episods.png"),
+                Image.asset("images/icon_bell_fill.png"),
+              ],
+            ),
+            const SizedBox(
+              width: 10,
+            ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Text(
+                  "Liked Songs",
+                  style: TextStyle(
+                    fontFamily: "AM",
+                    fontSize: 15,
+                    color: MyColors.whiteColor,
+                    fontWeight: FontWeight.w400,
                   ),
-                ],
-              ),
-            ],
-          ),
-        ],
+                ),
+                const SizedBox(
+                  height: 2,
+                ),
+                Row(
+                  children: [
+                    Image.asset("images/icon_pin.png"),
+                    const SizedBox(width: 5),
+                    const Text(
+                      "Updated 2 days ago",
+                      style: TextStyle(
+                        fontFamily: "AM",
+                        color: MyColors.lightGrey,
+                        fontSize: 13,
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -183,7 +188,7 @@ class LikedSongs extends StatelessWidget {
                 Row(
                   children: [
                     Image.asset("images/icon_pin.png"),
-                    const SizedBox(width: 3),
+                    const SizedBox(width: 5),
                     const Text(
                       "Playlist . 58 songs",
                       style: TextStyle(
