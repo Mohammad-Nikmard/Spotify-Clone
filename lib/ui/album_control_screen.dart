@@ -8,57 +8,74 @@ class AlbumControlScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.transparent,
-      body: Column(
-        children: [
-          Expanded(
-            flex: 4,
-            child: Container(
-              decoration: BoxDecoration(
-                border: Border.all(
-                  width: 0,
-                  color: MyColors.blackColor,
+      body: CustomScrollView(
+        slivers: [
+          SliverToBoxAdapter(
+            child: Expanded(
+              flex: 4,
+              child: Container(
+                decoration: BoxDecoration(
+                  border: Border.all(
+                    width: 0,
+                    color: MyColors.blackColor,
+                  ),
+                  gradient: const LinearGradient(
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    colors: [
+                      Color(0xff9E2216),
+                      MyColors.blackColor,
+                    ],
+                  ),
                 ),
-                gradient: const LinearGradient(
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                  colors: [
-                    Color(0xff9E2216),
-                    MyColors.blackColor,
-                  ],
-                ),
+                child: const _UpperContainerContent(),
               ),
-              child: const _UpperContainerContent(),
             ),
           ),
-          Expanded(
-            flex: 6,
-            child: Container(
-              decoration: BoxDecoration(
-                border: Border.all(
-                  width: 0,
+          SliverToBoxAdapter(
+            child: Expanded(
+              flex: 6,
+              child: Container(
+                decoration: BoxDecoration(
+                  border: Border.all(
+                    width: 0,
+                    color: MyColors.blackColor,
+                  ),
                   color: MyColors.blackColor,
                 ),
-                color: MyColors.blackColor,
-              ),
-              child: const Padding(
-                padding: EdgeInsets.symmetric(horizontal: 25),
-                child: Column(
-                  children: [
-                    SizedBox(
-                      height: 30,
-                    ),
-                    AlbumChip(text: "Like", image: "icon_heart.png"),
-                    AlbumChip(
-                        text: "View artist", image: "icon_view_artist.png"),
-                    AlbumChip(text: "Share", image: "icon_share.png"),
-                    AlbumChip(text: "Like all songs", image: "icon_heart.png"),
-                    AlbumChip(
-                        text: "Add to playlist",
-                        image: "icon_add_to_playlist.png"),
-                    AlbumChip(
-                        text: "Add to queue", image: "icon_add_to_quoue.png"),
-                    AlbumChip(text: "Go to radio", image: "icon_radio.png"),
-                  ],
+                child: const Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 25),
+                  child: Column(
+                    children: [
+                      SizedBox(
+                        height: 30,
+                      ),
+                      AlbumChip(text: "Like", image: "icon_heart.png"),
+                      AlbumChip(
+                          text: "View artist", image: "icon_view_artist.png"),
+                      AlbumChip(text: "Share", image: "icon_share.png"),
+                      AlbumChip(
+                          text: "Like all songs", image: "icon_heart.png"),
+                      AlbumChip(
+                          text: "Add to playlist",
+                          image: "icon_add_to_playlist.png"),
+                      AlbumChip(
+                          text: "Add to queue", image: "icon_add_to_quoue.png"),
+                      AlbumChip(text: "Go to radio", image: "icon_radio.png"),
+                      SizedBox(height: 35),
+                      Center(
+                        child: Text(
+                          "Close",
+                          style: TextStyle(
+                            fontFamily: "AM",
+                            fontSize: 16,
+                            color: MyColors.whiteColor,
+                          ),
+                        ),
+                      ),
+                      SizedBox(height: 25),
+                    ],
+                  ),
                 ),
               ),
             ),
@@ -98,7 +115,7 @@ class AlbumChip extends StatelessWidget {
 }
 
 class _UpperContainerContent extends StatelessWidget {
-  const _UpperContainerContent({super.key});
+  const _UpperContainerContent();
 
   @override
   Widget build(BuildContext context) {
@@ -106,7 +123,7 @@ class _UpperContainerContent extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         const SizedBox(
-          height: 40,
+          height: 55,
         ),
         Image.asset(
           "images/song_screen.png",

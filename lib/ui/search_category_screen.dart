@@ -1,6 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:spotify_clone/constants/constants.dart';
 
 class SearchCategoryScreen extends StatelessWidget {
@@ -43,18 +41,18 @@ class SearchCategoryScreen extends StatelessWidget {
                     style: TextStyle(
                       fontFamily: "AM",
                       fontSize: 16,
-                      fontWeight: FontWeight.w400,
+                      fontWeight: FontWeight.w700,
                       color: MyColors.whiteColor,
                     ),
                   ),
                 ),
               ),
-              SliverToBoxAdapter(
+              const SliverToBoxAdapter(
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Image.asset("images/pop.png"),
-                    Image.asset("images/indie.png"),
+                    _ImageContainer(title: "", image: "pop.png"),
+                    _ImageContainer(title: "", image: "indie.png"),
                   ],
                 ),
               ),
@@ -66,7 +64,7 @@ class SearchCategoryScreen extends StatelessWidget {
                     style: TextStyle(
                       fontFamily: "AM",
                       fontSize: 16,
-                      fontWeight: FontWeight.w400,
+                      fontWeight: FontWeight.w700,
                       color: MyColors.whiteColor,
                     ),
                   ),
@@ -96,23 +94,7 @@ class SearchCategoryScreen extends StatelessWidget {
                         ),
                       ],
                     ),
-                    Stack(
-                      children: [
-                        Image.asset("images/comedy.png"),
-                        const Positioned(
-                          top: 10,
-                          left: 10,
-                          child: Text(
-                            "Comedy",
-                            style: TextStyle(
-                              fontFamily: "AB",
-                              fontSize: 16,
-                              color: MyColors.whiteColor,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
+                    const _ImageContainer(title: "Comdey", image: "comedy.png"),
                   ],
                 ),
               ),
@@ -124,93 +106,31 @@ class SearchCategoryScreen extends StatelessWidget {
                     style: TextStyle(
                       fontFamily: "AM",
                       fontSize: 16,
-                      fontWeight: FontWeight.w400,
+                      fontWeight: FontWeight.w700,
                       color: MyColors.whiteColor,
                     ),
                   ),
                 ),
               ),
-              SliverToBoxAdapter(
+              const SliverToBoxAdapter(
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Stack(
-                      children: [
-                        Image.asset("images/2023_wrapped.png"),
-                        const Positioned(
-                          top: 10,
-                          left: 10,
-                          child: Text(
-                            "2023 Wrapped",
-                            style: TextStyle(
-                              fontFamily: "AB",
-                              fontSize: 16,
-                              color: MyColors.whiteColor,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                    Stack(
-                      children: [
-                        Image.asset("images/podcasts.png"),
-                        const Positioned(
-                          top: 10,
-                          left: 10,
-                          child: Text(
-                            "Podcasts",
-                            style: TextStyle(
-                              fontFamily: "AB",
-                              fontSize: 16,
-                              color: MyColors.whiteColor,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
+                    _ImageContainer(
+                        title: "2023 Wrapped", image: "2023_wrapped.png"),
+                    _ImageContainer(title: "Podcasts", image: "podcasts.png"),
                   ],
                 ),
               ),
-              SliverToBoxAdapter(
+              const SliverToBoxAdapter(
                 child: Padding(
-                  padding: const EdgeInsets.only(top: 12),
+                  padding: EdgeInsets.only(top: 12),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Stack(
-                        children: [
-                          Image.asset("images/made_for_you.png"),
-                          const Positioned(
-                            top: 10,
-                            left: 10,
-                            child: Text(
-                              "Made for you",
-                              style: TextStyle(
-                                fontFamily: "AB",
-                                fontSize: 16,
-                                color: MyColors.whiteColor,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                      Stack(
-                        children: [
-                          Image.asset("images/charts.png"),
-                          const Positioned(
-                            top: 10,
-                            left: 10,
-                            child: Text(
-                              "Charts",
-                              style: TextStyle(
-                                fontFamily: "AB",
-                                fontSize: 16,
-                                color: MyColors.whiteColor,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
+                      _ImageContainer(
+                          title: "Made for you", image: "made_for_you.png"),
+                      _ImageContainer(title: "Charts", image: "charts.png"),
                     ],
                   ),
                 ),
@@ -271,6 +191,46 @@ class _SearchBox extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+}
+
+class _ImageContainer extends StatelessWidget {
+  const _ImageContainer({required this.title, required this.image});
+  final String title;
+  final String image;
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      children: [
+        Container(
+          height: 109,
+          width: 192,
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage("images/$image"),
+              fit: BoxFit.cover,
+            ),
+            color: Colors.red,
+            borderRadius: const BorderRadius.all(
+              Radius.circular(10),
+            ),
+          ),
+        ),
+        Positioned(
+          top: 10,
+          left: 10,
+          child: Text(
+            title,
+            style: const TextStyle(
+              fontFamily: "AB",
+              fontSize: 16,
+              color: MyColors.whiteColor,
+            ),
+          ),
+        ),
+      ],
     );
   }
 }

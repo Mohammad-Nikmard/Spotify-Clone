@@ -8,23 +8,28 @@ class SearchScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return const Scaffold(
       backgroundColor: MyColors.blackColor,
-      body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 10),
-        child: CustomScrollView(
-          slivers: [
-            _SearchBox(),
-            SliverToBoxAdapter(
-              child: Text(
-                "Recent searches",
-                style: TextStyle(
-                  fontFamily: "AM",
-                  fontWeight: FontWeight.w400,
-                  color: MyColors.whiteColor,
-                  fontSize: 17,
+      body: SafeArea(
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 10),
+          child: CustomScrollView(
+            slivers: [
+              _SearchBox(),
+              SliverToBoxAdapter(
+                child: Padding(
+                  padding: EdgeInsets.only(left: 10, top: 15),
+                  child: Text(
+                    "Recent searches",
+                    style: TextStyle(
+                      fontFamily: "AM",
+                      fontWeight: FontWeight.w400,
+                      color: MyColors.whiteColor,
+                      fontSize: 17,
+                    ),
+                  ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
@@ -38,13 +43,13 @@ class _SearchBox extends StatelessWidget {
   Widget build(BuildContext context) {
     return SliverToBoxAdapter(
       child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 30),
+        padding: const EdgeInsets.symmetric(vertical: 20),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Container(
               height: 35,
-              width: 321,
+              width: MediaQuery.of(context).size.width - 92.5,
               decoration: const BoxDecoration(
                 color: Color(0xff282828),
                 borderRadius: BorderRadius.all(

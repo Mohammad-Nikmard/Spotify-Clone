@@ -126,7 +126,7 @@ class _UpperContainerContent extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         const SizedBox(
-          height: 40,
+          height: 50,
         ),
         Image.asset(
           "images/song_screen.png",
