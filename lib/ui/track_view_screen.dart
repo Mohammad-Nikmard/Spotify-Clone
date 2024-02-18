@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:marquee/marquee.dart';
 import 'package:spotify_clone/constants/constants.dart';
+import 'package:spotify_clone/widgets/stream_buttons.dart';
 
 class TrackViewScreen extends StatelessWidget {
   const TrackViewScreen({super.key});
@@ -113,7 +114,18 @@ class _SongActionButtonsState extends State<SongActionButtons> {
                   isPaused = !isPaused;
                 });
               },
-              child: (isPaused) ? const PauseButton() : const PlayButton(),
+              child: (isPaused)
+                  ? const PauseButton(
+                      height: 67,
+                      iconHeight: 26,
+                      width: 67,
+                      color: MyColors.whiteColor,
+                    )
+                  : const PlayButton(
+                      color: MyColors.whiteColor,
+                      height: 67,
+                      width: 67,
+                    ),
             ),
             Image.asset("images/icon_next_song.png"),
             GestureDetector(
@@ -341,64 +353,6 @@ class SongCover extends StatelessWidget {
           "images/song_screen_big.png",
           width: MediaQuery.of(context).size.width,
           height: MediaQuery.of(context).size.width,
-        ),
-      ),
-    );
-  }
-}
-
-class PlayButton extends StatelessWidget {
-  const PlayButton({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      height: 67,
-      width: 67,
-      decoration: const BoxDecoration(
-        color: MyColors.whiteColor,
-        shape: BoxShape.circle,
-      ),
-      child: Center(
-        child: Padding(
-          padding: const EdgeInsets.only(left: 4),
-          child: Image.asset("images/icon_play.png"),
-        ),
-      ),
-    );
-  }
-}
-
-class PauseButton extends StatelessWidget {
-  const PauseButton({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      height: 67,
-      width: 67,
-      decoration: const BoxDecoration(
-        color: MyColors.whiteColor,
-        shape: BoxShape.circle,
-      ),
-      child: Center(
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Container(
-              width: 6,
-              height: 26,
-              color: MyColors.blackColor,
-            ),
-            const SizedBox(
-              width: 5,
-            ),
-            Container(
-              height: 26,
-              width: 6,
-              color: MyColors.blackColor,
-            ),
-          ],
         ),
       ),
     );
