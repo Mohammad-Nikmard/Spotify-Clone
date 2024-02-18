@@ -3,6 +3,7 @@ import 'package:spotify_clone/constants/constants.dart';
 import 'package:spotify_clone/ui/playlist_search_screen.dart';
 import 'package:spotify_clone/ui/scan_spotify_code.dart';
 import 'package:spotify_clone/ui/search_screen.dart';
+import 'package:spotify_clone/widgets/bottom_player.dart';
 
 class SearchCategoryScreen extends StatelessWidget {
   const SearchCategoryScreen({super.key});
@@ -11,157 +12,167 @@ class SearchCategoryScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: MyColors.blackColor,
+      resizeToAvoidBottomInset: false,
       body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 15),
-          child: CustomScrollView(
-            slivers: [
-              SliverToBoxAdapter(
-                child: Padding(
-                  padding: const EdgeInsets.only(top: 30, bottom: 20),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      const Text(
-                        "Search",
+        child: Stack(
+          alignment: AlignmentDirectional.bottomCenter,
+          children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 15),
+              child: CustomScrollView(
+                slivers: [
+                  SliverToBoxAdapter(
+                    child: Padding(
+                      padding: const EdgeInsets.only(top: 30, bottom: 20),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          const Text(
+                            "Search",
+                            style: TextStyle(
+                              fontFamily: "AB",
+                              fontSize: 25,
+                              color: MyColors.whiteColor,
+                            ),
+                          ),
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) =>
+                                      const ScanSpotifyCodeScreen(),
+                                ),
+                              );
+                            },
+                            child: Image.asset("images/icon_camera.png"),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  const _SearchBox(),
+                  const SliverToBoxAdapter(
+                    child: Padding(
+                      padding: EdgeInsets.only(top: 17, bottom: 17),
+                      child: Text(
+                        "Your top genres",
                         style: TextStyle(
-                          fontFamily: "AB",
-                          fontSize: 25,
+                          fontFamily: "AM",
+                          fontSize: 16,
+                          fontWeight: FontWeight.w700,
                           color: MyColors.whiteColor,
                         ),
                       ),
-                      GestureDetector(
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) =>
-                                  const ScanSpotifyCodeScreen(),
-                            ),
-                          );
-                        },
-                        child: Image.asset("images/icon_camera.png"),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              const _SearchBox(),
-              const SliverToBoxAdapter(
-                child: Padding(
-                  padding: EdgeInsets.only(top: 17, bottom: 17),
-                  child: Text(
-                    "Your top genres",
-                    style: TextStyle(
-                      fontFamily: "AM",
-                      fontSize: 16,
-                      fontWeight: FontWeight.w700,
-                      color: MyColors.whiteColor,
                     ),
                   ),
-                ),
-              ),
-              SliverToBoxAdapter(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    const _ImageContainer(title: "", image: "pop.png"),
-                    GestureDetector(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const PlaylistSearchScreen(),
-                          ),
-                        );
-                      },
-                      child:
-                          const _ImageContainer(title: "", image: "indie.png"),
-                    ),
-                  ],
-                ),
-              ),
-              const SliverToBoxAdapter(
-                child: Padding(
-                  padding: EdgeInsets.only(top: 25, bottom: 10),
-                  child: Text(
-                    "Popular podcast categories",
-                    style: TextStyle(
-                      fontFamily: "AM",
-                      fontSize: 16,
-                      fontWeight: FontWeight.w700,
-                      color: MyColors.whiteColor,
-                    ),
-                  ),
-                ),
-              ),
-              SliverToBoxAdapter(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Stack(
+                  SliverToBoxAdapter(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Image.asset("images/news&politics.png"),
-                        const Positioned(
-                          top: 10,
-                          left: 10,
-                          child: SizedBox(
-                            width: 72,
-                            child: Text(
-                              "News & Politics",
-                              style: TextStyle(
-                                fontFamily: "AB",
-                                fontSize: 16,
-                                color: MyColors.whiteColor,
+                        const _ImageContainer(title: "", image: "pop.png"),
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) =>
+                                    const PlaylistSearchScreen(),
                               ),
-                            ),
-                          ),
+                            );
+                          },
+                          child: const _ImageContainer(
+                              title: "", image: "indie.png"),
                         ),
                       ],
                     ),
-                    const _ImageContainer(title: "Comdey", image: "comedy.png"),
-                  ],
-                ),
-              ),
-              const SliverToBoxAdapter(
-                child: Padding(
-                  padding: EdgeInsets.only(top: 25, bottom: 10),
-                  child: Text(
-                    "Browse all",
-                    style: TextStyle(
-                      fontFamily: "AM",
-                      fontSize: 16,
-                      fontWeight: FontWeight.w700,
-                      color: MyColors.whiteColor,
+                  ),
+                  const SliverToBoxAdapter(
+                    child: Padding(
+                      padding: EdgeInsets.only(top: 25, bottom: 10),
+                      child: Text(
+                        "Popular podcast categories",
+                        style: TextStyle(
+                          fontFamily: "AM",
+                          fontSize: 16,
+                          fontWeight: FontWeight.w700,
+                          color: MyColors.whiteColor,
+                        ),
+                      ),
                     ),
                   ),
-                ),
-              ),
-              const SliverToBoxAdapter(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    _ImageContainer(
-                        title: "2023 Wrapped", image: "2023_wrapped.png"),
-                    _ImageContainer(title: "Podcasts", image: "podcasts.png"),
-                  ],
-                ),
-              ),
-              const SliverToBoxAdapter(
-                child: Padding(
-                  padding: EdgeInsets.only(top: 12),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      _ImageContainer(
-                          title: "Made for you", image: "made_for_you.png"),
-                      _ImageContainer(title: "Charts", image: "charts.png"),
-                    ],
+                  SliverToBoxAdapter(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Stack(
+                          children: [
+                            Image.asset("images/news&politics.png"),
+                            const Positioned(
+                              top: 10,
+                              left: 10,
+                              child: SizedBox(
+                                width: 72,
+                                child: Text(
+                                  "News & Politics",
+                                  style: TextStyle(
+                                    fontFamily: "AB",
+                                    fontSize: 16,
+                                    color: MyColors.whiteColor,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        const _ImageContainer(
+                            title: "Comdey", image: "comedy.png"),
+                      ],
+                    ),
                   ),
-                ),
+                  const SliverToBoxAdapter(
+                    child: Padding(
+                      padding: EdgeInsets.only(top: 25, bottom: 10),
+                      child: Text(
+                        "Browse all",
+                        style: TextStyle(
+                          fontFamily: "AM",
+                          fontSize: 16,
+                          fontWeight: FontWeight.w700,
+                          color: MyColors.whiteColor,
+                        ),
+                      ),
+                    ),
+                  ),
+                  const SliverToBoxAdapter(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        _ImageContainer(
+                            title: "2023 Wrapped", image: "2023_wrapped.png"),
+                        _ImageContainer(
+                            title: "Podcasts", image: "podcasts.png"),
+                      ],
+                    ),
+                  ),
+                  const SliverToBoxAdapter(
+                    child: Padding(
+                      padding: EdgeInsets.only(top: 12),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          _ImageContainer(
+                              title: "Made for you", image: "made_for_you.png"),
+                          _ImageContainer(title: "Charts", image: "charts.png"),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
               ),
-            ],
-          ),
+            ),
+            const BottomPlayer(),
+          ],
         ),
       ),
     );

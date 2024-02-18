@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:spotify_clone/constants/constants.dart';
 import 'package:spotify_clone/ui/album_control_screen.dart';
 import 'package:spotify_clone/ui/song_control_screen.dart';
+import 'package:spotify_clone/widgets/bottom_player.dart';
 import 'package:spotify_clone/widgets/stream_buttons.dart';
 
 class AlbumViewScreen extends StatelessWidget {
@@ -25,77 +26,85 @@ class AlbumViewScreen extends StatelessWidget {
       child: Scaffold(
         backgroundColor: Colors.transparent,
         body: SafeArea(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: CustomScrollView(
-              slivers: [
-                const _Header(),
-                const AlbumControlButtons(),
-                SliverPadding(
-                  padding: const EdgeInsets.only(top: 15, bottom: 25),
-                  sliver: SliverList(
-                    delegate: SliverChildBuilderDelegate(
-                      (context, index) {
-                        return Padding(
-                          padding: const EdgeInsets.only(bottom: 20),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
+          child: Stack(
+            alignment: AlignmentDirectional.bottomCenter,
+            children: [
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: CustomScrollView(
+                  slivers: [
+                    const _Header(),
+                    const AlbumControlButtons(),
+                    SliverPadding(
+                      padding: const EdgeInsets.only(top: 15, bottom: 25),
+                      sliver: SliverList(
+                        delegate: SliverChildBuilderDelegate(
+                          (context, index) {
+                            return Padding(
+                              padding: const EdgeInsets.only(bottom: 20),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
-                                  const Text(
-                                    "Love Me Do - Mono / Remastered",
-                                    style: TextStyle(
-                                      fontFamily: "AM",
-                                      fontSize: 17,
-                                      color: MyColors.whiteColor,
-                                    ),
-                                  ),
-                                  Row(
+                                  Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
-                                      Image.asset(
-                                        'images/icon_downloaded.png',
-                                        height: 13,
-                                        width: 13,
-                                      ),
-                                      const SizedBox(
-                                        width: 5,
-                                      ),
                                       const Text(
-                                        "The Beatles",
+                                        "Love Me Do - Mono / Remastered",
                                         style: TextStyle(
                                           fontFamily: "AM",
-                                          fontSize: 14,
-                                          color: MyColors.lightGrey,
+                                          fontSize: 17,
+                                          color: MyColors.whiteColor,
                                         ),
+                                      ),
+                                      Row(
+                                        children: [
+                                          Image.asset(
+                                            'images/icon_downloaded.png',
+                                            height: 13,
+                                            width: 13,
+                                          ),
+                                          const SizedBox(
+                                            width: 5,
+                                          ),
+                                          const Text(
+                                            "The Beatles",
+                                            style: TextStyle(
+                                              fontFamily: "AM",
+                                              fontSize: 14,
+                                              color: MyColors.lightGrey,
+                                            ),
+                                          ),
+                                        ],
                                       ),
                                     ],
                                   ),
+                                  GestureDetector(
+                                    onTap: () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) =>
+                                              const SongControlScreen(),
+                                        ),
+                                      );
+                                    },
+                                    child: Image.asset('images/icon_more.png'),
+                                  ),
                                 ],
                               ),
-                              GestureDetector(
-                                onTap: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) =>
-                                          const SongControlScreen(),
-                                    ),
-                                  );
-                                },
-                                child: Image.asset('images/icon_more.png'),
-                              ),
-                            ],
-                          ),
-                        );
-                      },
-                      childCount: 10,
-                    ),
-                  ),
-                )
-              ],
-            ),
+                            );
+                          },
+                          childCount: 10,
+                        ),
+                      ),
+                    )
+                  ],
+                ),
+              ),
+              const BottomPlayer(),
+            ],
           ),
         ),
       ),

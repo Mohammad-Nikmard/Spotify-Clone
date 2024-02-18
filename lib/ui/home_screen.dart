@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:spotify_clone/constants/constants.dart';
 import 'package:spotify_clone/ui/setting_screen.dart';
+import 'package:spotify_clone/widgets/bottom_player.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -11,15 +11,21 @@ class HomeScreen extends StatelessWidget {
     return const Scaffold(
       backgroundColor: MyColors.blackColor,
       body: SafeArea(
-        child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 15),
-          child: CustomScrollView(
-            slivers: [
-              RecentPlays(),
-              Review2024(),
-              EditorPicks(),
-            ],
-          ),
+        child: Stack(
+          alignment: AlignmentDirectional.bottomCenter,
+          children: [
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 15),
+              child: CustomScrollView(
+                slivers: [
+                  RecentPlays(),
+                  Review2024(),
+                  EditorPicks(),
+                ],
+              ),
+            ),
+            BottomPlayer(),
+          ],
         ),
       ),
     );

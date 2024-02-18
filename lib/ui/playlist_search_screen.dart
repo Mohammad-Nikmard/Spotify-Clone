@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:spotify_clone/constants/constants.dart';
+import 'package:spotify_clone/widgets/bottom_player.dart';
 import 'package:spotify_clone/widgets/stream_buttons.dart';
 
 class PlaylistSearchScreen extends StatelessWidget {
@@ -21,15 +22,21 @@ class PlaylistSearchScreen extends StatelessWidget {
       child: const Scaffold(
         backgroundColor: Colors.transparent,
         body: SafeArea(
-          child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 15),
-            child: CustomScrollView(
-              slivers: [
-                _Header(),
-                PlaylistActionButtons(),
-                _SongList(),
-              ],
-            ),
+          child: Stack(
+            alignment: AlignmentDirectional.bottomCenter,
+            children: [
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 15),
+                child: CustomScrollView(
+                  slivers: [
+                    _Header(),
+                    PlaylistActionButtons(),
+                    _SongList(),
+                  ],
+                ),
+              ),
+              BottomPlayer(),
+            ],
           ),
         ),
       ),

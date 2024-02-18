@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:spotify_clone/constants/constants.dart';
 
@@ -133,7 +132,7 @@ class UpperContainerContent extends StatelessWidget {
               children: [
                 const CircleAvatar(
                   radius: 55,
-                  backgroundColor: MyColors.greenColor,
+                  backgroundImage: AssetImage("images/myImage.png"),
                 ),
                 const SizedBox(
                   height: 35,

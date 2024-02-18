@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:spotify_clone/constants/constants.dart';
 import 'package:spotify_clone/ui/albumview_screen.dart';
 import 'package:spotify_clone/ui/home_screen.dart';
+import 'package:spotify_clone/ui/library_screen.dart';
 
 import 'package:spotify_clone/ui/search_category_screen.dart';
 
@@ -69,8 +70,7 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
         children: const [
           HomeScreen(),
           SearchCategoryScreen(),
-          // LibraryScreen(),
-          AlbumViewScreen(),
+          LibraryScreen(),
         ],
       ),
     );

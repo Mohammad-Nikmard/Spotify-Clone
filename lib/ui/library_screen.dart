@@ -1,9 +1,8 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:spotify_clone/constants/constants.dart';
 import 'package:spotify_clone/ui/profile_screen.dart';
 import 'package:spotify_clone/ui/setting_screen.dart';
+import 'package:spotify_clone/widgets/bottom_player.dart';
 
 class LibraryScreen extends StatelessWidget {
   const LibraryScreen({super.key});
@@ -13,103 +12,114 @@ class LibraryScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: MyColors.blackColor,
       body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 15),
-          child: CustomScrollView(
-            slivers: [
-              SliverToBoxAdapter(
-                child: Padding(
-                  padding: const EdgeInsets.only(bottom: 25, top: 25),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      GestureDetector(
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const SettingScreen(),
-                            ),
-                          );
-                        },
-                        child: const Row(
-                          crossAxisAlignment: CrossAxisAlignment.end,
-                          children: [
-                            CircleAvatar(
-                              radius: 20,
-                              backgroundColor: MyColors.greenColor,
-                            ),
-                            SizedBox(width: 10),
-                            Text(
-                              "Your Library",
-                              style: TextStyle(
-                                fontFamily: "AB",
-                                fontSize: 24,
-                                color: MyColors.whiteColor,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      GestureDetector(
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const ProfileScreen(),
-                            ),
-                          );
-                        },
-                        child: Image.asset("images/icon_add.png"),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              const SliverToBoxAdapter(
-                child: OptionsList(),
-              ),
-              SliverToBoxAdapter(
-                child: Padding(
-                  padding: const EdgeInsets.only(top: 30, bottom: 10),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Row(
+        child: Stack(
+          alignment: AlignmentDirectional.bottomCenter,
+          children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 15),
+              child: CustomScrollView(
+                slivers: [
+                  SliverToBoxAdapter(
+                    child: Padding(
+                      padding: const EdgeInsets.only(bottom: 25, top: 25),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Row(
-                            children: [
-                              Image.asset(
-                                "images/arrow_component_down.png",
-                              ),
-                              Image.asset(
-                                "images/arrow_component_up.png",
-                              ),
-                            ],
-                          ),
-                          const SizedBox(
-                            width: 5,
-                          ),
-                          const Text(
-                            "Recently Played",
-                            style: TextStyle(
-                              fontFamily: "AM",
-                              fontSize: 12,
-                              fontWeight: FontWeight.w400,
-                              color: MyColors.whiteColor,
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => const SettingScreen(),
+                                ),
+                              );
+                            },
+                            child: const Row(
+                              crossAxisAlignment: CrossAxisAlignment.end,
+                              children: [
+                                CircleAvatar(
+                                  radius: 20,
+                                  backgroundImage:
+                                      AssetImage("images/myImage.png"),
+                                ),
+                                SizedBox(width: 10),
+                                Text(
+                                  "Your Library",
+                                  style: TextStyle(
+                                    fontFamily: "AB",
+                                    fontSize: 24,
+                                    color: MyColors.whiteColor,
+                                  ),
+                                ),
+                              ],
                             ),
+                          ),
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => const ProfileScreen(),
+                                ),
+                              );
+                            },
+                            child: Image.asset("images/icon_add.png"),
                           ),
                         ],
                       ),
-                      Image.asset("images/icon_category.png"),
-                    ],
+                    ),
                   ),
-                ),
+                  const SliverToBoxAdapter(
+                    child: OptionsList(),
+                  ),
+                  SliverToBoxAdapter(
+                    child: Padding(
+                      padding: const EdgeInsets.only(top: 30, bottom: 10),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Row(
+                            children: [
+                              Row(
+                                children: [
+                                  Image.asset(
+                                    "images/arrow_component_down.png",
+                                    width: 10,
+                                    height: 12,
+                                  ),
+                                  Image.asset(
+                                    "images/arrow_component_up.png",
+                                    width: 10,
+                                    height: 12,
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(
+                                width: 5,
+                              ),
+                              const Text(
+                                "Recently Played",
+                                style: TextStyle(
+                                  fontFamily: "AM",
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w400,
+                                  color: MyColors.whiteColor,
+                                ),
+                              ),
+                            ],
+                          ),
+                          Image.asset("images/icon_category.png"),
+                        ],
+                      ),
+                    ),
+                  ),
+                  const LikedSongs(),
+                  const NewEpisodes(),
+                ],
               ),
-              const LikedSongs(),
-              const NewEpisodes(),
-            ],
-          ),
+            ),
+            const BottomPlayer(),
+          ],
         ),
       ),
     );
@@ -233,10 +243,17 @@ class LikedSongs extends StatelessWidget {
 }
 
 class LibraryOptionsChip extends StatelessWidget {
-  const LibraryOptionsChip({super.key});
+  const LibraryOptionsChip({super.key, required this.index});
+  final int index;
 
   @override
   Widget build(BuildContext context) {
+    List<String> chipTitle = [
+      "Playlists",
+      "Artists",
+      "Albums",
+      "Podcasts & shows"
+    ];
     return Padding(
       padding: const EdgeInsets.only(right: 10),
       child: Row(
@@ -252,12 +269,12 @@ class LibraryOptionsChip extends StatelessWidget {
                 Radius.circular(15),
               ),
             ),
-            child: const Center(
+            child: Center(
               child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 15),
+                padding: const EdgeInsets.symmetric(horizontal: 15),
                 child: Text(
-                  "Playlists",
-                  style: TextStyle(
+                  chipTitle[index],
+                  style: const TextStyle(
                     fontFamily: "AM",
                     fontSize: 12,
                     color: MyColors.whiteColor,
@@ -281,9 +298,9 @@ class OptionsList extends StatelessWidget {
       height: 33,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
-        itemCount: 5,
+        itemCount: 4,
         itemBuilder: (context, index) {
-          return const LibraryOptionsChip();
+          return LibraryOptionsChip(index: index);
         },
       ),
     );

@@ -170,7 +170,7 @@ class _ListeningOnState extends State<ListeningOn> {
               const Center(
                 child: CircleAvatar(
                   radius: 25,
-                  backgroundColor: MyColors.greenColor,
+                  backgroundImage: AssetImage("images/myImage.png"),
                 ),
               ),
               const SizedBox(
