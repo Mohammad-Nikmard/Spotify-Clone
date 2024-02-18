@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:spotify_clone/constants/constants.dart';
+import 'package:spotify_clone/ui/listening_on_screen.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
@@ -125,9 +127,31 @@ class UpperContainerContent extends StatelessWidget {
           Center(
             child: Column(
               children: [
-                const CircleAvatar(
-                  radius: 55,
-                  backgroundColor: MyColors.greenColor,
+                GestureDetector(
+                  onTap: () {
+                    showModalBottomSheet(
+                      isScrollControlled: true,
+                      barrierColor: Colors.transparent,
+                      backgroundColor: Colors.transparent,
+                      context: context,
+                      builder: (context) {
+                        return DraggableScrollableSheet(
+                          minChildSize: 0.9,
+                          maxChildSize: 0.9,
+                          initialChildSize: 0.9,
+                          builder: (context, controller) {
+                            return ListeningOn(
+                              controller: controller,
+                            );
+                          },
+                        );
+                      },
+                    );
+                  },
+                  child: const CircleAvatar(
+                    radius: 55,
+                    backgroundColor: MyColors.greenColor,
+                  ),
                 ),
                 const SizedBox(
                   height: 35,
