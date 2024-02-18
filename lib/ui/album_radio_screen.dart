@@ -1,4 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:spotify_clone/constants/constants.dart';
 import 'package:spotify_clone/widgets/stream_buttons.dart';
 
@@ -208,18 +210,23 @@ class _Header extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Container(
-              height: 30,
-              width: 30,
-              decoration: const BoxDecoration(
-                shape: BoxShape.circle,
-                color: MyColors.blackColor,
-              ),
-              child: Center(
-                child: Image.asset(
-                  "images/icon_back.png",
-                  height: 16,
-                  width: 16,
+            GestureDetector(
+              onTap: () {
+                Navigator.pop(context);
+              },
+              child: Container(
+                height: 30,
+                width: 30,
+                decoration: const BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: MyColors.blackColor,
+                ),
+                child: Center(
+                  child: Image.asset(
+                    "images/icon_back.png",
+                    height: 16,
+                    width: 16,
+                  ),
                 ),
               ),
             ),
@@ -256,39 +263,44 @@ class _Header extends StatelessWidget {
         const SizedBox(
           height: 15,
         ),
-        const Row(
+        Row(
           children: [
-            SizedBox(
+            const SizedBox(
               height: 46,
               width: 46,
               child: ColoredBox(
                 color: MyColors.greenColor,
               ),
             ),
-            SizedBox(
+            const SizedBox(
               width: 10,
             ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  "From Me to You - Mono/Remastered",
-                  style: TextStyle(
-                    fontFamily: "AM",
-                    fontSize: 13,
-                    color: MyColors.greenColor,
-                    fontWeight: FontWeight.w400,
+            GestureDetector(
+              onTap: () {
+                Navigator.pop(context);
+              },
+              child: const Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    "From Me to You - Mono/Remastered",
+                    style: TextStyle(
+                      fontFamily: "AM",
+                      fontSize: 13,
+                      color: MyColors.greenColor,
+                      fontWeight: FontWeight.w400,
+                    ),
                   ),
-                ),
-                Text(
-                  "Washed Out",
-                  style: TextStyle(
-                    fontFamily: "AM",
-                    fontSize: 13,
-                    color: MyColors.lightGrey,
+                  Text(
+                    "Washed Out",
+                    style: TextStyle(
+                      fontFamily: "AM",
+                      fontSize: 13,
+                      color: MyColors.lightGrey,
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ],
         ),

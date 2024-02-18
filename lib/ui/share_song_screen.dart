@@ -66,7 +66,13 @@ class SongInfo extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Image.asset("images/icon_back.png", height: 15, width: 15),
+              GestureDetector(
+                onTap: () {
+                  Navigator.pop(context);
+                },
+                child:
+                    Image.asset("images/icon_back.png", height: 15, width: 15),
+              ),
               Text(
                 "Share",
                 style: TextStyle(

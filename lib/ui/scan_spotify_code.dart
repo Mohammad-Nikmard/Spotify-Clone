@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:spotify_clone/constants/constants.dart';
 
@@ -31,10 +32,15 @@ class ScanSpotifyCodeScreen extends StatelessWidget {
               const SizedBox(
                 height: 20,
               ),
-              Image.asset(
-                "images/icon_back.png",
-                height: 15,
-                width: 15,
+              GestureDetector(
+                onTap: () {
+                  Navigator.pop(context);
+                },
+                child: Image.asset(
+                  "images/icon_back.png",
+                  height: 15,
+                  width: 15,
+                ),
               ),
               const SizedBox(
                 height: 70,

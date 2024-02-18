@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:spotify_clone/ui/profile_screen.dart';
+import 'package:spotify_clone/ui/dashboard_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -16,9 +16,12 @@ class MyApp extends StatelessWidget {
       minTextAdapt: true,
       splitScreenMode: true,
       builder: (context, child) {
-        return const MaterialApp(
+        return MaterialApp(
+          theme: ThemeData(
+            splashColor: Colors.transparent,
+          ),
           debugShowCheckedModeBanner: false,
-          home: ProfileScreen(),
+          home: const DashBoardScreen(),
         );
       },
     );

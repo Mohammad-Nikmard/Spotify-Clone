@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:spotify_clone/constants/constants.dart';
+import 'package:spotify_clone/ui/playlist_search_screen.dart';
+import 'package:spotify_clone/ui/scan_spotify_code.dart';
+import 'package:spotify_clone/ui/search_screen.dart';
 
 class SearchCategoryScreen extends StatelessWidget {
   const SearchCategoryScreen({super.key});
@@ -27,7 +30,18 @@ class SearchCategoryScreen extends StatelessWidget {
                           color: MyColors.whiteColor,
                         ),
                       ),
-                      Image.asset("images/icon_camera.png"),
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) =>
+                                  const ScanSpotifyCodeScreen(),
+                            ),
+                          );
+                        },
+                        child: Image.asset("images/icon_camera.png"),
+                      ),
                     ],
                   ),
                 ),
@@ -47,12 +61,23 @@ class SearchCategoryScreen extends StatelessWidget {
                   ),
                 ),
               ),
-              const SliverToBoxAdapter(
+              SliverToBoxAdapter(
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    _ImageContainer(title: "", image: "pop.png"),
-                    _ImageContainer(title: "", image: "indie.png"),
+                    const _ImageContainer(title: "", image: "pop.png"),
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const PlaylistSearchScreen(),
+                          ),
+                        );
+                      },
+                      child:
+                          const _ImageContainer(title: "", image: "indie.png"),
+                    ),
                   ],
                 ),
               ),
@@ -163,14 +188,22 @@ class _SearchBox extends StatelessWidget {
           child: Row(
             children: [
               Image.asset("images/icon_search_black.png"),
-              const Expanded(
+              Expanded(
                 child: TextField(
-                  style: TextStyle(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const SearchScreen(),
+                      ),
+                    );
+                  },
+                  style: const TextStyle(
                     fontFamily: "AM",
                     fontSize: 16,
                     color: MyColors.blackColor,
                   ),
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     contentPadding: EdgeInsets.only(top: 15, left: 15),
                     hintText: "Artists, songs, or podcasts",
                     hintStyle: TextStyle(

@@ -1,29 +1,40 @@
 import 'package:flutter/material.dart';
 import 'package:spotify_clone/constants/constants.dart';
+import 'package:spotify_clone/ui/albumview_screen.dart';
 
 class SearchScreen extends StatelessWidget {
   const SearchScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
       backgroundColor: MyColors.blackColor,
       body: SafeArea(
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 10),
+          padding: const EdgeInsets.symmetric(horizontal: 10),
           child: CustomScrollView(
             slivers: [
-              _SearchBox(),
+              const _SearchBox(),
               SliverToBoxAdapter(
                 child: Padding(
-                  padding: EdgeInsets.only(left: 10, top: 15),
-                  child: Text(
-                    "Recent searches",
-                    style: TextStyle(
-                      fontFamily: "AM",
-                      fontWeight: FontWeight.w400,
-                      color: MyColors.whiteColor,
-                      fontSize: 17,
+                  padding: const EdgeInsets.only(left: 10, top: 15),
+                  child: GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const AlbumViewScreen(),
+                        ),
+                      );
+                    },
+                    child: const Text(
+                      "Recent searches",
+                      style: TextStyle(
+                        fontFamily: "AM",
+                        fontWeight: FontWeight.w400,
+                        color: MyColors.whiteColor,
+                        fontSize: 17,
+                      ),
                     ),
                   ),
                 ),
@@ -92,10 +103,15 @@ class _SearchBox extends StatelessWidget {
                 ),
               ),
             ),
-            const Text(
-              "Cancel",
-              style: TextStyle(
-                  fontFamily: "AM", color: MyColors.whiteColor, fontSize: 15),
+            GestureDetector(
+              onTap: () {
+                Navigator.pop(context);
+              },
+              child: const Text(
+                "Cancel",
+                style: TextStyle(
+                    fontFamily: "AM", color: MyColors.whiteColor, fontSize: 15),
+              ),
             ),
           ],
         ),

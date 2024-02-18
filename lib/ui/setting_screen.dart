@@ -22,7 +22,12 @@ class SettingScreen extends StatelessWidget {
             color: MyColors.whiteColor,
           ),
         ),
-        leading: Image.asset("images/icon_arrow_left.png"),
+        leading: GestureDetector(
+          onTap: () {
+            Navigator.pop(context);
+          },
+          child: Image.asset("images/icon_arrow_left.png"),
+        ),
       ),
       body: const Padding(
         padding: EdgeInsets.symmetric(horizontal: 20),
@@ -94,38 +99,48 @@ class ProfileChip extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            const Row(
-              children: [
-                CircleAvatar(
-                  radius: 27,
-                  backgroundColor: MyColors.greenColor,
-                ),
-                SizedBox(
-                  width: 10,
-                ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    Text(
-                      "Mohammad",
-                      style: TextStyle(
-                        fontFamily: "AB",
-                        fontSize: 18,
-                        color: MyColors.whiteColor,
+            GestureDetector(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const ProfileScreen(),
+                  ),
+                );
+              },
+              child: const Row(
+                children: [
+                  CircleAvatar(
+                    radius: 27,
+                    backgroundColor: MyColors.greenColor,
+                  ),
+                  SizedBox(
+                    width: 10,
+                  ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Text(
+                        "Mohammad",
+                        style: TextStyle(
+                          fontFamily: "AB",
+                          fontSize: 18,
+                          color: MyColors.whiteColor,
+                        ),
                       ),
-                    ),
-                    Text(
-                      "View Profile",
-                      style: TextStyle(
-                        fontFamily: "AM",
-                        fontSize: 13,
-                        color: MyColors.lightGrey,
+                      Text(
+                        "View Profile",
+                        style: TextStyle(
+                          fontFamily: "AM",
+                          fontSize: 13,
+                          color: MyColors.lightGrey,
+                        ),
                       ),
-                    ),
-                  ],
-                ),
-              ],
+                    ],
+                  ),
+                ],
+              ),
             ),
             Image.asset("images/icon_arrow_right.png"),
           ],

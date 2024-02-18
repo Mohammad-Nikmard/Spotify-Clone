@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:spotify_clone/constants/constants.dart';
+import 'package:spotify_clone/ui/setting_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -226,7 +228,17 @@ class RecentPlays extends StatelessWidget {
                     children: [
                       Image.asset('images/icon_bell.png'),
                       Image.asset("images/icon_recent.png"),
-                      Image.asset("images/icon_settings.png"),
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const SettingScreen(),
+                            ),
+                          );
+                        },
+                        child: Image.asset("images/icon_settings.png"),
+                      ),
                     ],
                   ),
                 ),

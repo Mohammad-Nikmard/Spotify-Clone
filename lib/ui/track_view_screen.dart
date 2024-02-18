@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:marquee/marquee.dart';
 import 'package:spotify_clone/constants/constants.dart';
+import 'package:spotify_clone/ui/album_radio_screen.dart';
+import 'package:spotify_clone/ui/listening_on_screen.dart';
+import 'package:spotify_clone/ui/share_song_screen.dart';
+import 'package:spotify_clone/ui/song_control_screen.dart';
 import 'package:spotify_clone/widgets/stream_buttons.dart';
 
 class TrackViewScreen extends StatelessWidget {
@@ -38,26 +42,68 @@ class TrackViewScreen extends StatelessWidget {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Row(
-                        children: [
-                          Image.asset('images/icon_bluetooth.png'),
-                          const Text(
-                            "Airpod 3",
-                            style: TextStyle(
-                              fontFamily: "AM",
-                              fontSize: 10,
-                              color: MyColors.greenColor,
+                      GestureDetector(
+                        onTap: () {
+                          showModalBottomSheet(
+                            isScrollControlled: true,
+                            barrierColor: Colors.transparent,
+                            backgroundColor: Colors.transparent,
+                            context: context,
+                            builder: (context) {
+                              return DraggableScrollableSheet(
+                                minChildSize: 0.9,
+                                maxChildSize: 0.9,
+                                initialChildSize: 0.9,
+                                builder: (context, controller) {
+                                  return ListeningOn(
+                                    controller: controller,
+                                  );
+                                },
+                              );
+                            },
+                          );
+                        },
+                        child: Row(
+                          children: [
+                            Image.asset('images/icon_bluetooth.png'),
+                            const Text(
+                              "Airpod 3",
+                              style: TextStyle(
+                                fontFamily: "AM",
+                                fontSize: 10,
+                                color: MyColors.greenColor,
+                              ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                       SizedBox(
                         width: 80,
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Image.asset("images/icon_share.png"),
-                            Image.asset("images/icon_add_to_quoue.png"),
+                            GestureDetector(
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) =>
+                                        const ShareSongScreen(),
+                                  ),
+                                );
+                              },
+                            ),
+                            GestureDetector(
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) =>
+                                        const AlbumRadioScreen(),
+                                  ),
+                                );
+                              },
+                            ),
                           ],
                         ),
                       ),
@@ -379,7 +425,17 @@ class _Header extends StatelessWidget {
                 color: MyColors.whiteColor,
               ),
             ),
-            Image.asset('images/icon_more.png'),
+            GestureDetector(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const SongControlScreen(),
+                  ),
+                );
+              },
+              child: Image.asset('images/icon_more.png'),
+            ),
           ],
         ),
       ),

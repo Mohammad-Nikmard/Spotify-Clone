@@ -1,6 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:spotify_clone/constants/constants.dart';
 import 'package:spotify_clone/widgets/stream_buttons.dart';
 
@@ -235,7 +233,12 @@ class _Header extends StatelessWidget {
           const SizedBox(
             height: 30,
           ),
-          Image.asset('images/icon_arrow_left.png'),
+          GestureDetector(
+            onTap: () {
+              Navigator.pop(context);
+            },
+            child: Image.asset('images/icon_arrow_left.png'),
+          ),
           const SizedBox(
             height: 15,
           ),

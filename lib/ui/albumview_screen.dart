@@ -1,7 +1,7 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:spotify_clone/constants/constants.dart';
+import 'package:spotify_clone/ui/album_control_screen.dart';
+import 'package:spotify_clone/ui/song_control_screen.dart';
 import 'package:spotify_clone/widgets/stream_buttons.dart';
 
 class AlbumViewScreen extends StatelessWidget {
@@ -24,65 +24,78 @@ class AlbumViewScreen extends StatelessWidget {
       ),
       child: Scaffold(
         backgroundColor: Colors.transparent,
-        body: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20),
-          child: CustomScrollView(
-            slivers: [
-              const _Header(),
-              AlbumControlButtons(),
-              SliverPadding(
-                padding: const EdgeInsets.only(top: 15, bottom: 25),
-                sliver: SliverList(
-                  delegate: SliverChildBuilderDelegate(
-                    (context, index) {
-                      return Padding(
-                        padding: const EdgeInsets.only(bottom: 20),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                const Text(
-                                  "Love Me Do - Mono / Remastered",
-                                  style: TextStyle(
-                                    fontFamily: "AM",
-                                    fontSize: 17,
-                                    color: MyColors.whiteColor,
+        body: SafeArea(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: CustomScrollView(
+              slivers: [
+                const _Header(),
+                const AlbumControlButtons(),
+                SliverPadding(
+                  padding: const EdgeInsets.only(top: 15, bottom: 25),
+                  sliver: SliverList(
+                    delegate: SliverChildBuilderDelegate(
+                      (context, index) {
+                        return Padding(
+                          padding: const EdgeInsets.only(bottom: 20),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  const Text(
+                                    "Love Me Do - Mono / Remastered",
+                                    style: TextStyle(
+                                      fontFamily: "AM",
+                                      fontSize: 17,
+                                      color: MyColors.whiteColor,
+                                    ),
                                   ),
-                                ),
-                                Row(
-                                  children: [
-                                    Image.asset(
-                                      'images/icon_downloaded.png',
-                                      height: 13,
-                                      width: 13,
-                                    ),
-                                    const SizedBox(
-                                      width: 5,
-                                    ),
-                                    const Text(
-                                      "The Beatles",
-                                      style: TextStyle(
-                                        fontFamily: "AM",
-                                        fontSize: 14,
-                                        color: MyColors.lightGrey,
+                                  Row(
+                                    children: [
+                                      Image.asset(
+                                        'images/icon_downloaded.png',
+                                        height: 13,
+                                        width: 13,
                                       ),
+                                      const SizedBox(
+                                        width: 5,
+                                      ),
+                                      const Text(
+                                        "The Beatles",
+                                        style: TextStyle(
+                                          fontFamily: "AM",
+                                          fontSize: 14,
+                                          color: MyColors.lightGrey,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                              GestureDetector(
+                                onTap: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          const SongControlScreen(),
                                     ),
-                                  ],
-                                ),
-                              ],
-                            ),
-                            Image.asset('images/icon_more.png'),
-                          ],
-                        ),
-                      );
-                    },
-                    childCount: 10,
+                                  );
+                                },
+                                child: Image.asset('images/icon_more.png'),
+                              ),
+                            ],
+                          ),
+                        );
+                      },
+                      childCount: 10,
+                    ),
                   ),
-                ),
-              )
-            ],
+                )
+              ],
+            ),
           ),
         ),
       ),
@@ -169,7 +182,17 @@ class _AlbumControlButtonsState extends State<AlbumControlButtons> {
                           : Image.asset('images/icon_heart_filled.png'),
                     ),
                     Image.asset('images/icon_downloaded.png'),
-                    Image.asset('images/icon_more.png'),
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const AlbumControlScreen(),
+                          ),
+                        );
+                      },
+                      child: Image.asset('images/icon_more.png'),
+                    ),
                   ],
                 ),
               ),
@@ -214,7 +237,12 @@ class _Header extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                Image.asset('images/icon_arrow_left.png'),
+                GestureDetector(
+                  onTap: () {
+                    Navigator.pop(context);
+                  },
+                  child: Image.asset('images/icon_arrow_left.png'),
+                ),
               ],
             ),
             const SizedBox(

@@ -1,5 +1,9 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:spotify_clone/constants/constants.dart';
+import 'package:spotify_clone/ui/profile_screen.dart';
+import 'package:spotify_clone/ui/setting_screen.dart';
 
 class LibraryScreen extends StatelessWidget {
   const LibraryScreen({super.key});
@@ -19,25 +23,45 @@ class LibraryScreen extends StatelessWidget {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      const Row(
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        children: [
-                          CircleAvatar(
-                            radius: 20,
-                            backgroundColor: MyColors.greenColor,
-                          ),
-                          SizedBox(width: 10),
-                          Text(
-                            "Your Library",
-                            style: TextStyle(
-                              fontFamily: "AB",
-                              fontSize: 24,
-                              color: MyColors.whiteColor,
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const SettingScreen(),
                             ),
-                          ),
-                        ],
+                          );
+                        },
+                        child: const Row(
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          children: [
+                            CircleAvatar(
+                              radius: 20,
+                              backgroundColor: MyColors.greenColor,
+                            ),
+                            SizedBox(width: 10),
+                            Text(
+                              "Your Library",
+                              style: TextStyle(
+                                fontFamily: "AB",
+                                fontSize: 24,
+                                color: MyColors.whiteColor,
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
-                      Image.asset("images/icon_add.png"),
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const ProfileScreen(),
+                            ),
+                          );
+                        },
+                        child: Image.asset("images/icon_add.png"),
+                      ),
                     ],
                   ),
                 ),

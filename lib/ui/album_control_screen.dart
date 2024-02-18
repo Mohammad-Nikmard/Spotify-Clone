@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:spotify_clone/constants/constants.dart';
+import 'package:spotify_clone/ui/share_song_screen.dart';
 
 class AlbumControlScreen extends StatelessWidget {
   const AlbumControlScreen({super.key});
@@ -43,37 +45,54 @@ class AlbumControlScreen extends StatelessWidget {
                   ),
                   color: MyColors.blackColor,
                 ),
-                child: const Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 25),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 25),
                   child: Column(
                     children: [
-                      SizedBox(
+                      const SizedBox(
                         height: 30,
                       ),
-                      AlbumChip(text: "Like", image: "icon_heart.png"),
-                      AlbumChip(
+                      const AlbumChip(text: "Like", image: "icon_heart.png"),
+                      const AlbumChip(
                           text: "View artist", image: "icon_view_artist.png"),
-                      AlbumChip(text: "Share", image: "icon_share.png"),
-                      AlbumChip(
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const ShareSongScreen(),
+                            ),
+                          );
+                        },
+                        child: const AlbumChip(
+                            text: "Share", image: "icon_share.png"),
+                      ),
+                      const AlbumChip(
                           text: "Like all songs", image: "icon_heart.png"),
-                      AlbumChip(
+                      const AlbumChip(
                           text: "Add to playlist",
                           image: "icon_add_to_playlist.png"),
-                      AlbumChip(
+                      const AlbumChip(
                           text: "Add to queue", image: "icon_add_to_quoue.png"),
-                      AlbumChip(text: "Go to radio", image: "icon_radio.png"),
-                      SizedBox(height: 35),
+                      const AlbumChip(
+                          text: "Go to radio", image: "icon_radio.png"),
+                      const SizedBox(height: 35),
                       Center(
-                        child: Text(
-                          "Close",
-                          style: TextStyle(
-                            fontFamily: "AM",
-                            fontSize: 16,
-                            color: MyColors.whiteColor,
+                        child: GestureDetector(
+                          onTap: () {
+                            Navigator.pop(context);
+                          },
+                          child: const Text(
+                            "Close",
+                            style: TextStyle(
+                              fontFamily: "AM",
+                              fontSize: 16,
+                              color: MyColors.whiteColor,
+                            ),
                           ),
                         ),
                       ),
-                      SizedBox(height: 25),
+                      const SizedBox(height: 25),
                     ],
                   ),
                 ),

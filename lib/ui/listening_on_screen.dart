@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:spotify_clone/constants/constants.dart';
 
 class ListeningOn extends StatefulWidget {
@@ -41,7 +42,12 @@ class _ListeningOnState extends State<ListeningOn> {
               const SizedBox(
                 height: 15,
               ),
-              Image.asset("images/icon_back.png"),
+              GestureDetector(
+                onTap: () {
+                  Navigator.pop(context);
+                },
+                child: Image.asset("images/icon_back.png"),
+              ),
               Padding(
                 padding: const EdgeInsets.only(left: 20),
                 child: Row(
