@@ -18,9 +18,13 @@ class HomeScreen extends StatelessWidget {
               padding: EdgeInsets.symmetric(horizontal: 15),
               child: CustomScrollView(
                 slivers: [
-                  RecentPlays(),
-                  Review2024(),
+                  _Header(),
+                  JumpBackin(),
+                  TopMixes(),
                   EditorPicks(),
+                  SliverPadding(
+                    padding: EdgeInsets.only(bottom: 50),
+                  ),
                 ],
               ),
             ),
@@ -44,7 +48,7 @@ class EditorPicks extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const Text(
-              "Editor's picks",
+              "Recently played",
               style: TextStyle(
                 fontFamily: "AM",
                 fontSize: 24,
@@ -56,40 +60,122 @@ class EditorPicks extends StatelessWidget {
               height: 10,
             ),
             SizedBox(
-              height: 200,
-              child: ListView.builder(
-                itemCount: 5,
+              height: 199,
+              child: ListView(
                 scrollDirection: Axis.horizontal,
-                itemBuilder: (context, index) {
-                  return const Padding(
-                    padding: EdgeInsets.only(right: 15),
-                    child: Column(
-                      children: [
-                        SizedBox(
-                          height: 153,
-                          width: 153,
-                          child: ColoredBox(
-                            color: MyColors.greenColor,
+                children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SizedBox(
+                        height: 133,
+                        width: 133,
+                        child: Image.asset("images/home/Upbeat-Mix.jpg"),
+                      ),
+                      const SizedBox(
+                        height: 12,
+                      ),
+                      const Text(
+                        "Upbeat Mix",
+                        style: TextStyle(
+                          fontFamily: "AB",
+                          fontSize: 12,
+                          color: MyColors.whiteColor,
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(width: 15),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SizedBox(
+                        height: 133,
+                        width: 133,
+                        child: Image.asset("images/home/Daily-Mix-1.jpg"),
+                      ),
+                      const SizedBox(
+                        height: 12,
+                      ),
+                      const Text(
+                        "Daily Mix 1",
+                        style: TextStyle(
+                          fontFamily: "AB",
+                          fontSize: 12,
+                          color: MyColors.whiteColor,
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(width: 15),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SizedBox(
+                        height: 133,
+                        width: 133,
+                        child: Image.asset("images/home/UTOPIA.jpg"),
+                      ),
+                      const SizedBox(
+                        height: 12,
+                      ),
+                      const Text(
+                        "UTOPIA",
+                        style: TextStyle(
+                          fontFamily: "AB",
+                          fontSize: 12,
+                          color: MyColors.whiteColor,
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(width: 15),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SizedBox(
+                        height: 133,
+                        width: 133,
+                        child: Image.asset("images/home/american-dream.jpg"),
+                      ),
+                      const SizedBox(
+                        height: 12,
+                      ),
+                      const Text(
+                        "american dream",
+                        style: TextStyle(
+                          fontFamily: "AB",
+                          fontSize: 12,
+                          color: MyColors.whiteColor,
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(
+                    width: 15,
+                  ),
+                  const Column(
+                    children: [
+                      CircleAvatar(
+                        radius: 65,
+                        backgroundImage: AssetImage("images/artists/JID.jpg"),
+                      ),
+                      SizedBox(
+                        height: 12,
+                      ),
+                      Center(
+                        child: Text(
+                          "JID",
+                          style: TextStyle(
+                            fontFamily: "AB",
+                            fontSize: 12,
+                            color: MyColors.whiteColor,
                           ),
                         ),
-                        SizedBox(
-                          height: 5,
-                        ),
-                        SizedBox(
-                          width: 143,
-                          child: Text(
-                            "Ed Shearen, Big Sean, Juice WRLD, Post Malone",
-                            style: TextStyle(
-                              fontFamily: "AM",
-                              fontSize: 11.5,
-                              color: MyColors.lightGrey,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  );
-                },
+                      ),
+                    ],
+                  ),
+                ],
               ),
             ),
           ],
@@ -99,8 +185,8 @@ class EditorPicks extends StatelessWidget {
   }
 }
 
-class Review2024 extends StatelessWidget {
-  const Review2024({super.key});
+class JumpBackin extends StatelessWidget {
+  const JumpBackin({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -108,96 +194,173 @@ class Review2024 extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.only(top: 25),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Row(
-              children: [
-                Container(
-                  height: 58,
-                  width: 58,
-                  color: MyColors.greenColor,
-                ),
-                const SizedBox(width: 10),
-                const Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "#SPOTIFYWRAPPED",
-                      style: TextStyle(
-                        fontFamily: "AM",
-                        fontSize: 10,
-                        color: MyColors.lightGrey,
-                      ),
-                    ),
-                    Text(
-                      "Your 2024 in review",
-                      style: TextStyle(
-                        fontFamily: "AM",
-                        fontSize: 26,
-                        fontWeight: FontWeight.w600,
-                        color: MyColors.whiteColor,
-                      ),
-                    ),
-                  ],
-                ),
-              ],
+            const Text(
+              "Jump back in",
+              style: TextStyle(
+                fontFamily: "AB",
+                color: MyColors.whiteColor,
+                fontSize: 24,
+              ),
             ),
             const SizedBox(
               height: 15,
             ),
-            const Row(
-              children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    SizedBox(
-                      height: 153,
-                      width: 153,
-                      child: ColoredBox(
-                        color: MyColors.greenColor,
+            SizedBox(
+              height: 199,
+              child: ListView(
+                scrollDirection: Axis.horizontal,
+                children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SizedBox(
+                        height: 153,
+                        width: 153,
+                        child: Image.asset("images/home/Rap-Workout.jpg"),
                       ),
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    Text(
-                      "Your Top Songs 2024",
-                      style: TextStyle(
-                        color: MyColors.whiteColor,
-                        fontSize: 13.5,
-                        fontFamily: "AM",
-                        fontWeight: FontWeight.w400,
+                      const SizedBox(
+                        height: 10,
                       ),
-                    ),
-                  ],
-                ),
-                SizedBox(
-                  width: 15,
-                ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    SizedBox(
-                      height: 153,
-                      width: 153,
-                      child: ColoredBox(
-                        color: MyColors.greenColor,
+                      const SizedBox(
+                        width: 150,
+                        child: Text(
+                          "Future, Jack Harllow, Drake and more",
+                          style: TextStyle(
+                            fontFamily: "AM",
+                            fontSize: 12.5,
+                            color: MyColors.lightGrey,
+                          ),
+                        ),
                       ),
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    Text(
-                      "Your Top Songs 2024",
-                      style: TextStyle(
-                        color: MyColors.whiteColor,
-                        fontSize: 13.5,
-                        fontFamily: "AM",
-                        fontWeight: FontWeight.w400,
+                    ],
+                  ),
+                  const SizedBox(
+                    width: 15,
+                  ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SizedBox(
+                          height: 153,
+                          width: 153,
+                          child: Image.asset("images/home/Drake-Mix.jpg")),
+                      const SizedBox(
+                        height: 10,
                       ),
-                    ),
-                  ],
-                ),
-              ],
+                      const SizedBox(
+                        width: 150,
+                        child: Text(
+                          "JID, Baby Keem and 21 Savage",
+                          style: TextStyle(
+                            fontFamily: "AM",
+                            fontSize: 12.5,
+                            color: MyColors.lightGrey,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(
+                    width: 15,
+                  ),
+                  const Column(
+                    children: [
+                      CircleAvatar(
+                        radius: 75,
+                        backgroundImage:
+                            AssetImage("images/artists/Kendrick-Lamar.jpg"),
+                      ),
+                      SizedBox(
+                        height: 12,
+                      ),
+                      Text(
+                        "Kendrick Lamar",
+                        style: TextStyle(
+                          fontFamily: "AB",
+                          fontSize: 12,
+                          color: MyColors.whiteColor,
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(
+                    width: 15,
+                  ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SizedBox(
+                        height: 153,
+                        width: 153,
+                        child: Image.asset("images/home/UTOPIA.jpg"),
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      const Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "UTOPIA",
+                            style: TextStyle(
+                              fontFamily: "AB",
+                              fontSize: 12,
+                              color: MyColors.whiteColor,
+                            ),
+                          ),
+                          Text(
+                            "Album . Travis Scott",
+                            style: TextStyle(
+                              fontFamily: "AM",
+                              fontSize: 12.5,
+                              color: MyColors.lightGrey,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                  const SizedBox(
+                    width: 15,
+                  ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SizedBox(
+                        height: 153,
+                        width: 153,
+                        child: Image.asset("images/home/For-All-The-Dogs.jpg"),
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      const Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "For All The Dogs",
+                            style: TextStyle(
+                              fontFamily: "AB",
+                              fontSize: 12,
+                              color: MyColors.whiteColor,
+                            ),
+                          ),
+                          Text(
+                            "Album . Drake",
+                            style: TextStyle(
+                              fontFamily: "AM",
+                              fontSize: 12.5,
+                              color: MyColors.lightGrey,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             ),
           ],
         ),
@@ -206,8 +369,177 @@ class Review2024 extends StatelessWidget {
   }
 }
 
-class RecentPlays extends StatelessWidget {
-  const RecentPlays({super.key});
+class TopMixes extends StatelessWidget {
+  const TopMixes({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return SliverToBoxAdapter(
+      child: Padding(
+        padding: const EdgeInsets.only(top: 25),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Text(
+              "Your top mixes",
+              style: TextStyle(
+                fontFamily: "AB",
+                color: MyColors.whiteColor,
+                fontSize: 24,
+              ),
+            ),
+            const SizedBox(
+              height: 15,
+            ),
+            SizedBox(
+              height: 199,
+              child: ListView(
+                scrollDirection: Axis.horizontal,
+                children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SizedBox(
+                        height: 153,
+                        width: 153,
+                        child: Image.asset("images/home/2010s-mix.png"),
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      const SizedBox(
+                        width: 150,
+                        child: Text(
+                          "Travis Scott, Soul Chef, Kanye West and more",
+                          style: TextStyle(
+                            fontFamily: "AM",
+                            fontSize: 12.5,
+                            color: MyColors.lightGrey,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(
+                    width: 15,
+                  ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SizedBox(
+                        height: 153,
+                        width: 153,
+                        child: Image.asset("images/home/chill-mix.png"),
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      const SizedBox(
+                        width: 150,
+                        child: Text(
+                          "Talyor Swift, The Beatles and more",
+                          style: TextStyle(
+                            fontFamily: "AM",
+                            fontSize: 12.5,
+                            color: MyColors.lightGrey,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(
+                    width: 15,
+                  ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SizedBox(
+                        height: 153,
+                        width: 153,
+                        child: Image.asset("images/home/Upbeat-Mix.jpg"),
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      const SizedBox(
+                        width: 150,
+                        child: Text(
+                          "benny blanco, Darke and more",
+                          style: TextStyle(
+                            fontFamily: "AM",
+                            fontSize: 12.5,
+                            color: MyColors.lightGrey,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(
+                    width: 15,
+                  ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SizedBox(
+                        height: 153,
+                        width: 153,
+                        child: Image.asset("images/home/Offset-Mix.jpg"),
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      const SizedBox(
+                        width: 150,
+                        child: Text(
+                          "Baby keem, Travis Scott and Drake",
+                          style: TextStyle(
+                            fontFamily: "AM",
+                            fontSize: 12.5,
+                            color: MyColors.lightGrey,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(
+                    width: 15,
+                  ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SizedBox(
+                        height: 153,
+                        width: 153,
+                        child: Image.asset("images/home/Drake-Mix.jpg"),
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      const SizedBox(
+                        width: 150,
+                        child: Text(
+                          "JID, Baby Keem and 21 Savage",
+                          style: TextStyle(
+                            fontFamily: "AM",
+                            fontSize: 12.5,
+                            color: MyColors.lightGrey,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _Header extends StatelessWidget {
+  const _Header();
 
   @override
   Widget build(BuildContext context) {
@@ -219,13 +551,22 @@ class RecentPlays extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const Text(
-                  "Recently played",
-                  style: TextStyle(
-                    fontFamily: "AB",
-                    color: MyColors.whiteColor,
-                    fontSize: 19,
-                  ),
+                const Row(
+                  children: [
+                    CircleAvatar(
+                      radius: 20,
+                      backgroundImage: AssetImage("images/myImage.png"),
+                    ),
+                    SizedBox(width: 12),
+                    Text(
+                      "Good evening",
+                      style: TextStyle(
+                        fontFamily: "AB",
+                        color: MyColors.whiteColor,
+                        fontSize: 19,
+                      ),
+                    ),
+                  ],
                 ),
                 SizedBox(
                   width: 100,
@@ -250,40 +591,205 @@ class RecentPlays extends StatelessWidget {
                 ),
               ],
             ),
-            SizedBox(
-              height: 135,
-              child: ListView.builder(
-                scrollDirection: Axis.horizontal,
-                itemCount: 5,
-                itemBuilder: (context, index) {
-                  return const Padding(
-                    padding: EdgeInsets.only(top: 20, right: 15),
-                    child: Column(
-                      children: [
-                        CircleAvatar(
-                          radius: 45,
-                          backgroundColor: MyColors.greenColor,
-                        ),
-                        SizedBox(
-                          height: 5,
-                        ),
-                        Text(
-                          "Drake",
-                          style: TextStyle(
-                            fontFamily: "AM",
-                            fontSize: 12,
-                            color: MyColors.whiteColor,
-                            fontWeight: FontWeight.w400,
-                          ),
-                        ),
-                      ],
+            const SizedBox(
+              height: 20,
+            ),
+            Row(
+              children: [
+                Container(
+                  height: 35,
+                  decoration: const BoxDecoration(
+                    color: MyColors.darGreyColor,
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(145),
                     ),
-                  );
-                },
-              ),
+                  ),
+                  child: const Center(
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 15),
+                      child: Text(
+                        "Music",
+                        style: TextStyle(
+                          fontFamily: "AM",
+                          fontSize: 14,
+                          color: MyColors.whiteColor,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                const SizedBox(width: 10),
+                Container(
+                  height: 35,
+                  decoration: const BoxDecoration(
+                    color: MyColors.darGreyColor,
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(145),
+                    ),
+                  ),
+                  child: const Center(
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 15),
+                      child: Text(
+                        "Podcasts",
+                        style: TextStyle(
+                          fontFamily: "AM",
+                          fontSize: 14,
+                          color: MyColors.whiteColor,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+            Column(
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Container(
+                      height: 60,
+                      width: (MediaQuery.of(context).size.width / 1.77) - 45,
+                      decoration: const BoxDecoration(
+                        color: MyColors.darGreyColor,
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(5),
+                        ),
+                      ),
+                      child: Row(
+                        children: [
+                          Stack(
+                            alignment: AlignmentDirectional.center,
+                            children: [
+                              Container(
+                                height: 55,
+                                width: 55,
+                                decoration: const BoxDecoration(
+                                  borderRadius: BorderRadius.only(
+                                    topLeft: Radius.circular(5),
+                                    bottomLeft: Radius.circular(5),
+                                  ),
+                                  image: DecorationImage(
+                                    image: AssetImage(
+                                      "images/liked_songs.png",
+                                    ),
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
+                              ),
+                              Image.asset(
+                                'images/icon_heart_filled.png',
+                                height: 20,
+                                width: 20,
+                              ),
+                            ],
+                          ),
+                          const SizedBox(
+                            width: 10,
+                          ),
+                          const Text(
+                            "Liked Songs",
+                            style: TextStyle(
+                              fontFamily: "AB",
+                              fontSize: 12,
+                              color: MyColors.whiteColor,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    const _RecentPlaysChip(
+                      image: "artists/JID.jpg",
+                      title: "JID",
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 10),
+                const Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    _RecentPlaysChip(
+                      image: "home/american-dream.jpg",
+                      title: "american dream",
+                    ),
+                    _RecentPlaysChip(
+                      image: "home/UTOPIA.jpg",
+                      title: "UTOPIA",
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 10),
+                const Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    _RecentPlaysChip(
+                      image: "home/Upbeat-Mix.jpg",
+                      title: "Upbeat Mix",
+                    ),
+                    _RecentPlaysChip(
+                      image: "home/Daily-Mix-1.jpg",
+                      title: "Daily Mix",
+                    ),
+                  ],
+                ),
+              ],
             ),
           ],
         ),
+      ),
+    );
+  }
+}
+
+class _RecentPlaysChip extends StatelessWidget {
+  const _RecentPlaysChip({required this.image, required this.title});
+  final String title;
+  final String image;
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 55,
+      width: (MediaQuery.of(context).size.width / 1.77) - 45,
+      decoration: const BoxDecoration(
+        color: MyColors.darGreyColor,
+        borderRadius: BorderRadius.all(
+          Radius.circular(5),
+        ),
+      ),
+      child: Row(
+        children: [
+          Container(
+            height: 55,
+            width: 55,
+            decoration: BoxDecoration(
+              borderRadius: const BorderRadius.only(
+                topLeft: Radius.circular(5),
+                bottomLeft: Radius.circular(5),
+              ),
+              image: DecorationImage(
+                image: AssetImage(
+                  "images/$image",
+                ),
+                fit: BoxFit.cover,
+              ),
+            ),
+          ),
+          const SizedBox(
+            width: 10,
+          ),
+          Text(
+            title,
+            style: const TextStyle(
+              fontFamily: "AB",
+              fontSize: 12,
+              color: MyColors.whiteColor,
+            ),
+          ),
+        ],
       ),
     );
   }

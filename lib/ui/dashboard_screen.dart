@@ -17,7 +17,7 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.transparent,
+      backgroundColor: MyColors.blackColor,
       bottomNavigationBar: Container(
         height: 64,
         decoration: const BoxDecoration(

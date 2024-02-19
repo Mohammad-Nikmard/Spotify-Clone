@@ -40,6 +40,7 @@ flutter:
     - images/
     - images/artists/
     - images/podcasts/
+    - images/home/
 
   fonts:
     - family: AM
