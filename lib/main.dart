@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:spotify_clone/ui/choose_artist_screen.dart';
-import 'package:spotify_clone/ui/dashboard_screen.dart';
+import 'package:spotify_clone/DI/service_locator.dart';
+import 'package:spotify_clone/ui/onboarding_screen.dart';
 
 void main() {
+  initServiceLocator();
   runApp(const MyApp());
 }
 
@@ -22,7 +23,7 @@ class MyApp extends StatelessWidget {
             splashColor: Colors.transparent,
           ),
           debugShowCheckedModeBanner: false,
-          home: const ChooseArtistScreen(),
+          home: const OnBoardingScreen(),
         );
       },
     );

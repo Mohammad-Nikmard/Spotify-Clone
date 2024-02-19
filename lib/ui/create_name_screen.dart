@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:spotify_clone/DI/service_locator.dart';
+import 'package:spotify_clone/bloc/artist/artist_bloc.dart';
+import 'package:spotify_clone/bloc/artist/artist_event.dart';
 import 'package:spotify_clone/constants/constants.dart';
 import 'package:spotify_clone/ui/choose_artist_screen.dart';
 
@@ -230,7 +234,14 @@ class _CreateNameScreenState extends State<CreateNameScreen> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => const ChooseArtistScreen(),
+                          builder: (context) => BlocProvider(
+                            create: (context) {
+                              var bloc = ArtistBloc(locator.get());
+                              bloc.add(ArtistListEvent());
+                              return bloc;
+                            },
+                            child: const ChooseArtistScreen(),
+                          ),
                         ),
                       );
                     }

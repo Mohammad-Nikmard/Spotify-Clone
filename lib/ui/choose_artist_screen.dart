@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:spotify_clone/bloc/artist/artist_bloc.dart';
+import 'package:spotify_clone/bloc/artist/artist_state.dart';
 import 'package:spotify_clone/constants/constants.dart';
+import 'package:spotify_clone/data/model/artist.dart';
 import 'package:spotify_clone/ui/choose_podcast_screen.dart';
 import 'package:spotify_clone/widgets/artist_avatar_widget.dart';
 
@@ -9,63 +13,81 @@ class ChooseArtistScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: MyColors.darGreyColor,
+      backgroundColor: const Color.fromARGB(255, 27, 27, 27),
       body: SafeArea(
-        child: Stack(
-          alignment: AlignmentDirectional.bottomCenter,
-          children: [
-            const CustomScrollView(
-              slivers: [
-                Header(),
-                SearchBox(),
-                AvatarsSection(),
-              ],
-            ),
-            Container(
-              height: 170,
-              width: MediaQuery.of(context).size.width,
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                  colors: [
-                    Colors.transparent,
-                    MyColors.blackColor.withOpacity(0.7),
-                  ],
-                ),
-              ),
-            ),
-            Positioned(
-              bottom: 30,
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  minimumSize: const Size(90, 42),
-                  shape: const RoundedRectangleBorder(
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(25),
+        child: BlocBuilder<ArtistBloc, ArtistState>(
+          builder: (context, state) {
+            if (state is ArtistListState) {
+              return Stack(
+                alignment: AlignmentDirectional.bottomCenter,
+                children: [
+                  CustomScrollView(
+                    slivers: [
+                      const Header(),
+                      const SearchBox(),
+                      AvatarsSection(
+                        artist: state.artistList,
+                      ),
+                    ],
+                  ),
+                  Container(
+                    height: 170,
+                    width: MediaQuery.of(context).size.width,
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomCenter,
+                        colors: [
+                          Colors.transparent,
+                          MyColors.blackColor.withOpacity(0.7),
+                        ],
+                      ),
                     ),
                   ),
-                  backgroundColor: MyColors.whiteColor,
-                ),
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const ChoosePodcastScreen(),
+                  Positioned(
+                    bottom: 30,
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        minimumSize: const Size(90, 42),
+                        shape: const RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(25),
+                          ),
+                        ),
+                        backgroundColor: MyColors.whiteColor,
+                      ),
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const ChoosePodcastScreen(),
+                          ),
+                        );
+                      },
+                      child: const Text(
+                        "Done",
+                        style: TextStyle(
+                          fontFamily: "AB",
+                          color: Colors.black,
+                          fontSize: 14,
+                        ),
+                      ),
                     ),
-                  );
-                },
-                child: const Text(
-                  "Done",
-                  style: TextStyle(
-                    fontFamily: "AB",
-                    color: Colors.black,
-                    fontSize: 14,
                   ),
+                ],
+              );
+            }
+            return const Center(
+              child: Text(
+                "Snap! Error Happened",
+                style: TextStyle(
+                  fontFamily: "AB",
+                  fontSize: 18,
+                  color: MyColors.whiteColor,
                 ),
               ),
-            ),
-          ],
+            );
+          },
         ),
       ),
     );
@@ -93,7 +115,7 @@ class Header extends StatelessWidget {
                 width: 32,
                 decoration: const BoxDecoration(
                   shape: BoxShape.circle,
-                  color: MyColors.blackColor,
+                  color: Color(0xff000000),
                 ),
                 child: Center(
                   child: Image.asset(
@@ -124,7 +146,8 @@ class Header extends StatelessWidget {
 }
 
 class AvatarsSection extends StatelessWidget {
-  const AvatarsSection({super.key});
+  const AvatarsSection({super.key, required this.artist});
+  final List<Artist> artist;
 
   @override
   Widget build(BuildContext context) {
@@ -133,9 +156,11 @@ class AvatarsSection extends StatelessWidget {
       sliver: SliverGrid(
         delegate: SliverChildBuilderDelegate(
           (context, index) {
-            return const ArtistAvatar();
+            return ArtistAvatar(
+              artist: artist[index],
+            );
           },
-          childCount: 30,
+          childCount: artist.length,
         ),
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 3,
