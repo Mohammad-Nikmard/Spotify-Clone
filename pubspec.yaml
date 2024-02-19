@@ -39,6 +39,7 @@ flutter:
   assets:
     - images/
     - images/artists/
+    - images/podcasts/
 
   fonts:
     - family: AM

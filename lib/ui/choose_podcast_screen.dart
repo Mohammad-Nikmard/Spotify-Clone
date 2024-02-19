@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:spotify_clone/bloc/podcast/pocast_bloc.dart';
+import 'package:spotify_clone/bloc/podcast/podcast_state.dart';
 import 'package:spotify_clone/constants/constants.dart';
+import 'package:spotify_clone/data/model/podcast.dart';
 import 'package:spotify_clone/widgets/podcast_avatar_widget.dart';
 
 class ChoosePodcastScreen extends StatelessWidget {
@@ -10,77 +14,93 @@ class ChoosePodcastScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: MyColors.darGreyColor,
       body: SafeArea(
-        child: Stack(
-          alignment: AlignmentDirectional.bottomCenter,
-          children: [
-            const CustomScrollView(
-              slivers: [
-                SliverPadding(
-                  padding:
-                      EdgeInsets.only(top: 25, right: 25, left: 25, bottom: 5),
-                  sliver: SliverToBoxAdapter(
-                    child: Row(
-                      children: [
-                        SizedBox(
-                          height: 75,
-                          width: 245,
-                          child: Flexible(
-                            child: Text(
-                              "Now choose some podcasts.",
-                              style: TextStyle(
-                                fontFamily: "AB",
-                                fontSize: 26,
-                                color: MyColors.whiteColor,
+        child: BlocBuilder<PodcastBloc, PodcastState>(
+          builder: (context, state) {
+            if (state is PodcastListState) {
+              return Stack(
+                alignment: AlignmentDirectional.bottomCenter,
+                children: [
+                  CustomScrollView(
+                    slivers: [
+                      const SliverPadding(
+                        padding: EdgeInsets.only(
+                            top: 25, right: 25, left: 25, bottom: 5),
+                        sliver: SliverToBoxAdapter(
+                          child: Row(
+                            children: [
+                              SizedBox(
+                                height: 75,
+                                width: 245,
+                                child: Flexible(
+                                  child: Text(
+                                    "Now choose some podcasts.",
+                                    style: TextStyle(
+                                      fontFamily: "AB",
+                                      fontSize: 26,
+                                      color: MyColors.whiteColor,
+                                    ),
+                                  ),
+                                ),
                               ),
-                            ),
+                            ],
                           ),
                         ),
-                      ],
+                      ),
+                      const SearchBox(),
+                      PodcastList(getList: state.podcastList),
+                    ],
+                  ),
+                  Container(
+                    height: 170,
+                    width: MediaQuery.of(context).size.width,
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomCenter,
+                        colors: [
+                          Colors.transparent,
+                          MyColors.blackColor.withOpacity(0.7),
+                        ],
+                      ),
                     ),
                   ),
-                ),
-                SearchBox(),
-                PodcastList(),
-              ],
-            ),
-            Container(
-              height: 170,
-              width: MediaQuery.of(context).size.width,
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                  colors: [
-                    Colors.transparent,
-                    MyColors.blackColor.withOpacity(0.7),
-                  ],
-                ),
-              ),
-            ),
-            Positioned(
-              bottom: 30,
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  minimumSize: const Size(100, 55),
-                  shape: const RoundedRectangleBorder(
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(25),
+                  Positioned(
+                    bottom: 30,
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        minimumSize: const Size(100, 55),
+                        shape: const RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(25),
+                          ),
+                        ),
+                        backgroundColor: MyColors.whiteColor,
+                      ),
+                      onPressed: () {},
+                      child: const Text(
+                        "Done",
+                        style: TextStyle(
+                          fontFamily: "AB",
+                          color: Colors.black,
+                          fontSize: 14,
+                        ),
+                      ),
                     ),
                   ),
-                  backgroundColor: MyColors.whiteColor,
-                ),
-                onPressed: () {},
-                child: const Text(
-                  "Done",
-                  style: TextStyle(
-                    fontFamily: "AB",
-                    color: Colors.black,
-                    fontSize: 14,
-                  ),
+                ],
+              );
+            }
+            return const Center(
+              child: Text(
+                "Snap! Error Happened",
+                style: TextStyle(
+                  fontFamily: "AB",
+                  fontSize: 18,
+                  color: MyColors.whiteColor,
                 ),
               ),
-            ),
-          ],
+            );
+          },
         ),
       ),
     );
@@ -88,7 +108,8 @@ class ChoosePodcastScreen extends StatelessWidget {
 }
 
 class PodcastList extends StatelessWidget {
-  const PodcastList({super.key});
+  const PodcastList({super.key, required this.getList});
+  final List<Podcast> getList;
 
   @override
   Widget build(BuildContext context) {
@@ -97,9 +118,11 @@ class PodcastList extends StatelessWidget {
       sliver: SliverGrid(
         delegate: SliverChildBuilderDelegate(
           (context, index) {
-            return const PodcastAvatarWidget();
+            return PodcastAvatarWidget(
+              podcast: getList[index],
+            );
           },
-          childCount: 30,
+          childCount: getList.length,
         ),
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 3,

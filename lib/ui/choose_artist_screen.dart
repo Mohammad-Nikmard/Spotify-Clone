@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:spotify_clone/DI/service_locator.dart';
 import 'package:spotify_clone/bloc/artist/artist_bloc.dart';
 import 'package:spotify_clone/bloc/artist/artist_state.dart';
+import 'package:spotify_clone/bloc/podcast/pocast_bloc.dart';
+import 'package:spotify_clone/bloc/podcast/podcast_event.dart';
 import 'package:spotify_clone/constants/constants.dart';
 import 'package:spotify_clone/data/model/artist.dart';
 import 'package:spotify_clone/ui/choose_podcast_screen.dart';
@@ -60,7 +63,14 @@ class ChooseArtistScreen extends StatelessWidget {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => const ChoosePodcastScreen(),
+                            builder: (context) => BlocProvider(
+                              create: (context) {
+                                var bloc = PodcastBloc(locator.get());
+                                bloc.add(PodcastListEvent());
+                                return bloc;
+                              },
+                              child: const ChoosePodcastScreen(),
+                            ),
                           ),
                         );
                       },
