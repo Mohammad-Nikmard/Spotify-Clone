@@ -23,8 +23,7 @@ class ShareSongScreen extends StatelessWidget {
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
                   colors: [
-                    Color(0xff50221E),
-                    Color(0xff9E2216),
+                    Colors.blue,
                     MyColors.blackColor,
                   ],
                 ),
@@ -93,7 +92,7 @@ class SongInfo extends StatelessWidget {
           height: 60,
         ),
         Image.asset(
-          "images/song_screen.png",
+          "images/home/AUSTIN.jpg",
           height: ScreenUtil().setHeight(220),
           width: ScreenUtil().setWidth(220),
         ),
@@ -104,7 +103,7 @@ class SongInfo extends StatelessWidget {
           child: SizedBox(
             width: ScreenUtil().setWidth(235),
             child: Text(
-              "From Me to You - Mono / Remastered",
+              "Enough is Enough",
               style: TextStyle(
                 fontFamily: "AM",
                 color: MyColors.whiteColor,
@@ -121,7 +120,7 @@ class SongInfo extends StatelessWidget {
         ),
         const Center(
           child: Text(
-            "The Beatles",
+            "Post Malone",
             style: TextStyle(
               fontFamily: "AM",
               fontSize: 16,

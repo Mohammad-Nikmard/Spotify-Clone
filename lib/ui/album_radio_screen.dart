@@ -1,6 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:spotify_clone/constants/constants.dart';
 import 'package:spotify_clone/widgets/stream_buttons.dart';
 
@@ -48,9 +46,9 @@ class AlbumRadioActionButtons extends StatefulWidget {
 }
 
 class _AlbumRadioActionButtonsState extends State<AlbumRadioActionButtons> {
-  bool isInPlay = false;
+  bool isInPlay = true;
   bool isInShuffle = false;
-  bool isInRepeat = false;
+  bool isInRepeat = true;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -123,6 +121,25 @@ class _TrackList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    List<String> trackList = [
+      "Don't Understand",
+      "Somthing Real",
+      "Chemical",
+      "Novacandy",
+      "Mourning",
+      "Too Cool To Die",
+      "Sign Me Up",
+      "Socialite",
+      "Overdrive",
+      "Speedometer",
+      "Hold My Breath",
+      "Enough is Enough",
+      "Texas Tea",
+      "Buyer Beware",
+      "Landmine",
+      "Green Thumb",
+      "Laugh It Off",
+    ];
     return SliverList(
       delegate: SliverChildBuilderDelegate(
         (context, index) {
@@ -154,26 +171,23 @@ class _TrackList extends StatelessWidget {
                           const SizedBox(
                             width: 15,
                           ),
-                          const Column(
+                          Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                "Troubled Paradise",
-                                style: TextStyle(
+                                trackList[index],
+                                style: const TextStyle(
                                   fontFamily: "AM",
                                   fontSize: 15,
                                   color: MyColors.whiteColor,
                                 ),
                               ),
-                              Padding(
-                                padding: EdgeInsets.only(left: 10),
-                                child: Text(
-                                  "Slayyter",
-                                  style: TextStyle(
-                                    fontFamily: "AM",
-                                    fontSize: 13,
-                                    color: MyColors.lightGrey,
-                                  ),
+                              const Text(
+                                "Post Malone",
+                                style: TextStyle(
+                                  fontFamily: "AM",
+                                  fontSize: 13,
+                                  color: MyColors.lightGrey,
                                 ),
                               ),
                             ],
@@ -190,7 +204,7 @@ class _TrackList extends StatelessWidget {
             ),
           );
         },
-        childCount: 10,
+        childCount: trackList.length,
       ),
     );
   }
@@ -233,7 +247,7 @@ class _Header extends StatelessWidget {
             const SizedBox(
               width: 208,
               child: Text(
-                "Album radio based on From Me to You - Mono/Remastered",
+                "Album radio based on AUSTIN - Post Malone",
                 style: TextStyle(
                   fontFamily: "AM",
                   fontSize: 14,
@@ -265,12 +279,10 @@ class _Header extends StatelessWidget {
         ),
         Row(
           children: [
-            const SizedBox(
+            SizedBox(
               height: 46,
               width: 46,
-              child: ColoredBox(
-                color: MyColors.greenColor,
-              ),
+              child: Image.asset('images/home/AUSTIN.jpg'),
             ),
             const SizedBox(
               width: 10,
@@ -283,7 +295,7 @@ class _Header extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    "From Me to You - Mono/Remastered",
+                    "Enough is Enough",
                     style: TextStyle(
                       fontFamily: "AM",
                       fontSize: 13,
@@ -292,7 +304,7 @@ class _Header extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    "Washed Out",
+                    "Post Malone",
                     style: TextStyle(
                       fontFamily: "AM",
                       fontSize: 13,
@@ -308,7 +320,7 @@ class _Header extends StatelessWidget {
           height: 15,
         ),
         const Text(
-          "Next From: From Me to You - Mono/Remastered",
+          "Next From: AUSTIN/ Texas Tea",
           style: TextStyle(
             fontFamily: "AB",
             fontSize: 15,

@@ -1,6 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:spotify_clone/constants/constants.dart';
 import 'package:spotify_clone/ui/share_song_screen.dart';
 
@@ -26,7 +24,7 @@ class SongControlScreen extends StatelessWidget {
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter,
                     colors: [
-                      Color(0xff9E2216),
+                      Colors.blue,
                       MyColors.blackColor,
                     ],
                   ),
@@ -149,7 +147,7 @@ class _UpperContainerContent extends StatelessWidget {
           height: 50,
         ),
         Image.asset(
-          "images/song_screen.png",
+          "images/home/AUSTIN.jpg",
           height: 164,
           width: 164,
         ),
@@ -158,7 +156,7 @@ class _UpperContainerContent extends StatelessWidget {
         ),
         const Center(
           child: Text(
-            "1(Remastered)",
+            "AUSTIN",
             style: TextStyle(
               fontFamily: "AM",
               fontSize: 20,
@@ -169,7 +167,7 @@ class _UpperContainerContent extends StatelessWidget {
         ),
         const Center(
           child: Text(
-            "The Beatles",
+            "Post Malone",
             style: TextStyle(
               fontFamily: "AM",
               fontSize: 14,

@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-
-import 'package:marquee/marquee.dart';
 import 'package:spotify_clone/constants/constants.dart';
 import 'package:spotify_clone/ui/album_radio_screen.dart';
 import 'package:spotify_clone/ui/share_song_screen.dart';
@@ -13,12 +11,12 @@ class TrackViewScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
         gradient: LinearGradient(
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
           colors: [
-            Color(0xff9E2216),
+            Colors.blue[400]!,
             MyColors.blackColor,
           ],
         ),
@@ -68,7 +66,10 @@ class TrackViewScreen extends StatelessWidget {
                                     ),
                                   );
                                 },
-                                child: Image.asset('images/icon_share.png'),
+                                child: Image.asset(
+                                  'images/icon_share.png',
+                                  color: Colors.white,
+                                ),
                               ),
                               GestureDetector(
                                 onTap: () {
@@ -80,8 +81,10 @@ class TrackViewScreen extends StatelessWidget {
                                     ),
                                   );
                                 },
-                                child:
-                                    Image.asset("images/icon_add_to_quoue.png"),
+                                child: Image.asset(
+                                  "images/icon_add_to_quoue.png",
+                                  color: Colors.white,
+                                ),
                               ),
                             ],
                           ),
@@ -189,7 +192,7 @@ class LyricsSection extends StatelessWidget {
               width: MediaQuery.of(context).size.width,
               height: MediaQuery.of(context).size.width,
               decoration: const BoxDecoration(
-                color: Color(0xffD8672A),
+                color: Colors.blue,
                 borderRadius: BorderRadius.all(
                   Radius.circular(8),
                 ),
@@ -276,32 +279,41 @@ class _SongInfoState extends State<SongInfo> {
                     child: SizedBox(
                       width: MediaQuery.of(context).size.width - 95,
                       height: 30,
-                      child: Marquee(
-                        text: 'From Me to You - Mono / Remastered',
-                        style: const TextStyle(
-                            fontWeight: FontWeight.w700,
-                            fontFamily: "AM",
-                            color: MyColors.whiteColor,
-                            fontSize: 22),
-                        scrollAxis: Axis.horizontal,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        blankSpace: 25.0,
-                        velocity: 60.0,
-                        pauseAfterRound: const Duration(seconds: 5),
-                        startPadding: 5.0,
-                        accelerationDuration: const Duration(seconds: 1),
-                        accelerationCurve: Curves.linear,
-                        decelerationDuration: const Duration(milliseconds: 500),
-                        decelerationCurve: Curves.easeOut,
+                      child: const Text(
+                        "Enough is Enough",
+                        style: TextStyle(
+                          fontWeight: FontWeight.w700,
+                          fontFamily: "AM",
+                          color: MyColors.whiteColor,
+                          fontSize: 22,
+                        ),
                       ),
+                      // child: Marquee(
+                      //   text: 'From Me to You - Mono / Remastered',
+                      //   style: const TextStyle(
+                      //       fontWeight: FontWeight.w700,
+                      //       fontFamily: "AM",
+                      //       color: MyColors.whiteColor,
+                      //       fontSize: 22),
+                      //   scrollAxis: Axis.horizontal,
+                      //   crossAxisAlignment: CrossAxisAlignment.start,
+                      //   blankSpace: 25.0,
+                      //   velocity: 60.0,
+                      //   pauseAfterRound: const Duration(seconds: 5),
+                      //   startPadding: 5.0,
+                      //   accelerationDuration: const Duration(seconds: 1),
+                      //   accelerationCurve: Curves.linear,
+                      //   decelerationDuration: const Duration(milliseconds: 500),
+                      //   decelerationCurve: Curves.easeOut,
+                      // ),
                     ),
                   ),
                   const Text(
-                    "The Beatles",
+                    "Post Maone",
                     style: TextStyle(
                       fontFamily: "AM",
                       fontSize: 16,
-                      color: MyColors.lightGrey,
+                      color: MyColors.whiteColor,
                     ),
                   ),
                 ],
@@ -323,7 +335,7 @@ class _SongInfoState extends State<SongInfo> {
               child: Slider(
                 min: 0,
                 max: 100,
-                activeColor: MyColors.whiteColor,
+                activeColor: const Color.fromARGB(255, 230, 229, 229),
                 inactiveColor: MyColors.lightGrey,
                 value: _currentNumber,
                 onChanged: (onChanged) {
@@ -343,19 +355,19 @@ class _SongInfoState extends State<SongInfo> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  "0:38",
+                  "0:00",
                   style: TextStyle(
                     fontFamily: "AM",
-                    fontSize: 10,
-                    color: MyColors.lightGrey,
+                    fontSize: 12,
+                    color: Color.fromARGB(255, 230, 229, 229),
                   ),
                 ),
                 Text(
-                  "-1:18",
+                  "2:45",
                   style: TextStyle(
                     fontFamily: "AM",
-                    fontSize: 10,
-                    color: MyColors.lightGrey,
+                    fontSize: 12,
+                    color: Color.fromARGB(255, 230, 229, 229),
                   ),
                 ),
               ],
@@ -376,7 +388,7 @@ class SongCover extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.only(bottom: 35),
         child: Image.asset(
-          "images/song_screen_big.png",
+          "images/home/AUSTIN.jpg",
           width: MediaQuery.of(context).size.width,
           height: MediaQuery.of(context).size.width,
         ),
@@ -400,7 +412,10 @@ class _Header extends StatelessWidget {
               onTap: () {
                 Navigator.pop(context);
               },
-              child: Image.asset("images/icon_arrow_down.png"),
+              child: Image.asset(
+                "images/icon_arrow_down.png",
+                color: Colors.white,
+              ),
             ),
             const Text(
               "1(Remastered)",
@@ -419,7 +434,10 @@ class _Header extends StatelessWidget {
                   ),
                 );
               },
-              child: Image.asset('images/icon_more.png'),
+              child: Image.asset(
+                'images/icon_more.png',
+                color: MyColors.whiteColor,
+              ),
             ),
           ],
         ),
