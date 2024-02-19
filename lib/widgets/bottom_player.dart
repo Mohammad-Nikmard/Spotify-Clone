@@ -1,6 +1,10 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:marquee/marquee.dart';
 import 'package:spotify_clone/constants/constants.dart';
+import 'package:spotify_clone/ui/listening_on_screen.dart';
+import 'package:spotify_clone/ui/track_view_screen.dart';
 
 class BottomPlayer extends StatefulWidget {
   const BottomPlayer({super.key});
@@ -34,80 +38,124 @@ class _BottomPlayerState extends State<BottomPlayer> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Row(
-                      children: [
-                        Container(
-                          height: 37,
-                          width: 37,
-                          decoration: BoxDecoration(
-                            image: const DecorationImage(
-                              image: AssetImage('images/song_screen.png'),
-                              fit: BoxFit.cover,
-                            ),
-                            borderRadius: BorderRadius.circular(8),
-                          ),
+                    GestureDetector(
+                      onTap: () => Navigator.push(
+                        context,
+                        PageRouteBuilder(
+                          transitionDuration: const Duration(milliseconds: 300),
+                          pageBuilder:
+                              (context, animation, secondaryAnimation) =>
+                                  const TrackViewScreen(),
+                          transitionsBuilder:
+                              (context, animation, secondaryAnimation, child) {
+                            const begin = Offset(0.0, 1.0);
+                            const end = Offset.zero;
+
+                            final tween = Tween(begin: begin, end: end);
+                            final offsetAnimation = animation.drive(tween);
+                            return SlideTransition(
+                              position: offsetAnimation,
+                              child: child,
+                            );
+                          },
                         ),
-                        const SizedBox(width: 5),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            SizedBox(
-                              width: MediaQuery.of(context).size.width - 160,
-                              height: 20,
-                              child: Marquee(
-                                text: 'From Me to You - Mono / Remastered',
-                                style: const TextStyle(
-                                  fontWeight: FontWeight.w700,
-                                  fontFamily: "AM",
-                                  color: MyColors.whiteColor,
-                                  fontSize: 13.5,
-                                ),
-                                scrollAxis: Axis.horizontal,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                blankSpace: 25.0,
-                                velocity: 60.0,
-                                pauseAfterRound: const Duration(seconds: 5),
-                                startPadding: 5.0,
-                                accelerationDuration:
-                                    const Duration(seconds: 1),
-                                accelerationCurve: Curves.linear,
-                                decelerationDuration:
-                                    const Duration(milliseconds: 500),
-                                decelerationCurve: Curves.easeOut,
+                      ),
+                      child: Row(
+                        children: [
+                          Container(
+                            height: 37,
+                            width: 37,
+                            decoration: BoxDecoration(
+                              image: const DecorationImage(
+                                image: AssetImage('images/song_screen.png'),
+                                fit: BoxFit.cover,
                               ),
+                              borderRadius: BorderRadius.circular(8),
                             ),
-                            Row(
-                              children: [
-                                Image.asset(
-                                  "images/icon_bluetooth.png",
-                                  height: 15,
-                                  width: 15,
-                                ),
-                                const SizedBox(width: 5),
-                                const Text(
-                                  "Airpod 3",
-                                  style: TextStyle(
+                          ),
+                          const SizedBox(width: 5),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              SizedBox(
+                                width: MediaQuery.of(context).size.width - 160,
+                                height: 20,
+                                child: Marquee(
+                                  text: 'From Me to You - Mono / Remastered',
+                                  style: const TextStyle(
+                                    fontWeight: FontWeight.w700,
                                     fontFamily: "AM",
-                                    fontSize: 10.5,
-                                    color: MyColors.greenColor,
+                                    color: MyColors.whiteColor,
+                                    fontSize: 13.5,
                                   ),
+                                  scrollAxis: Axis.horizontal,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  blankSpace: 25.0,
+                                  velocity: 60.0,
+                                  pauseAfterRound: const Duration(seconds: 5),
+                                  startPadding: 5.0,
+                                  accelerationDuration:
+                                      const Duration(seconds: 1),
+                                  accelerationCurve: Curves.linear,
+                                  decelerationDuration:
+                                      const Duration(milliseconds: 500),
+                                  decelerationCurve: Curves.easeOut,
                                 ),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ],
+                              ),
+                              Row(
+                                children: [
+                                  Image.asset(
+                                    "images/icon_bluetooth.png",
+                                    height: 15,
+                                    width: 15,
+                                  ),
+                                  const SizedBox(width: 5),
+                                  const Text(
+                                    "Airpod 3",
+                                    style: TextStyle(
+                                      fontFamily: "AM",
+                                      fontSize: 10.5,
+                                      color: MyColors.greenColor,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
                     ),
                     SizedBox(
                       width: 65,
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Image.asset(
-                            'images/bluetooth.png',
-                            height: 29,
-                            width: 29,
+                          GestureDetector(
+                            onTap: () {
+                              showModalBottomSheet(
+                                backgroundColor: Colors.transparent,
+                                isScrollControlled: true,
+                                barrierColor: Colors.transparent,
+                                context: context,
+                                builder: (context) {
+                                  return DraggableScrollableSheet(
+                                    minChildSize: 0.9,
+                                    maxChildSize: 0.9,
+                                    initialChildSize: 0.9,
+                                    builder: (context, contorller) {
+                                      return ListeningOn(
+                                          controller: contorller);
+                                    },
+                                  );
+                                },
+                              );
+                            },
+                            child: Image.asset(
+                              'images/bluetooth.png',
+                              height: 29,
+                              width: 29,
+                            ),
                           ),
                           SizedBox(
                             height: 20,

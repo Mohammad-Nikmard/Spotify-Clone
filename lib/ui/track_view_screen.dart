@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+
 import 'package:marquee/marquee.dart';
 import 'package:spotify_clone/constants/constants.dart';
 import 'package:spotify_clone/ui/album_radio_screen.dart';
-import 'package:spotify_clone/ui/listening_on_screen.dart';
 import 'package:spotify_clone/ui/share_song_screen.dart';
 import 'package:spotify_clone/ui/song_control_screen.dart';
 import 'package:spotify_clone/widgets/stream_buttons.dart';
@@ -13,57 +13,34 @@ class TrackViewScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: MediaQuery.of(context).size.height,
-      width: MediaQuery.of(context).size.width,
       decoration: const BoxDecoration(
         gradient: LinearGradient(
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
           colors: [
             Color(0xff9E2216),
-            Color.fromARGB(255, 187, 41, 27),
             MyColors.blackColor,
           ],
         ),
       ),
       child: Scaffold(
         backgroundColor: Colors.transparent,
-        body: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20),
-          child: CustomScrollView(
-            slivers: [
-              const _Header(),
-              const SongCover(),
-              const SongInfo(),
-              const SongActionButtons(),
-              SliverToBoxAdapter(
-                child: Padding(
-                  padding: const EdgeInsets.only(top: 23, bottom: 10),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      GestureDetector(
-                        onTap: () {
-                          showModalBottomSheet(
-                            isScrollControlled: true,
-                            barrierColor: Colors.transparent,
-                            backgroundColor: Colors.transparent,
-                            context: context,
-                            builder: (context) {
-                              return DraggableScrollableSheet(
-                                minChildSize: 0.9,
-                                maxChildSize: 0.9,
-                                initialChildSize: 0.9,
-                                builder: (context, controller) {
-                                  return ListeningOn(
-                                    controller: controller,
-                                  );
-                                },
-                              );
-                            },
-                          );
-                        },
-                        child: Row(
+        body: SafeArea(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: CustomScrollView(
+              slivers: [
+                const _Header(),
+                const SongCover(),
+                const SongInfo(),
+                const SongActionButtons(),
+                SliverToBoxAdapter(
+                  child: Padding(
+                    padding: const EdgeInsets.only(top: 23, bottom: 10),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Row(
                           children: [
                             Image.asset('images/icon_bluetooth.png'),
                             const Text(
@@ -76,43 +53,46 @@ class TrackViewScreen extends StatelessWidget {
                             ),
                           ],
                         ),
-                      ),
-                      SizedBox(
-                        width: 80,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            GestureDetector(
-                              onTap: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) =>
-                                        const ShareSongScreen(),
-                                  ),
-                                );
-                              },
-                            ),
-                            GestureDetector(
-                              onTap: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) =>
-                                        const AlbumRadioScreen(),
-                                  ),
-                                );
-                              },
-                            ),
-                          ],
+                        SizedBox(
+                          width: 80,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              GestureDetector(
+                                onTap: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          const ShareSongScreen(),
+                                    ),
+                                  );
+                                },
+                                child: Image.asset('images/icon_share.png'),
+                              ),
+                              GestureDetector(
+                                onTap: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          const AlbumRadioScreen(),
+                                    ),
+                                  );
+                                },
+                                child:
+                                    Image.asset("images/icon_add_to_quoue.png"),
+                              ),
+                            ],
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
-              ),
-              const LyricsSection(),
-            ],
+                const LyricsSection(),
+              ],
+            ),
           ),
         ),
       ),
@@ -412,11 +392,16 @@ class _Header extends StatelessWidget {
   Widget build(BuildContext context) {
     return SliverToBoxAdapter(
       child: Padding(
-        padding: const EdgeInsets.only(top: 50, bottom: 50),
+        padding: const EdgeInsets.only(top: 30, bottom: 50),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Image.asset("images/icon_arrow_down.png"),
+            GestureDetector(
+              onTap: () {
+                Navigator.pop(context);
+              },
+              child: Image.asset("images/icon_arrow_down.png"),
+            ),
             const Text(
               "1(Remastered)",
               style: TextStyle(

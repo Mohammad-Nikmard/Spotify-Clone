@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:spotify_clone/ui/choose_artist_screen.dart';
 import 'package:spotify_clone/ui/dashboard_screen.dart';
 
 void main() {
@@ -21,7 +22,7 @@ class MyApp extends StatelessWidget {
             splashColor: Colors.transparent,
           ),
           debugShowCheckedModeBanner: false,
-          home: const DashBoardScreen(),
+          home: const ChooseArtistScreen(),
         );
       },
     );

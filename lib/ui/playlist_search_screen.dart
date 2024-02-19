@@ -155,7 +155,7 @@ class _PlaylistActionButtonsState extends State<PlaylistActionButtons> {
                 height: 10,
               ),
               const Text(
-                "1629592 likes . 6h 48m",
+                "1,629,592 likes . 6h 48m",
                 style: TextStyle(
                   fontFamily: "AM",
                   fontSize: 13,
