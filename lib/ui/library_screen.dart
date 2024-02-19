@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:spotify_clone/constants/constants.dart';
 import 'package:spotify_clone/ui/profile_screen.dart';
 import 'package:spotify_clone/ui/setting_screen.dart';
+import 'package:spotify_clone/widgets/album_chip.dart';
+import 'package:spotify_clone/widgets/artist_chip.dart';
 import 'package:spotify_clone/widgets/bottom_player.dart';
+import 'package:spotify_clone/widgets/song_chip.dart';
 
 class LibraryScreen extends StatelessWidget {
   const LibraryScreen({super.key});
@@ -115,6 +118,55 @@ class LibraryScreen extends StatelessWidget {
                   ),
                   const LikedSongs(),
                   const NewEpisodes(),
+                  const AlbumChip(
+                    image: "For-All-The-Dogs.jpg",
+                    albumName: "For All The Dogs",
+                    artistName: "Drake",
+                    size: 65,
+                    isDeletable: false,
+                  ),
+                  const ArtistChip(
+                    image: '21-Savage.jpg',
+                    name: "21 Savage",
+                    radius: 35,
+                    isDeletable: false,
+                  ),
+                  const SongChip(
+                    image: "UTOPIA.jpg",
+                    singerName: 'Travis Scott',
+                    songTitle: "I KNOW ?",
+                    size: 47,
+                    isDeletable: false,
+                  ),
+                  const ArtistChip(
+                    image: "Post-Malone.jpg",
+                    name: "Post Malone",
+                    radius: 35,
+                    isDeletable: false,
+                  ),
+                  const AlbumChip(
+                    image: "american-dream.jpg",
+                    albumName: "american dream",
+                    artistName: "21 Savage",
+                    size: 65,
+                    isDeletable: false,
+                  ),
+                  const ArtistChip(
+                    image: "J-Cole.jpg",
+                    name: "J Cole",
+                    radius: 35,
+                    isDeletable: false,
+                  ),
+                  const SongChip(
+                    image: "AUSTIN.jpg",
+                    singerName: 'Post Malone',
+                    songTitle: "Landmine",
+                    size: 47,
+                    isDeletable: false,
+                  ),
+                  const SliverPadding(
+                    padding: EdgeInsets.only(bottom: 100),
+                  ),
                 ],
               ),
             ),
@@ -133,7 +185,7 @@ class NewEpisodes extends StatelessWidget {
   Widget build(BuildContext context) {
     return SliverToBoxAdapter(
       child: Padding(
-        padding: const EdgeInsets.only(top: 5),
+        padding: const EdgeInsets.only(top: 5, bottom: 15),
         child: Row(
           children: [
             Stack(
@@ -150,7 +202,7 @@ class NewEpisodes extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const Text(
-                  "Liked Songs",
+                  "New Episods",
                   style: TextStyle(
                     fontFamily: "AM",
                     fontSize: 15,

@@ -107,7 +107,22 @@ class SearchCategoryScreen extends StatelessWidget {
                       children: [
                         Stack(
                           children: [
-                            Image.asset("images/news&politics.png"),
+                            Container(
+                              width:
+                                  (MediaQuery.of(context).size.width / 1.75) -
+                                      50,
+                              height: 100,
+                              decoration: const BoxDecoration(
+                                borderRadius: BorderRadius.all(
+                                  Radius.circular(10),
+                                ),
+                                image: DecorationImage(
+                                  image: AssetImage(
+                                    "images/news&politics.png",
+                                  ),
+                                ),
+                              ),
+                            ),
                             const Positioned(
                               top: 10,
                               left: 10,
@@ -168,6 +183,9 @@ class SearchCategoryScreen extends StatelessWidget {
                       ),
                     ),
                   ),
+                  const SliverPadding(
+                    padding: EdgeInsets.only(bottom: 100),
+                  ),
                 ],
               ),
             ),
@@ -196,42 +214,29 @@ class _SearchBox extends StatelessWidget {
         ),
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 15),
-          child: Row(
-            children: [
-              Image.asset("images/icon_search_black.png"),
-              Expanded(
-                child: TextField(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const SearchScreen(),
-                      ),
-                    );
-                  },
-                  style: const TextStyle(
-                    fontFamily: "AM",
-                    fontSize: 16,
-                    color: MyColors.blackColor,
-                  ),
-                  decoration: const InputDecoration(
-                    contentPadding: EdgeInsets.only(top: 15, left: 15),
-                    hintText: "Artists, songs, or podcasts",
-                    hintStyle: TextStyle(
-                      fontFamily: "AM",
-                      color: MyColors.blackColor,
-                      fontSize: 14,
-                    ),
-                    border: OutlineInputBorder(
-                      borderSide: BorderSide(
-                        style: BorderStyle.none,
-                        width: 0,
-                      ),
-                    ),
-                  ),
+          child: InkWell(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const SearchScreen(),
                 ),
-              ),
-            ],
+              );
+            },
+            child: Row(
+              children: [
+                Image.asset("images/icon_search_black.png"),
+                const SizedBox(width: 15),
+                const Text(
+                  "What do you want to listen to?",
+                  style: TextStyle(
+                    fontFamily: "AB",
+                    color: MyColors.darGreyColor,
+                    fontSize: 15,
+                  ),
+                )
+              ],
+            ),
           ),
         ),
       ),
@@ -249,8 +254,8 @@ class _ImageContainer extends StatelessWidget {
     return Stack(
       children: [
         Container(
-          height: 109,
-          width: 192,
+          height: 100,
+          width: (MediaQuery.of(context).size.width / 1.75) - 50,
           decoration: BoxDecoration(
             image: DecorationImage(
               image: AssetImage("images/$image"),

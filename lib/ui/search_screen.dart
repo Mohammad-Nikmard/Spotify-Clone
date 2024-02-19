@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:spotify_clone/constants/constants.dart';
 import 'package:spotify_clone/ui/albumview_screen.dart';
+import 'package:spotify_clone/widgets/album_chip.dart';
+import 'package:spotify_clone/widgets/artist_chip.dart';
+import 'package:spotify_clone/widgets/song_chip.dart';
 
 class SearchScreen extends StatelessWidget {
   const SearchScreen({super.key});
@@ -12,13 +15,13 @@ class SearchScreen extends StatelessWidget {
       resizeToAvoidBottomInset: false,
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 10),
+          padding: const EdgeInsets.symmetric(horizontal: 20),
           child: CustomScrollView(
             slivers: [
               const _SearchBox(),
               SliverToBoxAdapter(
                 child: Padding(
-                  padding: const EdgeInsets.only(left: 10, top: 15),
+                  padding: const EdgeInsets.only(top: 15, bottom: 20),
                   child: GestureDetector(
                     onTap: () {
                       Navigator.push(
@@ -39,6 +42,65 @@ class SearchScreen extends StatelessWidget {
                     ),
                   ),
                 ),
+              ),
+              const AlbumChip(
+                image: "AUSTIN.jpg",
+                albumName: "AUSTING",
+                artistName: "Post Malone",
+                size: 47,
+                isDeletable: true,
+              ),
+              const ArtistChip(
+                image: 'Doja-Cat.jpg',
+                name: "Doja Cat",
+                radius: 23,
+                isDeletable: true,
+              ),
+              const SongChip(
+                image: "UTOPIA.jpg",
+                singerName: 'Travis Scott',
+                songTitle: "MY EYES",
+                size: 47,
+                isDeletable: true,
+              ),
+              const ArtistChip(
+                image: "Lil-Wayne.jpg",
+                name: "Lil Wayne",
+                radius: 23,
+                isDeletable: true,
+              ),
+              const ArtistChip(
+                image: "Megan-Thee-Stallion.jpg",
+                name: "Megan Thee Stallion",
+                radius: 23,
+                isDeletable: true,
+              ),
+              const AlbumChip(
+                image: "american-dream.jpg",
+                albumName: "american dream",
+                artistName: "21 Savage",
+                size: 47,
+                isDeletable: true,
+              ),
+              const SongChip(
+                image: "For-All-The-Dogs.jpg",
+                singerName: 'Drake',
+                songTitle: "IDGAF",
+                size: 47,
+                isDeletable: true,
+              ),
+              const ArtistChip(
+                image: "Taylor-Swift.jpg",
+                name: "Taylor Swift",
+                radius: 23,
+                isDeletable: true,
+              ),
+              const SongChip(
+                image: "AUSTIN.jpg",
+                singerName: 'Post Malone',
+                songTitle: "Laugh It Off",
+                size: 47,
+                isDeletable: true,
               ),
             ],
           ),
@@ -61,7 +123,7 @@ class _SearchBox extends StatelessWidget {
           children: [
             Container(
               height: 35,
-              width: MediaQuery.of(context).size.width - 92.5,
+              width: MediaQuery.of(context).size.width - 102.5,
               decoration: const BoxDecoration(
                 color: Color(0xff282828),
                 borderRadius: BorderRadius.all(

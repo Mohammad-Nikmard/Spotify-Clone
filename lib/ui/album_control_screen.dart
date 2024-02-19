@@ -52,8 +52,8 @@ class AlbumControlScreen extends StatelessWidget {
                       const SizedBox(
                         height: 30,
                       ),
-                      const AlbumChip(text: "Like", image: "icon_heart.png"),
-                      const AlbumChip(
+                      const _AlbumChip(text: "Like", image: "icon_heart.png"),
+                      const _AlbumChip(
                           text: "View artist", image: "icon_view_artist.png"),
                       GestureDetector(
                         onTap: () {
@@ -64,17 +64,17 @@ class AlbumControlScreen extends StatelessWidget {
                             ),
                           );
                         },
-                        child: const AlbumChip(
+                        child: const _AlbumChip(
                             text: "Share", image: "icon_share.png"),
                       ),
-                      const AlbumChip(
+                      const _AlbumChip(
                           text: "Like all songs", image: "icon_heart.png"),
-                      const AlbumChip(
+                      const _AlbumChip(
                           text: "Add to playlist",
                           image: "icon_add_to_playlist.png"),
-                      const AlbumChip(
+                      const _AlbumChip(
                           text: "Add to queue", image: "icon_add_to_quoue.png"),
-                      const AlbumChip(
+                      const _AlbumChip(
                           text: "Go to radio", image: "icon_radio.png"),
                       const SizedBox(height: 35),
                       Center(
@@ -105,8 +105,8 @@ class AlbumControlScreen extends StatelessWidget {
   }
 }
 
-class AlbumChip extends StatelessWidget {
-  const AlbumChip({super.key, required this.text, required this.image});
+class _AlbumChip extends StatelessWidget {
+  const _AlbumChip({super.key, required this.text, required this.image});
   final String text;
   final String image;
 
