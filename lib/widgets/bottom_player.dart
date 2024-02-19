@@ -1,7 +1,5 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:marquee/marquee.dart';
 import 'package:spotify_clone/constants/constants.dart';
 import 'package:spotify_clone/ui/listening_on_screen.dart';
 import 'package:spotify_clone/ui/track_view_screen.dart';
@@ -14,6 +12,8 @@ class BottomPlayer extends StatefulWidget {
 }
 
 class _BottomPlayerState extends State<BottomPlayer> {
+  bool _isInPlay = false;
+  bool _isLiked = false;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -22,7 +22,7 @@ class _BottomPlayerState extends State<BottomPlayer> {
         height: 59,
         width: MediaQuery.of(context).size.width,
         decoration: const BoxDecoration(
-          color: Color(0xff550A1C),
+          color: Color.fromARGB(255, 83, 83, 83),
           borderRadius: BorderRadius.only(
             topLeft: Radius.circular(15),
             topRight: Radius.circular(15),
@@ -67,59 +67,37 @@ class _BottomPlayerState extends State<BottomPlayer> {
                             width: 37,
                             decoration: BoxDecoration(
                               image: const DecorationImage(
-                                image: AssetImage('images/song_screen.png'),
+                                image: AssetImage('images/home/AUSTIN.jpg'),
                                 fit: BoxFit.cover,
                               ),
                               borderRadius: BorderRadius.circular(8),
                             ),
                           ),
-                          const SizedBox(width: 5),
+                          const SizedBox(width: 10),
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               SizedBox(
-                                width: MediaQuery.of(context).size.width - 160,
+                                width: MediaQuery.of(context).size.width - 190,
                                 height: 20,
-                                child: Marquee(
-                                  text: 'From Me to You - Mono / Remastered',
-                                  style: const TextStyle(
+                                child: const Text(
+                                  "Enough is Enough",
+                                  style: TextStyle(
                                     fontWeight: FontWeight.w700,
                                     fontFamily: "AM",
                                     color: MyColors.whiteColor,
                                     fontSize: 13.5,
                                   ),
-                                  scrollAxis: Axis.horizontal,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  blankSpace: 25.0,
-                                  velocity: 60.0,
-                                  pauseAfterRound: const Duration(seconds: 5),
-                                  startPadding: 5.0,
-                                  accelerationDuration:
-                                      const Duration(seconds: 1),
-                                  accelerationCurve: Curves.linear,
-                                  decelerationDuration:
-                                      const Duration(milliseconds: 500),
-                                  decelerationCurve: Curves.easeOut,
                                 ),
                               ),
-                              Row(
-                                children: [
-                                  Image.asset(
-                                    "images/icon_bluetooth.png",
-                                    height: 15,
-                                    width: 15,
-                                  ),
-                                  const SizedBox(width: 5),
-                                  const Text(
-                                    "Airpod 3",
-                                    style: TextStyle(
-                                      fontFamily: "AM",
-                                      fontSize: 10.5,
-                                      color: MyColors.greenColor,
-                                    ),
-                                  ),
-                                ],
+                              const Text(
+                                "Post Malone",
+                                style: TextStyle(
+                                  fontFamily: "AM",
+                                  fontSize: 12,
+                                  color: MyColors.whiteColor,
+                                ),
                               ),
                             ],
                           ),
@@ -127,7 +105,7 @@ class _BottomPlayerState extends State<BottomPlayer> {
                       ),
                     ),
                     SizedBox(
-                      width: 65,
+                      width: 100,
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -157,23 +135,60 @@ class _BottomPlayerState extends State<BottomPlayer> {
                               width: 29,
                             ),
                           ),
-                          SizedBox(
-                            height: 20,
-                            width: 20,
-                            child: Row(
-                              children: [
-                                Container(
-                                  height: 20,
-                                  width: 5,
-                                  color: MyColors.whiteColor,
-                                ),
-                                const SizedBox(width: 5),
-                                Container(
-                                  height: 20,
-                                  width: 5,
-                                  color: MyColors.whiteColor,
-                                ),
-                              ],
+                          GestureDetector(
+                            onTap: () {
+                              setState(() {
+                                _isLiked = !_isLiked;
+                              });
+                            },
+                            child: (_isLiked)
+                                ? Row(
+                                    children: [
+                                      Image.asset(
+                                          'images/icon_heart_filled.png'),
+                                      const SizedBox(
+                                        width: 9,
+                                      ),
+                                    ],
+                                  )
+                                : Row(
+                                    children: [
+                                      Image.asset('images/icon_heart.png'),
+                                      const SizedBox(
+                                        width: 9,
+                                      ),
+                                    ],
+                                  ),
+                          ),
+                          InkWell(
+                            onTap: () {
+                              setState(() {
+                                _isInPlay = !_isInPlay;
+                              });
+                            },
+                            child: SizedBox(
+                              height: 20,
+                              width: 20,
+                              child: (_isInPlay)
+                                  ? Image.asset(
+                                      'images/icon_play.png',
+                                      color: MyColors.whiteColor,
+                                    )
+                                  : Row(
+                                      children: [
+                                        Container(
+                                          height: 17,
+                                          width: 5,
+                                          color: MyColors.whiteColor,
+                                        ),
+                                        const SizedBox(width: 5),
+                                        Container(
+                                          height: 17,
+                                          width: 5,
+                                          color: MyColors.whiteColor,
+                                        ),
+                                      ],
+                                    ),
                             ),
                           ),
                         ],
@@ -192,8 +207,8 @@ class _BottomPlayerState extends State<BottomPlayer> {
                 child: SizedBox(
                   height: 8,
                   child: Slider(
-                    activeColor: const Color(0xffB2B2B2),
-                    inactiveColor: const Color(0xff702F3D),
+                    activeColor: const Color.fromARGB(255, 230, 229, 229),
+                    inactiveColor: MyColors.lightGrey,
                     value: 0.5,
                     onChanged: (onChanged) {},
                   ),
