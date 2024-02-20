@@ -90,13 +90,30 @@ class SearchScreen extends StatelessWidget {
                 radius: 23,
                 isDeletable: true,
               ),
-              const SliverToBoxAdapter(
-                child: AlbumChip(
-                  image: "american-dream.jpg",
-                  albumName: "american dream",
-                  artistName: "21 Savage",
-                  size: 47,
-                  isDeletable: true,
+              SliverToBoxAdapter(
+                child: GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => BlocProvider(
+                          create: (context) {
+                            var bloc = AlbumBloc(locator.get());
+                            bloc.add(AlbumListEvent("21 Savage"));
+                            return bloc;
+                          },
+                          child: const AlbumViewScreen(),
+                        ),
+                      ),
+                    );
+                  },
+                  child: const AlbumChip(
+                    image: "american-dream.jpg",
+                    albumName: "american dream",
+                    artistName: "21 Savage",
+                    size: 47,
+                    isDeletable: true,
+                  ),
                 ),
               ),
               const SongChip(

@@ -7,7 +7,7 @@ abstract class AlbumRepository {
 }
 
 class AlbumLocalRepository extends AlbumRepository {
-  final AlbumLocalDatasource _albumLocalDatasource = locator.get();
+  final AlbumDatasource _albumLocalDatasource = locator.get();
   @override
   Future<Album> albumList(String singer) async {
     return await _albumLocalDatasource.albumList(singer);

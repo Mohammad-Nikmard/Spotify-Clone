@@ -42,7 +42,8 @@ class AlbumLocalDatasource extends AlbumDatasource {
             AlbumTrack("Away From Home", "Drake"),
             AlbumTrack("Polar Opposites", "Drake"),
           ],
-          "2023");
+          "2023",
+          "Drake.jpg");
     } else if (singer == "Travis Scott") {
       return Album(
           'UTOPIA.jpg',
@@ -78,7 +79,8 @@ class AlbumLocalDatasource extends AlbumDatasource {
             AlbumTrack('TIL FUTURE NOTICE (feat. James Blake & 21 Savage)',
                 "Travis Scott, James Blake, 21 Savage"),
           ],
-          "2023");
+          "2023",
+          "Travis-Scott.jpg");
     } else if (singer == "Post Malone") {
       return Album(
           'AUSTIN.jpg',
@@ -103,7 +105,8 @@ class AlbumLocalDatasource extends AlbumDatasource {
             AlbumTrack("Green Thumb", "Post Malone"),
             AlbumTrack("Laught It Off", "Post Malone"),
           ],
-          "2023");
+          "2023",
+          "Post-Malone.jpg");
     } else if (singer == "21 Savage") {
       return Album(
           'american-dream.jpg',
@@ -126,9 +129,10 @@ class AlbumLocalDatasource extends AlbumDatasource {
             AlbumTrack("red sky", "21 Savage, Tommy Newport, Milkky Ekko"),
             AlbumTrack("dark days", "21 Savage, Mariah the Scientist"),
           ],
-          "2023");
+          "2023",
+          "21-Savage.jpg");
     } else {
-      return Album("", "", "", [], "");
+      return Album("", "", "", [], "", "");
     }
   }
 }

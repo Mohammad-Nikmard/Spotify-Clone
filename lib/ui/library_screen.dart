@@ -1,5 +1,12 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:spotify_clone/DI/service_locator.dart';
+import 'package:spotify_clone/bloc/album/album_bloc.dart';
+import 'package:spotify_clone/bloc/album/album_event.dart';
 import 'package:spotify_clone/constants/constants.dart';
+import 'package:spotify_clone/ui/albumview_screen.dart';
 import 'package:spotify_clone/ui/profile_screen.dart';
 import 'package:spotify_clone/ui/setting_screen.dart';
 import 'package:spotify_clone/widgets/album_chip.dart';
@@ -119,12 +126,31 @@ class LibraryScreen extends StatelessWidget {
                   ),
                   const LikedSongs(),
                   const NewEpisodes(),
-                  const AlbumChip(
-                    image: "For-All-The-Dogs.jpg",
-                    albumName: "For All The Dogs",
-                    artistName: "Drake",
-                    size: 65,
-                    isDeletable: false,
+                  SliverToBoxAdapter(
+                    child: GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => BlocProvider(
+                              create: (context) {
+                                var bloc = AlbumBloc(locator.get());
+                                bloc.add(AlbumListEvent("Drake"));
+                                return bloc;
+                              },
+                              child: const AlbumViewScreen(),
+                            ),
+                          ),
+                        );
+                      },
+                      child: const AlbumChip(
+                        image: "For-All-The-Dogs.jpg",
+                        albumName: "For All The Dogs",
+                        artistName: "Drake",
+                        size: 65,
+                        isDeletable: false,
+                      ),
+                    ),
                   ),
                   const ArtistChip(
                     image: '21-Savage.jpg',
@@ -145,12 +171,31 @@ class LibraryScreen extends StatelessWidget {
                     radius: 35,
                     isDeletable: false,
                   ),
-                  const AlbumChip(
-                    image: "american-dream.jpg",
-                    albumName: "american dream",
-                    artistName: "21 Savage",
-                    size: 65,
-                    isDeletable: false,
+                  SliverToBoxAdapter(
+                    child: GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => BlocProvider(
+                              create: (context) {
+                                var bloc = AlbumBloc(locator.get());
+                                bloc.add(AlbumListEvent("21 Savage"));
+                                return bloc;
+                              },
+                              child: const AlbumViewScreen(),
+                            ),
+                          ),
+                        );
+                      },
+                      child: const AlbumChip(
+                        image: "american-dream.jpg",
+                        albumName: "american dream",
+                        artistName: "21 Savage",
+                        size: 65,
+                        isDeletable: false,
+                      ),
+                    ),
                   ),
                   const ArtistChip(
                     image: "J-Cole.jpg",
@@ -166,7 +211,7 @@ class LibraryScreen extends StatelessWidget {
                     isDeletable: false,
                   ),
                   const SliverPadding(
-                    padding: EdgeInsets.only(bottom: 100),
+                    padding: EdgeInsets.only(bottom: 130),
                   ),
                 ],
               ),

@@ -194,7 +194,7 @@ class _SearchCategoryScreenState extends State<SearchCategoryScreen> {
                     ),
                   ),
                   const SliverPadding(
-                    padding: EdgeInsets.only(bottom: 100),
+                    padding: EdgeInsets.only(bottom: 130),
                   ),
                 ],
               ),

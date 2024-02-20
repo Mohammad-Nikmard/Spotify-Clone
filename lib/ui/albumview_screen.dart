@@ -1,16 +1,24 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:spotify_clone/bloc/album/album_bloc.dart';
 import 'package:spotify_clone/bloc/album/album_state.dart';
 import 'package:spotify_clone/constants/constants.dart';
+import 'package:spotify_clone/data/model/album.dart';
 import 'package:spotify_clone/ui/album_control_screen.dart';
 import 'package:spotify_clone/ui/song_control_screen.dart';
 import 'package:spotify_clone/widgets/bottom_player.dart';
 import 'package:spotify_clone/widgets/stream_buttons.dart';
 
-class AlbumViewScreen extends StatelessWidget {
+class AlbumViewScreen extends StatefulWidget {
   const AlbumViewScreen({super.key});
 
+  @override
+  State<AlbumViewScreen> createState() => _AlbumViewScreenState();
+}
+
+class _AlbumViewScreenState extends State<AlbumViewScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,70 +33,18 @@ class AlbumViewScreen extends StatelessWidget {
                 children: [
                   CustomScrollView(
                     slivers: [
-                      SliverAppBar(
-                        floating: true,
-                        pinned: false,
-                        toolbarHeight: 30,
-                        bottom: PreferredSize(
-                          preferredSize: const Size.fromHeight(381),
-                          child: SizedBox(
-                            height: 381,
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 15),
-                                  child: Row(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      const Icon(
-                                        Icons.arrow_back_rounded,
-                                        color: Colors.white,
-                                        size: 24,
-                                      ),
-                                      SizedBox(
-                                        height: 236,
-                                        width: 236,
-                                        child: Image.asset(
-                                            'images/home/AUSTIN.jpg'),
-                                      ),
-                                      const SizedBox(
-                                        height: 24,
-                                        width: 24,
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                const AlbumControlButtons(),
-                              ],
-                            ),
-                          ),
-                        ),
-                        automaticallyImplyLeading: false,
-                        scrolledUnderElevation: 0,
-                        expandedHeight: 370,
-                        flexibleSpace: Container(
-                          decoration: BoxDecoration(
-                            border: Border.all(
-                                width: 0, color: MyColors.blackColor),
-                            gradient: LinearGradient(
-                              begin: Alignment.topCenter,
-                              end: Alignment.bottomCenter,
-                              colors: [Colors.blue[400]!, MyColors.blackColor],
-                            ),
-                          ),
-                        ),
-                      ),
                       SliverPersistentHeader(
-                        delegate: SliverHeader(),
+                        delegate: SliverHeader(
+                            title: state.album.albumName, state: state),
                         pinned: true,
                         floating: true,
                       ),
-                      const _AlbumTrackList(),
+                      SliverToBoxAdapter(
+                        child: AlbumControlButtons(
+                          album: state.album,
+                        ),
+                      ),
+                      _AlbumTrackList(albumList: state.album),
                     ],
                   ),
                   const BottomPlayer(),
@@ -104,7 +60,8 @@ class AlbumViewScreen extends StatelessWidget {
 }
 
 class _AlbumTrackList extends StatelessWidget {
-  const _AlbumTrackList({super.key});
+  const _AlbumTrackList({required this.albumList});
+  final Album albumList;
 
   @override
   Widget build(BuildContext context) {
@@ -121,12 +78,16 @@ class _AlbumTrackList extends StatelessWidget {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text(
-                        "Love Me Do - Mono / Remastered",
-                        style: TextStyle(
-                          fontFamily: "AM",
-                          fontSize: 17,
-                          color: MyColors.whiteColor,
+                      SizedBox(
+                        width: MediaQuery.of(context).size.width - 110,
+                        child: Text(
+                          albumList.trackList[index].trackName,
+                          style: const TextStyle(
+                            fontFamily: "AM",
+                            fontSize: 17,
+                            color: MyColors.whiteColor,
+                          ),
+                          overflow: TextOverflow.ellipsis,
                         ),
                       ),
                       Row(
@@ -139,9 +100,9 @@ class _AlbumTrackList extends StatelessWidget {
                           const SizedBox(
                             width: 5,
                           ),
-                          const Text(
-                            "The Beatles",
-                            style: TextStyle(
+                          Text(
+                            albumList.trackList[index].singers,
+                            style: const TextStyle(
                               fontFamily: "AM",
                               fontSize: 14,
                               color: MyColors.lightGrey,
@@ -166,7 +127,7 @@ class _AlbumTrackList extends StatelessWidget {
               ),
             );
           },
-          childCount: 30,
+          childCount: albumList.trackList.length,
         ),
       ),
     );
@@ -174,7 +135,8 @@ class _AlbumTrackList extends StatelessWidget {
 }
 
 class AlbumControlButtons extends StatefulWidget {
-  const AlbumControlButtons({super.key});
+  const AlbumControlButtons({super.key, required this.album});
+  final Album album;
 
   @override
   State<AlbumControlButtons> createState() => _AlbumControlButtonsState();
@@ -185,111 +147,123 @@ class _AlbumControlButtonsState extends State<AlbumControlButtons> {
   bool _isInPlay = true;
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const Text(
-                "AUSTIN",
-                style: TextStyle(
-                  fontFamily: "AM",
-                  fontSize: 25,
-                  color: MyColors.whiteColor,
-                  fontWeight: FontWeight.w700,
+    return Container(
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+          colors: [
+            Colors.blue[400]!,
+            MyColors.blackColor,
+          ],
+        ),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 20),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  widget.album.albumName,
+                  style: const TextStyle(
+                    fontFamily: "AM",
+                    fontSize: 25,
+                    color: MyColors.whiteColor,
+                    fontWeight: FontWeight.w700,
+                  ),
                 ),
-              ),
-              const SizedBox(
-                height: 5,
-              ),
-              const Row(
-                children: [
-                  CircleAvatar(
-                    radius: 15,
-                    backgroundImage:
-                        AssetImage('images/artists/Post-Malone.jpg'),
-                  ),
-                  SizedBox(
-                    width: 8,
-                  ),
-                  Text(
-                    "Post Malone",
-                    style: TextStyle(
-                      fontFamily: "AM",
-                      fontSize: 14,
-                      color: MyColors.whiteColor,
-                      fontWeight: FontWeight.w400,
-                    ),
-                  ),
-                ],
-              ),
-              const SizedBox(
-                height: 10,
-              ),
-              const Text(
-                "Album . 2023",
-                style: TextStyle(
-                  fontFamily: "AM",
-                  fontSize: 13,
-                  color: Color.fromARGB(255, 165, 165, 165),
+                const SizedBox(
+                  height: 5,
                 ),
-              ),
-              SizedBox(
-                width: 120,
-                height: 45,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                Row(
                   children: [
-                    GestureDetector(
-                      onTap: () {
-                        setState(() {
-                          _isLiked = !_isLiked;
-                        });
-                      },
-                      child: (_isLiked)
-                          ? Image.asset('images/icon_heart.png')
-                          : Image.asset('images/icon_heart_filled.png'),
+                    CircleAvatar(
+                      radius: 15,
+                      backgroundImage: AssetImage(
+                          'images/artists/${widget.album.artistImage}'),
                     ),
-                    Image.asset('images/icon_downloaded.png'),
-                    GestureDetector(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const AlbumControlScreen(),
-                          ),
-                        );
-                      },
-                      child: Image.asset('images/icon_more.png'),
+                    const SizedBox(
+                      width: 8,
+                    ),
+                    Text(
+                      widget.album.singerName,
+                      style: const TextStyle(
+                        fontFamily: "AM",
+                        fontSize: 14,
+                        color: MyColors.whiteColor,
+                        fontWeight: FontWeight.w400,
+                      ),
                     ),
                   ],
                 ),
-              ),
-            ],
-          ),
-          GestureDetector(
-            onTap: () {
-              setState(() {
-                _isInPlay = !_isInPlay;
-              });
-            },
-            child: (_isInPlay)
-                ? const PlayButton(
-                    height: 56,
-                    width: 56,
-                    color: MyColors.greenColor,
-                  )
-                : const PauseButton(
-                    iconHeight: 19,
-                    color: MyColors.greenColor,
-                    height: 56,
-                    width: 56,
+                const SizedBox(
+                  height: 10,
+                ),
+                Text(
+                  "Album . ${widget.album.year}",
+                  style: const TextStyle(
+                    fontFamily: "AM",
+                    fontSize: 13,
+                    color: Color.fromARGB(255, 165, 165, 165),
                   ),
-          ),
-        ],
+                ),
+                SizedBox(
+                  width: 120,
+                  height: 45,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            _isLiked = !_isLiked;
+                          });
+                        },
+                        child: (_isLiked)
+                            ? Image.asset('images/icon_heart.png')
+                            : Image.asset('images/icon_heart_filled.png'),
+                      ),
+                      Image.asset('images/icon_downloaded.png'),
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const AlbumControlScreen(),
+                            ),
+                          );
+                        },
+                        child: Image.asset('images/icon_more.png'),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+            GestureDetector(
+              onTap: () {
+                setState(() {
+                  _isInPlay = !_isInPlay;
+                });
+              },
+              child: (_isInPlay)
+                  ? const PlayButton(
+                      height: 56,
+                      width: 56,
+                      color: MyColors.greenColor,
+                    )
+                  : const PauseButton(
+                      iconHeight: 19,
+                      color: MyColors.greenColor,
+                      height: 56,
+                      width: 56,
+                    ),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -336,36 +310,66 @@ class _Header extends StatelessWidget {
 }
 
 class SliverHeader extends SliverPersistentHeaderDelegate {
+  final String title;
+  final AlbumListResponseState state;
+
+  SliverHeader({required this.title, required this.state});
   @override
   Widget build(
       BuildContext context, double shrinkOffset, bool overlapsContent) {
-    return Container(
-      height: 90,
-      color: Colors.blue,
-      child: const Column(
+    double value = shrinkOffset / 1.2;
+    return AnimatedContainer(
+      duration: const Duration(milliseconds: 100),
+      // height: shrinkOffset / 1,
+      decoration: BoxDecoration(
+        color: Colors.blue[400],
+        border: Border.all(width: 0, color: Colors.blue),
+      ),
+      child: Column(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              SizedBox(width: 10),
-              Icon(
-                Icons.arrow_back_rounded,
-                color: MyColors.whiteColor,
-              ),
-              SizedBox(width: 30),
-              Text(
-                "AUSTIN",
-                style: TextStyle(
-                  fontFamily: "AB",
-                  fontSize: 16,
-                  color: MyColors.whiteColor,
+          AnimatedContainer(
+            duration: const Duration(milliseconds: 100),
+            // height: shrinkOffset / 1.23,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 15),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.pop(context);
+                        },
+                        child: const Icon(
+                          Icons.arrow_back_rounded,
+                          color: Colors.white,
+                          size: 24,
+                        ),
+                      ),
+                      AnimatedOpacity(
+                        duration: const Duration(milliseconds: 500),
+                        opacity: (value < 130) ? 0 : 1,
+                        child: SizedBox(
+                          height: value,
+                          width: value,
+                          child: Image.asset(
+                            'images/home/${state.album.albumImage}',
+                          ),
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 24,
+                        width: 24,
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-            ],
-          ),
-          SizedBox(
-            height: 15,
+              ],
+            ),
           ),
         ],
       ),
@@ -373,13 +377,13 @@ class SliverHeader extends SliverPersistentHeaderDelegate {
   }
 
   @override
-  double get maxExtent => 100.0;
+  double get maxExtent => 270.0;
 
   @override
-  double get minExtent => 100.0;
+  double get minExtent => 270.0;
 
   @override
   bool shouldRebuild(covariant SliverPersistentHeaderDelegate oldDelegate) {
-    return true;
+    return false;
   }
 }

@@ -5,8 +5,9 @@ class Album {
   String year;
   String singerName;
   String albumImage;
+  String artistImage;
   List<AlbumTrack> trackList;
 
   Album(this.albumImage, this.albumName, this.singerName, this.trackList,
-      this.year);
+      this.year, this.artistImage);
 }

@@ -1,5 +1,12 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:spotify_clone/DI/service_locator.dart';
+import 'package:spotify_clone/bloc/album/album_bloc.dart';
+import 'package:spotify_clone/bloc/album/album_event.dart';
 import 'package:spotify_clone/constants/constants.dart';
+import 'package:spotify_clone/ui/albumview_screen.dart';
 import 'package:spotify_clone/ui/setting_screen.dart';
 import 'package:spotify_clone/widgets/bottom_player.dart';
 
@@ -22,9 +29,9 @@ class HomeScreen extends StatelessWidget {
                   _Header(),
                   JumpBackin(),
                   TopMixes(),
-                  EditorPicks(),
+                  RecentPlays(),
                   SliverPadding(
-                    padding: EdgeInsets.only(bottom: 50),
+                    padding: EdgeInsets.only(bottom: 100),
                   ),
                 ],
               ),
@@ -40,8 +47,8 @@ class HomeScreen extends StatelessWidget {
   }
 }
 
-class EditorPicks extends StatelessWidget {
-  const EditorPicks({super.key});
+class RecentPlays extends StatelessWidget {
+  const RecentPlays({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -112,48 +119,82 @@ class EditorPicks extends StatelessWidget {
                     ],
                   ),
                   const SizedBox(width: 15),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      SizedBox(
-                        height: 133,
-                        width: 133,
-                        child: Image.asset("images/home/UTOPIA.jpg"),
-                      ),
-                      const SizedBox(
-                        height: 12,
-                      ),
-                      const Text(
-                        "UTOPIA",
-                        style: TextStyle(
-                          fontFamily: "AB",
-                          fontSize: 12,
-                          color: MyColors.whiteColor,
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => BlocProvider(
+                            create: (context) {
+                              var bloc = AlbumBloc(locator.get());
+                              bloc.add(AlbumListEvent("Travis Scott"));
+                              return bloc;
+                            },
+                            child: const AlbumViewScreen(),
+                          ),
                         ),
-                      ),
-                    ],
+                      );
+                    },
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        SizedBox(
+                          height: 133,
+                          width: 133,
+                          child: Image.asset("images/home/UTOPIA.jpg"),
+                        ),
+                        const SizedBox(
+                          height: 12,
+                        ),
+                        const Text(
+                          "UTOPIA",
+                          style: TextStyle(
+                            fontFamily: "AB",
+                            fontSize: 12,
+                            color: MyColors.whiteColor,
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                   const SizedBox(width: 15),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      SizedBox(
-                        height: 133,
-                        width: 133,
-                        child: Image.asset("images/home/american-dream.jpg"),
-                      ),
-                      const SizedBox(
-                        height: 12,
-                      ),
-                      const Text(
-                        "american dream",
-                        style: TextStyle(
-                          fontFamily: "AB",
-                          fontSize: 12,
-                          color: MyColors.whiteColor,
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => BlocProvider(
+                            create: (context) {
+                              var bloc = AlbumBloc(locator.get());
+                              bloc.add(AlbumListEvent("21 Savage"));
+                              return bloc;
+                            },
+                            child: const AlbumViewScreen(),
+                          ),
                         ),
-                      ),
-                    ],
+                      );
+                    },
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        SizedBox(
+                          height: 133,
+                          width: 133,
+                          child: Image.asset("images/home/american-dream.jpg"),
+                        ),
+                        const SizedBox(
+                          height: 12,
+                        ),
+                        const Text(
+                          "american dream",
+                          style: TextStyle(
+                            fontFamily: "AB",
+                            fontSize: 12,
+                            color: MyColors.whiteColor,
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                   const SizedBox(
                     width: 15,
@@ -292,76 +333,111 @@ class JumpBackin extends StatelessWidget {
                   const SizedBox(
                     width: 15,
                   ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      SizedBox(
-                        height: 153,
-                        width: 153,
-                        child: Image.asset("images/home/UTOPIA.jpg"),
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      const Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            "UTOPIA",
-                            style: TextStyle(
-                              fontFamily: "AB",
-                              fontSize: 12,
-                              color: MyColors.whiteColor,
-                            ),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => BlocProvider(
+                            create: (context) {
+                              var bloc = AlbumBloc(locator.get());
+                              bloc.add(AlbumListEvent("Travis Scott"));
+                              return bloc;
+                            },
+                            child: const AlbumViewScreen(),
                           ),
-                          Text(
-                            "Album . Travis Scott",
-                            style: TextStyle(
-                              fontFamily: "AM",
-                              fontSize: 12.5,
-                              color: MyColors.lightGrey,
+                        ),
+                      );
+                    },
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        SizedBox(
+                          height: 153,
+                          width: 153,
+                          child: Image.asset("images/home/UTOPIA.jpg"),
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        const Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              "UTOPIA",
+                              style: TextStyle(
+                                fontFamily: "AB",
+                                fontSize: 12,
+                                color: MyColors.whiteColor,
+                              ),
                             ),
-                          ),
-                        ],
-                      ),
-                    ],
+                            Text(
+                              "Album . Travis Scott",
+                              style: TextStyle(
+                                fontFamily: "AM",
+                                fontSize: 12.5,
+                                color: MyColors.lightGrey,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
                   const SizedBox(
                     width: 15,
                   ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      SizedBox(
-                        height: 153,
-                        width: 153,
-                        child: Image.asset("images/home/For-All-The-Dogs.jpg"),
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      const Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            "For All The Dogs",
-                            style: TextStyle(
-                              fontFamily: "AB",
-                              fontSize: 12,
-                              color: MyColors.whiteColor,
-                            ),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => BlocProvider(
+                            create: (context) {
+                              var bloc = AlbumBloc(locator.get());
+                              bloc.add(AlbumListEvent("Drake"));
+                              return bloc;
+                            },
+                            child: const AlbumViewScreen(),
                           ),
-                          Text(
-                            "Album . Drake",
-                            style: TextStyle(
-                              fontFamily: "AM",
-                              fontSize: 12.5,
-                              color: MyColors.lightGrey,
+                        ),
+                      );
+                    },
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        SizedBox(
+                          height: 153,
+                          width: 153,
+                          child:
+                              Image.asset("images/home/For-All-The-Dogs.jpg"),
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        const Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              "For All The Dogs",
+                              style: TextStyle(
+                                fontFamily: "AB",
+                                fontSize: 12,
+                                color: MyColors.whiteColor,
+                              ),
                             ),
-                          ),
-                        ],
-                      ),
-                    ],
+                            Text(
+                              "Album . Drake",
+                              style: TextStyle(
+                                fontFamily: "AM",
+                                fontSize: 12.5,
+                                color: MyColors.lightGrey,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
                 ],
               ),
@@ -713,16 +789,50 @@ class _Header extends StatelessWidget {
                   ],
                 ),
                 const SizedBox(height: 10),
-                const Row(
+                Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    _RecentPlaysChip(
-                      image: "home/american-dream.jpg",
-                      title: "american dream",
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => BlocProvider(
+                              create: (context) {
+                                var bloc = AlbumBloc(locator.get());
+                                bloc.add(AlbumListEvent("21 Savage"));
+                                return bloc;
+                              },
+                              child: const AlbumViewScreen(),
+                            ),
+                          ),
+                        );
+                      },
+                      child: const _RecentPlaysChip(
+                        image: "home/american-dream.jpg",
+                        title: "american dream",
+                      ),
                     ),
-                    _RecentPlaysChip(
-                      image: "home/UTOPIA.jpg",
-                      title: "UTOPIA",
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => BlocProvider(
+                              create: (context) {
+                                var bloc = AlbumBloc(locator.get());
+                                bloc.add(AlbumListEvent("Travis Scott"));
+                                return bloc;
+                              },
+                              child: const AlbumViewScreen(),
+                            ),
+                          ),
+                        );
+                      },
+                      child: const _RecentPlaysChip(
+                        image: "home/UTOPIA.jpg",
+                        title: "UTOPIA",
+                      ),
                     ),
                   ],
                 ),
