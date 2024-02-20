@@ -1,6 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:spotify_clone/DI/service_locator.dart';
+import 'package:spotify_clone/bloc/album/album_bloc.dart';
+import 'package:spotify_clone/bloc/album/album_event.dart';
 import 'package:spotify_clone/constants/constants.dart';
 import 'package:spotify_clone/ui/albumview_screen.dart';
 import 'package:spotify_clone/widgets/album_chip.dart';
@@ -41,7 +45,14 @@ class SearchScreen extends StatelessWidget {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => const AlbumViewScreen(),
+                        builder: (context) => BlocProvider(
+                          create: (cotnext) {
+                            var bloc = AlbumBloc(locator.get());
+                            bloc.add(AlbumListEvent("Post Malone"));
+                            return bloc;
+                          },
+                          child: const AlbumViewScreen(),
+                        ),
                       ),
                     );
                   },

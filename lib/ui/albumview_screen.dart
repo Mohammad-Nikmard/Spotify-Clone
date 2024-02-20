@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:spotify_clone/bloc/album/album_bloc.dart';
+import 'package:spotify_clone/bloc/album/album_state.dart';
 import 'package:spotify_clone/constants/constants.dart';
 import 'package:spotify_clone/ui/album_control_screen.dart';
 import 'package:spotify_clone/ui/song_control_screen.dart';
@@ -12,77 +15,89 @@ class AlbumViewScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: MyColors.blackColor,
-      body: SafeArea(
-        top: false,
-        child: Stack(
-          alignment: AlignmentDirectional.bottomCenter,
-          children: [
-            CustomScrollView(
-              slivers: [
-                SliverAppBar(
-                  floating: true,
-                  pinned: false,
-                  toolbarHeight: 30,
-                  bottom: PreferredSize(
-                    preferredSize: const Size.fromHeight(381),
-                    child: SizedBox(
-                      height: 381,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 15),
-                            child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      body: BlocBuilder<AlbumBloc, AlbumState>(
+        builder: (context, state) {
+          if (state is AlbumListResponseState) {
+            return SafeArea(
+              top: false,
+              child: Stack(
+                alignment: AlignmentDirectional.bottomCenter,
+                children: [
+                  CustomScrollView(
+                    slivers: [
+                      SliverAppBar(
+                        floating: true,
+                        pinned: false,
+                        toolbarHeight: 30,
+                        bottom: PreferredSize(
+                          preferredSize: const Size.fromHeight(381),
+                          child: SizedBox(
+                            height: 381,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
                               children: [
-                                const Icon(
-                                  Icons.arrow_back_rounded,
-                                  color: Colors.white,
-                                  size: 24,
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 15),
+                                  child: Row(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      const Icon(
+                                        Icons.arrow_back_rounded,
+                                        color: Colors.white,
+                                        size: 24,
+                                      ),
+                                      SizedBox(
+                                        height: 236,
+                                        width: 236,
+                                        child: Image.asset(
+                                            'images/home/AUSTIN.jpg'),
+                                      ),
+                                      const SizedBox(
+                                        height: 24,
+                                        width: 24,
+                                      ),
+                                    ],
+                                  ),
                                 ),
-                                SizedBox(
-                                  height: 236,
-                                  width: 236,
-                                  child: Image.asset('images/home/AUSTIN.jpg'),
-                                ),
-                                const SizedBox(
-                                  height: 24,
-                                  width: 24,
-                                ),
+                                const AlbumControlButtons(),
                               ],
                             ),
                           ),
-                          const AlbumControlButtons(),
-                        ],
+                        ),
+                        automaticallyImplyLeading: false,
+                        scrolledUnderElevation: 0,
+                        expandedHeight: 370,
+                        flexibleSpace: Container(
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                                width: 0, color: MyColors.blackColor),
+                            gradient: LinearGradient(
+                              begin: Alignment.topCenter,
+                              end: Alignment.bottomCenter,
+                              colors: [Colors.blue[400]!, MyColors.blackColor],
+                            ),
+                          ),
+                        ),
                       ),
-                    ),
-                  ),
-                  automaticallyImplyLeading: false,
-                  scrolledUnderElevation: 0,
-                  expandedHeight: 370,
-                  flexibleSpace: Container(
-                    decoration: BoxDecoration(
-                      border: Border.all(width: 0, color: MyColors.blackColor),
-                      gradient: LinearGradient(
-                        begin: Alignment.topCenter,
-                        end: Alignment.bottomCenter,
-                        colors: [Colors.blue[400]!, MyColors.blackColor],
+                      SliverPersistentHeader(
+                        delegate: SliverHeader(),
+                        pinned: true,
+                        floating: true,
                       ),
-                    ),
+                      const _AlbumTrackList(),
+                    ],
                   ),
-                ),
-                SliverPersistentHeader(
-                  delegate: SliverHeader(),
-                  pinned: true,
-                  floating: true,
-                ),
-                const _AlbumTrackList(),
-              ],
-            ),
-            const BottomPlayer(),
-          ],
-        ),
+                  const BottomPlayer(),
+                ],
+              ),
+            );
+          }
+          return Text("");
+        },
       ),
     );
   }
