@@ -17,24 +17,16 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: MyColors.blackColor,
+      extendBody: true,
       bottomNavigationBar: Container(
         height: 64,
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: [
-              Colors.transparent,
-              MyColors.blackColor,
-            ],
-          ),
-        ),
+        width: MediaQuery.of(context).size.width,
+        color: MyColors.blackColor.withOpacity(0.95),
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 40),
+          padding: const EdgeInsets.symmetric(horizontal: 45),
           child: BottomNavigationBar(
-            elevation: 0,
             backgroundColor: Colors.transparent,
+            elevation: 0,
             selectedLabelStyle: const TextStyle(fontFamily: "AM", fontSize: 13),
             selectedItemColor: const Color(0xffE5E5E5),
             unselectedItemColor: MyColors.lightGrey,

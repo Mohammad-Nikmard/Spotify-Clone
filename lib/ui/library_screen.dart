@@ -15,6 +15,7 @@ class LibraryScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: MyColors.blackColor,
       body: SafeArea(
+        bottom: false,
         child: Stack(
           alignment: AlignmentDirectional.bottomCenter,
           children: [
@@ -170,7 +171,10 @@ class LibraryScreen extends StatelessWidget {
                 ],
               ),
             ),
-            const BottomPlayer(),
+            const Padding(
+              padding: EdgeInsets.only(bottom: 64),
+              child: BottomPlayer(),
+            ),
           ],
         ),
       ),

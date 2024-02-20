@@ -11,6 +11,7 @@ class HomeScreen extends StatelessWidget {
     return const Scaffold(
       backgroundColor: MyColors.blackColor,
       body: SafeArea(
+        bottom: false,
         child: Stack(
           alignment: AlignmentDirectional.bottomCenter,
           children: [
@@ -28,7 +29,10 @@ class HomeScreen extends StatelessWidget {
                 ],
               ),
             ),
-            BottomPlayer(),
+            Padding(
+              padding: EdgeInsets.only(bottom: 64),
+              child: BottomPlayer(),
+            ),
           ],
         ),
       ),

@@ -22,6 +22,7 @@ class _SearchCategoryScreenState extends State<SearchCategoryScreen> {
       backgroundColor: MyColors.blackColor,
       resizeToAvoidBottomInset: false,
       body: SafeArea(
+        bottom: false,
         child: Stack(
           alignment: AlignmentDirectional.bottomCenter,
           children: [
@@ -198,7 +199,10 @@ class _SearchCategoryScreenState extends State<SearchCategoryScreen> {
                 ],
               ),
             ),
-            const BottomPlayer(),
+            const Padding(
+              padding: EdgeInsets.only(bottom: 64),
+              child: BottomPlayer(),
+            ),
           ],
         ),
       ),
