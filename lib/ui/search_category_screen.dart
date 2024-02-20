@@ -1,13 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:spotify_clone/constants/constants.dart';
 import 'package:spotify_clone/ui/playlist_search_screen.dart';
-import 'package:spotify_clone/ui/scan_spotify_code.dart';
+
 import 'package:spotify_clone/ui/search_screen.dart';
 import 'package:spotify_clone/widgets/bottom_player.dart';
 
-class SearchCategoryScreen extends StatelessWidget {
+class SearchCategoryScreen extends StatefulWidget {
   const SearchCategoryScreen({super.key});
 
+  @override
+  State<SearchCategoryScreen> createState() => _SearchCategoryScreenState();
+}
+
+class _SearchCategoryScreenState extends State<SearchCategoryScreen> {
+  String? scanResault;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,13 +45,14 @@ class SearchCategoryScreen extends StatelessWidget {
                           ),
                           GestureDetector(
                             onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) =>
-                                      const ScanSpotifyCodeScreen(),
-                                ),
-                              );
+                              barcodeScanner();
+                              // Navigator.push(
+                              //   context,
+                              //   MaterialPageRoute(
+                              //     builder: (context) =>
+                              //         const ScanSpotifyCodeScreen(),
+                              //   ),
+                              // );
                             },
                             child: Image.asset("images/icon_camera.png"),
                           ),
@@ -194,6 +203,22 @@ class SearchCategoryScreen extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  Future barcodeScanner() async {
+    String scanResault;
+
+    try {
+      scanResault = await FlutterBarcodeScanner.scanBarcode(
+          "#ffFFFF", "Cancel", false, ScanMode.QR);
+    } on PlatformException {
+      scanResault = "Failed to get Platform version";
+    }
+    if (!mounted) return;
+
+    setState(() {
+      this.scanResault = scanResault;
+    });
   }
 }
 
