@@ -1,4 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:spotify_clone/constants/constants.dart';
 import 'package:spotify_clone/ui/albumview_screen.dart';
 import 'package:spotify_clone/widgets/album_chip.dart';
@@ -19,36 +21,38 @@ class SearchScreen extends StatelessWidget {
           child: CustomScrollView(
             slivers: [
               const _SearchBox(),
-              SliverToBoxAdapter(
+              const SliverToBoxAdapter(
                 child: Padding(
-                  padding: const EdgeInsets.only(top: 15, bottom: 20),
-                  child: GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const AlbumViewScreen(),
-                        ),
-                      );
-                    },
-                    child: const Text(
-                      "Recent searches",
-                      style: TextStyle(
-                        fontFamily: "AM",
-                        fontWeight: FontWeight.w400,
-                        color: MyColors.whiteColor,
-                        fontSize: 17,
-                      ),
+                  padding: EdgeInsets.only(top: 15, bottom: 20),
+                  child: Text(
+                    "Recent searches",
+                    style: TextStyle(
+                      fontFamily: "AM",
+                      fontWeight: FontWeight.w400,
+                      color: MyColors.whiteColor,
+                      fontSize: 17,
                     ),
                   ),
                 ),
               ),
-              const AlbumChip(
-                image: "AUSTIN.jpg",
-                albumName: "AUSTING",
-                artistName: "Post Malone",
-                size: 47,
-                isDeletable: true,
+              SliverToBoxAdapter(
+                child: GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const AlbumViewScreen(),
+                      ),
+                    );
+                  },
+                  child: const AlbumChip(
+                    image: "AUSTIN.jpg",
+                    albumName: "AUSTIN",
+                    artistName: "Post Malone",
+                    size: 47,
+                    isDeletable: true,
+                  ),
+                ),
               ),
               const ArtistChip(
                 image: 'Doja-Cat.jpg',
@@ -75,12 +79,14 @@ class SearchScreen extends StatelessWidget {
                 radius: 23,
                 isDeletable: true,
               ),
-              const AlbumChip(
-                image: "american-dream.jpg",
-                albumName: "american dream",
-                artistName: "21 Savage",
-                size: 47,
-                isDeletable: true,
+              const SliverToBoxAdapter(
+                child: AlbumChip(
+                  image: "american-dream.jpg",
+                  albumName: "american dream",
+                  artistName: "21 Savage",
+                  size: 47,
+                  isDeletable: true,
+                ),
               ),
               const SongChip(
                 image: "For-All-The-Dogs.jpg",

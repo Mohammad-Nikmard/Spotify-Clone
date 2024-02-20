@@ -17,53 +17,51 @@ class AlbumChip extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SliverToBoxAdapter(
-      child: Padding(
-        padding: const EdgeInsets.only(bottom: 15),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Row(
-              children: [
-                SizedBox(
-                  height: size,
-                  width: size,
-                  child: Image.asset('images/home/$image'),
-                ),
-                const SizedBox(width: 15),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      albumName,
-                      style: const TextStyle(
-                        fontFamily: "AM",
-                        fontSize: 15,
-                        color: MyColors.whiteColor,
-                      ),
-                    ),
-                    Text(
-                      "Album . $artistName",
-                      style: const TextStyle(
-                        fontFamily: "AM",
-                        fontSize: 13,
-                        color: MyColors.lightGrey,
-                      ),
-                    ),
-                  ],
-                ),
-              ],
-            ),
-            Visibility(
-              visible: isDeletable,
-              child: Image.asset(
-                'images/icon_back.png',
-                height: 14,
-                width: 14,
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 15),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Row(
+            children: [
+              SizedBox(
+                height: size,
+                width: size,
+                child: Image.asset('images/home/$image'),
               ),
+              const SizedBox(width: 15),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    albumName,
+                    style: const TextStyle(
+                      fontFamily: "AM",
+                      fontSize: 15,
+                      color: MyColors.whiteColor,
+                    ),
+                  ),
+                  Text(
+                    "Album . $artistName",
+                    style: const TextStyle(
+                      fontFamily: "AM",
+                      fontSize: 13,
+                      color: MyColors.lightGrey,
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+          Visibility(
+            visible: isDeletable,
+            child: Image.asset(
+              'images/icon_back.png',
+              height: 14,
+              width: 14,
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

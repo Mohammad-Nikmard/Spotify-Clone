@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:spotify_clone/constants/constants.dart';
 import 'package:spotify_clone/ui/listening_on_screen.dart';
 import 'package:spotify_clone/ui/track_view_screen.dart';
@@ -24,8 +23,8 @@ class _BottomPlayerState extends State<BottomPlayer> {
         decoration: const BoxDecoration(
           color: Color.fromARGB(255, 83, 83, 83),
           borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(15),
-            topRight: Radius.circular(15),
+            topLeft: Radius.circular(5),
+            topRight: Radius.circular(5),
           ),
         ),
         child: Padding(
@@ -34,7 +33,7 @@ class _BottomPlayerState extends State<BottomPlayer> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Padding(
-                padding: const EdgeInsets.only(top: 7),
+                padding: const EdgeInsets.only(top: 10),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -70,7 +69,7 @@ class _BottomPlayerState extends State<BottomPlayer> {
                                 image: AssetImage('images/home/AUSTIN.jpg'),
                                 fit: BoxFit.cover,
                               ),
-                              borderRadius: BorderRadius.circular(8),
+                              borderRadius: BorderRadius.circular(3),
                             ),
                           ),
                           const SizedBox(width: 10),

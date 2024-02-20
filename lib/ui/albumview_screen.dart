@@ -10,102 +10,148 @@ class AlbumViewScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: MediaQuery.of(context).size.height,
-      width: MediaQuery.of(context).size.width,
-      decoration: const BoxDecoration(
-        gradient: LinearGradient(
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
-          colors: [
-            Color(0xff9E2216),
-            MyColors.blackColor,
+    return Scaffold(
+      backgroundColor: MyColors.blackColor,
+      body: SafeArea(
+        top: false,
+        child: Stack(
+          alignment: AlignmentDirectional.bottomCenter,
+          children: [
+            CustomScrollView(
+              slivers: [
+                SliverAppBar(
+                  floating: true,
+                  pinned: false,
+                  toolbarHeight: 30,
+                  bottom: PreferredSize(
+                    preferredSize: const Size.fromHeight(381),
+                    child: SizedBox(
+                      height: 381,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 15),
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                const Icon(
+                                  Icons.arrow_back_rounded,
+                                  color: Colors.white,
+                                  size: 24,
+                                ),
+                                SizedBox(
+                                  height: 236,
+                                  width: 236,
+                                  child: Image.asset('images/home/AUSTIN.jpg'),
+                                ),
+                                const SizedBox(
+                                  height: 24,
+                                  width: 24,
+                                ),
+                              ],
+                            ),
+                          ),
+                          const AlbumControlButtons(),
+                        ],
+                      ),
+                    ),
+                  ),
+                  automaticallyImplyLeading: false,
+                  scrolledUnderElevation: 0,
+                  expandedHeight: 370,
+                  flexibleSpace: Container(
+                    decoration: BoxDecoration(
+                      border: Border.all(width: 0, color: MyColors.blackColor),
+                      gradient: LinearGradient(
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomCenter,
+                        colors: [Colors.blue[400]!, MyColors.blackColor],
+                      ),
+                    ),
+                  ),
+                ),
+                SliverPersistentHeader(
+                  delegate: SliverHeader(),
+                  pinned: true,
+                  floating: true,
+                ),
+                const _AlbumTrackList(),
+              ],
+            ),
+            const BottomPlayer(),
           ],
         ),
       ),
-      child: Scaffold(
-        backgroundColor: Colors.transparent,
-        body: SafeArea(
-          child: Stack(
-            alignment: AlignmentDirectional.bottomCenter,
-            children: [
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: CustomScrollView(
-                  slivers: [
-                    const _Header(),
-                    const AlbumControlButtons(),
-                    SliverPadding(
-                      padding: const EdgeInsets.only(top: 15, bottom: 25),
-                      sliver: SliverList(
-                        delegate: SliverChildBuilderDelegate(
-                          (context, index) {
-                            return Padding(
-                              padding: const EdgeInsets.only(bottom: 20),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      const Text(
-                                        "Love Me Do - Mono / Remastered",
-                                        style: TextStyle(
-                                          fontFamily: "AM",
-                                          fontSize: 17,
-                                          color: MyColors.whiteColor,
-                                        ),
-                                      ),
-                                      Row(
-                                        children: [
-                                          Image.asset(
-                                            'images/icon_downloaded.png',
-                                            height: 13,
-                                            width: 13,
-                                          ),
-                                          const SizedBox(
-                                            width: 5,
-                                          ),
-                                          const Text(
-                                            "The Beatles",
-                                            style: TextStyle(
-                                              fontFamily: "AM",
-                                              fontSize: 14,
-                                              color: MyColors.lightGrey,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                  GestureDetector(
-                                    onTap: () {
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) =>
-                                              const SongControlScreen(),
-                                        ),
-                                      );
-                                    },
-                                    child: Image.asset('images/icon_more.png'),
-                                  ),
-                                ],
-                              ),
-                            );
-                          },
-                          childCount: 10,
+    );
+  }
+}
+
+class _AlbumTrackList extends StatelessWidget {
+  const _AlbumTrackList({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return SliverPadding(
+      padding: const EdgeInsets.only(top: 15, bottom: 25, right: 20, left: 20),
+      sliver: SliverList(
+        delegate: SliverChildBuilderDelegate(
+          (context, index) {
+            return Padding(
+              padding: const EdgeInsets.only(bottom: 20),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text(
+                        "Love Me Do - Mono / Remastered",
+                        style: TextStyle(
+                          fontFamily: "AM",
+                          fontSize: 17,
+                          color: MyColors.whiteColor,
                         ),
                       ),
-                    )
-                  ],
-                ),
+                      Row(
+                        children: [
+                          Image.asset(
+                            'images/icon_downloaded.png',
+                            height: 13,
+                            width: 13,
+                          ),
+                          const SizedBox(
+                            width: 5,
+                          ),
+                          const Text(
+                            "The Beatles",
+                            style: TextStyle(
+                              fontFamily: "AM",
+                              fontSize: 14,
+                              color: MyColors.lightGrey,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const SongControlScreen(),
+                        ),
+                      );
+                    },
+                    child: Image.asset('images/icon_more.png'),
+                  ),
+                ],
               ),
-              const BottomPlayer(),
-            ],
-          ),
+            );
+          },
+          childCount: 30,
         ),
       ),
     );
@@ -124,7 +170,8 @@ class _AlbumControlButtonsState extends State<AlbumControlButtons> {
   bool _isInPlay = true;
   @override
   Widget build(BuildContext context) {
-    return SliverToBoxAdapter(
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 20),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -132,7 +179,7 @@ class _AlbumControlButtonsState extends State<AlbumControlButtons> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const Text(
-                "1(Remastered)",
+                "AUSTIN",
                 style: TextStyle(
                   fontFamily: "AM",
                   fontSize: 25,
@@ -147,13 +194,14 @@ class _AlbumControlButtonsState extends State<AlbumControlButtons> {
                 children: [
                   CircleAvatar(
                     radius: 15,
-                    backgroundColor: MyColors.greenColor,
+                    backgroundImage:
+                        AssetImage('images/artists/Post-Malone.jpg'),
                   ),
                   SizedBox(
                     width: 8,
                   ),
                   Text(
-                    "The Beatles",
+                    "Post Malone",
                     style: TextStyle(
                       fontFamily: "AM",
                       fontSize: 14,
@@ -167,11 +215,11 @@ class _AlbumControlButtonsState extends State<AlbumControlButtons> {
                 height: 10,
               ),
               const Text(
-                "Album . 2000",
+                "Album . 2023",
                 style: TextStyle(
                   fontFamily: "AM",
                   fontSize: 13,
-                  color: MyColors.lightGrey,
+                  color: Color.fromARGB(255, 165, 165, 165),
                 ),
               ),
               SizedBox(
@@ -250,7 +298,10 @@ class _Header extends StatelessWidget {
                   onTap: () {
                     Navigator.pop(context);
                   },
-                  child: Image.asset('images/icon_arrow_left.png'),
+                  child: const Icon(
+                    Icons.arrow_back_outlined,
+                    color: MyColors.whiteColor,
+                  ),
                 ),
               ],
             ),
@@ -258,7 +309,7 @@ class _Header extends StatelessWidget {
               height: 30,
             ),
             Image.asset(
-              'images/song_screen_big.png',
+              'images/home/AUSTIN.jpg',
               height: 234,
               width: 234,
             ),
@@ -266,5 +317,54 @@ class _Header extends StatelessWidget {
         ),
       ),
     );
+  }
+}
+
+class SliverHeader extends SliverPersistentHeaderDelegate {
+  @override
+  Widget build(
+      BuildContext context, double shrinkOffset, bool overlapsContent) {
+    return Container(
+      height: 90,
+      color: Colors.blue,
+      child: const Column(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              SizedBox(width: 10),
+              Icon(
+                Icons.arrow_back_rounded,
+                color: MyColors.whiteColor,
+              ),
+              SizedBox(width: 30),
+              Text(
+                "AUSTIN",
+                style: TextStyle(
+                  fontFamily: "AB",
+                  fontSize: 16,
+                  color: MyColors.whiteColor,
+                ),
+              ),
+            ],
+          ),
+          SizedBox(
+            height: 15,
+          ),
+        ],
+      ),
+    );
+  }
+
+  @override
+  double get maxExtent => 100.0;
+
+  @override
+  double get minExtent => 100.0;
+
+  @override
+  bool shouldRebuild(covariant SliverPersistentHeaderDelegate oldDelegate) {
+    return true;
   }
 }
