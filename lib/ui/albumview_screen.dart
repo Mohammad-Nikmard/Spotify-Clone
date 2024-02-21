@@ -34,8 +34,7 @@ class _AlbumViewScreenState extends State<AlbumViewScreen> {
                   CustomScrollView(
                     slivers: [
                       SliverPersistentHeader(
-                        delegate: SliverHeader(
-                            title: state.album.albumName, state: state),
+                        delegate: SliverHeader(state: state),
                         pinned: true,
                         floating: true,
                       ),
@@ -52,7 +51,16 @@ class _AlbumViewScreenState extends State<AlbumViewScreen> {
               ),
             );
           }
-          return Text("");
+          return const Center(
+            child: Text(
+              "Snap! Error Happened",
+              style: TextStyle(
+                fontFamily: "AB",
+                fontSize: 18,
+                color: MyColors.whiteColor,
+              ),
+            ),
+          );
         },
       ),
     );
@@ -84,7 +92,7 @@ class _AlbumTrackList extends StatelessWidget {
                           albumList.trackList[index].trackName,
                           style: const TextStyle(
                             fontFamily: "AM",
-                            fontSize: 17,
+                            fontSize: 16,
                             color: MyColors.whiteColor,
                           ),
                           overflow: TextOverflow.ellipsis,
@@ -104,7 +112,7 @@ class _AlbumTrackList extends StatelessWidget {
                             albumList.trackList[index].singers,
                             style: const TextStyle(
                               fontFamily: "AM",
-                              fontSize: 14,
+                              fontSize: 13,
                               color: MyColors.lightGrey,
                             ),
                           ),
@@ -153,13 +161,13 @@ class _AlbumControlButtonsState extends State<AlbumControlButtons> {
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
           colors: [
-            Colors.blue[400]!,
+            widget.album.colorPallete[1],
             MyColors.blackColor,
           ],
         ),
       ),
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20),
+        padding: const EdgeInsets.only(left: 20, right: 20, top: 25),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -269,77 +277,40 @@ class _AlbumControlButtonsState extends State<AlbumControlButtons> {
   }
 }
 
-class _Header extends StatelessWidget {
-  const _Header();
-
-  @override
-  Widget build(BuildContext context) {
-    return SliverToBoxAdapter(
-      child: Padding(
-        padding: const EdgeInsets.only(top: 20, bottom: 40),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                GestureDetector(
-                  onTap: () {
-                    Navigator.pop(context);
-                  },
-                  child: const Icon(
-                    Icons.arrow_back_outlined,
-                    color: MyColors.whiteColor,
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(
-              height: 30,
-            ),
-            Image.asset(
-              'images/home/AUSTIN.jpg',
-              height: 234,
-              width: 234,
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
 class SliverHeader extends SliverPersistentHeaderDelegate {
-  final String title;
   final AlbumListResponseState state;
 
-  SliverHeader({required this.title, required this.state});
+  SliverHeader({required this.state});
   @override
   Widget build(
       BuildContext context, double shrinkOffset, bool overlapsContent) {
-    double value = shrinkOffset / 1.2;
-    return AnimatedContainer(
-      duration: const Duration(milliseconds: 100),
-      // height: shrinkOffset / 1,
-      decoration: BoxDecoration(
-        color: Colors.blue[400],
-        border: Border.all(width: 0, color: Colors.blue),
-      ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.end,
-        children: [
-          AnimatedContainer(
-            duration: const Duration(milliseconds: 100),
-            // height: shrinkOffset / 1.23,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 15),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    double value = 285 - shrinkOffset;
+
+    return AnimatedSwitcher(
+      duration: const Duration(milliseconds: 300),
+      child: (shrinkOffset > 190)
+          ? Container(
+              key: const Key("1"),
+              height: 90,
+              width: MediaQuery.of(context).size.width,
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  colors: [
+                    state.album.colorPallete[0],
+                    state.album.colorPallete[1],
+                  ],
+                ),
+              ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Row(
                     children: [
+                      const SizedBox(
+                        width: 15,
+                      ),
                       GestureDetector(
                         onTap: () {
                           Navigator.pop(context);
@@ -350,37 +321,130 @@ class SliverHeader extends SliverPersistentHeaderDelegate {
                           size: 24,
                         ),
                       ),
-                      AnimatedOpacity(
-                        duration: const Duration(milliseconds: 500),
-                        opacity: (value < 130) ? 0 : 1,
-                        child: SizedBox(
-                          height: value,
-                          width: value,
-                          child: Image.asset(
-                            'images/home/${state.album.albumImage}',
-                          ),
-                        ),
-                      ),
                       const SizedBox(
-                        height: 24,
-                        width: 24,
+                        width: 30,
+                      ),
+                      Text(
+                        state.album.albumName,
+                        style: const TextStyle(
+                          fontFamily: "AM",
+                          fontSize: 16,
+                          color: MyColors.whiteColor,
+                          fontWeight: FontWeight.w700,
+                        ),
                       ),
                     ],
                   ),
+                  const SizedBox(
+                    height: 15,
+                  ),
+                ],
+              ),
+            )
+          : Container(
+              key: const Key("2"),
+              height: value + 15,
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  colors: [
+                    state.album.colorPallete[0],
+                    state.album.colorPallete[1],
+                  ],
                 ),
-              ],
+                border: Border.all(
+                  width: 0,
+                  color: state.album.colorPallete[1],
+                ),
+              ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding:
+                            const EdgeInsets.only(left: 15, right: 15, top: 50),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            GestureDetector(
+                              onTap: () {
+                                Navigator.pop(context);
+                              },
+                              child: AnimatedScale(
+                                duration: const Duration(milliseconds: 200),
+                                scale: (value < 100) ? 0 : 1,
+                                child: const Icon(
+                                  Icons.arrow_back_rounded,
+                                  color: Colors.white,
+                                  size: 24,
+                                ),
+                              ),
+                            ),
+                            AnimatedScale(
+                              duration: const Duration(milliseconds: 200),
+                              scale: (value < 130) ? 0 : 1,
+                              child: Container(
+                                height: calScale(value),
+                                width: calScale(value),
+                                decoration: const BoxDecoration(
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: MyColors.blackColor,
+                                      offset: Offset(0, 10),
+                                      spreadRadius: -10,
+                                      blurRadius: 15,
+                                    ),
+                                    BoxShadow(
+                                      color: MyColors.blackColor,
+                                      offset: Offset(0, -10),
+                                      spreadRadius: -10,
+                                      blurRadius: 15,
+                                    ),
+                                  ],
+                                ),
+                                child: Image.asset(
+                                  'images/home/${state.album.albumImage}',
+                                ),
+                              ),
+                            ),
+                            AnimatedScale(
+                              duration: const Duration(milliseconds: 200),
+                              scale: (value < 100) ? 0 : 1,
+                              child: const Icon(
+                                Icons.arrow_back_rounded,
+                                color: Colors.transparent,
+                                size: 24,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             ),
-          ),
-        ],
-      ),
     );
   }
 
-  @override
-  double get maxExtent => 270.0;
+  double calScale(value) {
+    if (value > 0) {
+      return value - 35;
+    } else {
+      return 0;
+    }
+  }
 
   @override
-  double get minExtent => 270.0;
+  double get maxExtent => 300.0;
+
+  @override
+  double get minExtent => 300.0;
 
   @override
   bool shouldRebuild(covariant SliverPersistentHeaderDelegate oldDelegate) {

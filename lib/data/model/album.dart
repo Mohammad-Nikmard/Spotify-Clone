@@ -1,3 +1,4 @@
+import 'package:flutter/widgets.dart';
 import 'package:spotify_clone/data/model/album_track.dart';
 
 class Album {
@@ -7,7 +8,8 @@ class Album {
   String albumImage;
   String artistImage;
   List<AlbumTrack> trackList;
+  List<Color> colorPallete;
 
   Album(this.albumImage, this.albumName, this.singerName, this.trackList,
-      this.year, this.artistImage);
+      this.year, this.artistImage, this.colorPallete);
 }
