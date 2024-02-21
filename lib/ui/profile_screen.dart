@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:spotify_clone/constants/constants.dart';
+import 'package:spotify_clone/widgets/bottom_player.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
@@ -9,41 +10,50 @@ class ProfileScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.transparent,
-      body: Column(
+      body: Stack(
+        alignment: AlignmentDirectional.bottomCenter,
         children: [
-          Expanded(
-            flex: 5,
-            child: Container(
-              decoration: BoxDecoration(
-                border: Border.all(
-                  color: const Color(0xff101010),
-                  width: 0,
-                ),
-                gradient: const LinearGradient(
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                  colors: [
-                    Color(0xff00667B),
-                    Color(0xff002F38),
-                    Color(0xff101010),
-                  ],
+          Column(
+            children: [
+              Expanded(
+                flex: 5,
+                child: Container(
+                  decoration: BoxDecoration(
+                    border: Border.all(
+                      color: const Color(0xff101010),
+                      width: 0,
+                    ),
+                    gradient: const LinearGradient(
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                      colors: [
+                        Color(0xff00667B),
+                        Color(0xff002F38),
+                        Color(0xff101010),
+                      ],
+                    ),
+                  ),
+                  child: const UpperContainerContent(),
                 ),
               ),
-              child: const UpperContainerContent(),
-            ),
+              Expanded(
+                flex: 5,
+                child: Container(
+                  decoration: BoxDecoration(
+                    border: Border.all(
+                      color: const Color(0xff101010),
+                      width: 0,
+                    ),
+                    color: const Color(0xff101010),
+                  ),
+                  child: const LowerContainerContent(),
+                ),
+              ),
+            ],
           ),
-          Expanded(
-            flex: 5,
-            child: Container(
-              decoration: BoxDecoration(
-                border: Border.all(
-                  color: const Color(0xff101010),
-                  width: 0,
-                ),
-                color: const Color(0xff101010),
-              ),
-              child: const LowerContainerContent(),
-            ),
+          const Padding(
+            padding: EdgeInsets.only(bottom: 64),
+            child: BottomPlayer(),
           ),
         ],
       ),

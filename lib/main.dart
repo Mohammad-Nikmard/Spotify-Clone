@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:spotify_clone/DI/service_locator.dart';
-import 'package:spotify_clone/ui/albumview_screen.dart';
-import 'package:spotify_clone/ui/dashboard_screen.dart';
-import 'package:spotify_clone/ui/home_screen.dart';
+import 'package:spotify_clone/navigation/app_navigation.dart';
 
 void main() {
   initServiceLocator();
@@ -20,12 +18,12 @@ class MyApp extends StatelessWidget {
       minTextAdapt: true,
       splitScreenMode: true,
       builder: (context, child) {
-        return MaterialApp(
+        return MaterialApp.router(
           theme: ThemeData(
             splashColor: Colors.transparent,
           ),
           debugShowCheckedModeBanner: false,
-          home: const HomeScreen(),
+          routerConfig: AppNavigation.router,
         );
       },
     );

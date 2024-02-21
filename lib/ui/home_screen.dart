@@ -1,13 +1,11 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:spotify_clone/DI/service_locator.dart';
 import 'package:spotify_clone/bloc/album/album_bloc.dart';
 import 'package:spotify_clone/bloc/album/album_event.dart';
 import 'package:spotify_clone/constants/constants.dart';
 import 'package:spotify_clone/ui/albumview_screen.dart';
-import 'package:spotify_clone/ui/setting_screen.dart';
 import 'package:spotify_clone/widgets/bottom_player.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -657,12 +655,7 @@ class _Header extends StatelessWidget {
                       Image.asset("images/icon_recent.png"),
                       GestureDetector(
                         onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const SettingScreen(),
-                            ),
-                          );
+                          context.goNamed("setting");
                         },
                         child: Image.asset("images/icon_settings.png"),
                       ),
