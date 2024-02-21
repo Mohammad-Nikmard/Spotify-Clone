@@ -45,6 +45,10 @@ flutter:
     - images/artists/
     - images/podcasts/
     - images/home/
+    - images/chill/
+    - images/drake mix/
+    - images/upbeat/
+    - images/2010/
 
   fonts:
     - family: AM

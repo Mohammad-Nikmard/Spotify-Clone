@@ -3,7 +3,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:go_router/go_router.dart';
 import 'package:spotify_clone/constants/constants.dart';
-import 'package:spotify_clone/ui/playlist_search_screen.dart';
 import 'package:spotify_clone/widgets/bottom_player.dart';
 
 class SearchCategoryScreen extends StatefulWidget {
@@ -75,24 +74,12 @@ class _SearchCategoryScreenState extends State<SearchCategoryScreen> {
                       ),
                     ),
                   ),
-                  SliverToBoxAdapter(
+                  const SliverToBoxAdapter(
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        const _ImageContainer(title: "", image: "pop.png"),
-                        GestureDetector(
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) =>
-                                    const PlaylistSearchScreen(),
-                              ),
-                            );
-                          },
-                          child: const _ImageContainer(
-                              title: "", image: "indie.png"),
-                        ),
+                        _ImageContainer(title: "", image: "pop.png"),
+                        _ImageContainer(title: "", image: "indie.png"),
                       ],
                     ),
                   ),

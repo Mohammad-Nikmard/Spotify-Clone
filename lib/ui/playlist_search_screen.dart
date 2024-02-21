@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:spotify_clone/bloc/playlist/playlist_bloc.dart';
+import 'package:spotify_clone/bloc/playlist/playlist_state.dart';
 import 'package:spotify_clone/constants/constants.dart';
 import 'package:spotify_clone/widgets/bottom_player.dart';
 import 'package:spotify_clone/widgets/stream_buttons.dart';
 
 class PlaylistSearchScreen extends StatelessWidget {
-  const PlaylistSearchScreen({super.key});
+  const PlaylistSearchScreen({super.key, required this.cover});
+  final String cover;
 
   @override
   Widget build(BuildContext context) {
@@ -19,24 +23,45 @@ class PlaylistSearchScreen extends StatelessWidget {
           ],
         ),
       ),
-      child: const Scaffold(
+      child: Scaffold(
         backgroundColor: Colors.transparent,
         body: SafeArea(
-          child: Stack(
-            alignment: AlignmentDirectional.bottomCenter,
-            children: [
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 15),
-                child: CustomScrollView(
-                  slivers: [
-                    _Header(),
-                    PlaylistActionButtons(),
-                    _SongList(),
+          child: BlocBuilder<PlaylistBloc, PlaylistState>(
+            builder: (context, state) {
+              if (state is PlaylistResponseState) {
+                return Stack(
+                  alignment: AlignmentDirectional.bottomCenter,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 15),
+                      child: CustomScrollView(
+                        slivers: [
+                          _Header(
+                            cover: cover,
+                          ),
+                          PlaylistActionButtons(time: state.playlist.time),
+                          _SongList(state: state),
+                          const SliverPadding(
+                            padding: EdgeInsets.only(bottom: 50),
+                          ),
+                        ],
+                      ),
+                    ),
+                    const BottomPlayer(),
                   ],
+                );
+              }
+              return const Center(
+                child: Text(
+                  "Snap! Error Happened",
+                  style: TextStyle(
+                    fontFamily: "AB",
+                    fontSize: 18,
+                    color: MyColors.whiteColor,
+                  ),
                 ),
-              ),
-              BottomPlayer(),
-            ],
+              );
+            },
           ),
         ),
       ),
@@ -45,64 +70,72 @@ class PlaylistSearchScreen extends StatelessWidget {
 }
 
 class _SongList extends StatelessWidget {
-  const _SongList();
+  const _SongList({required this.state});
+  final PlaylistResponseState state;
 
   @override
   Widget build(BuildContext context) {
     return SliverPadding(
       padding: const EdgeInsets.only(top: 20, bottom: 35),
       sliver: SliverList(
-        delegate: SliverChildBuilderDelegate((context, index) {
-          return Padding(
-            padding: const EdgeInsets.only(bottom: 20),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                const Row(
-                  children: [
-                    SizedBox(
-                      height: 48,
-                      width: 48,
-                      child: ColoredBox(
-                        color: MyColors.greenColor,
+        delegate: SliverChildBuilderDelegate(
+          (context, index) {
+            return Padding(
+              padding: const EdgeInsets.only(bottom: 20),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Row(
+                    children: [
+                      SizedBox(
+                        height: 48,
+                        width: 48,
+                        child: Image.asset(
+                            'images/${state.playlist.tracks[index].image}'),
                       ),
-                    ),
-                    SizedBox(width: 5),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "Easy",
-                          style: TextStyle(
-                            fontFamily: "AM",
-                            fontSize: 16,
-                            color: MyColors.whiteColor,
+                      const SizedBox(width: 5),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          SizedBox(
+                            width: MediaQuery.of(context).size.width - 115,
+                            child: Text(
+                              state.playlist.tracks[index].trackName,
+                              style: const TextStyle(
+                                fontFamily: "AM",
+                                fontSize: 16,
+                                color: MyColors.whiteColor,
+                              ),
+                              overflow: TextOverflow.ellipsis,
+                            ),
                           ),
-                        ),
-                        Text(
-                          "Troye Silvan",
-                          style: TextStyle(
-                            fontFamily: "AM",
-                            color: MyColors.lightGrey,
-                            fontSize: 13,
+                          Text(
+                            state.playlist.tracks[index].singers,
+                            style: const TextStyle(
+                              fontFamily: "AM",
+                              color: MyColors.lightGrey,
+                              fontSize: 13,
+                            ),
                           ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-                Image.asset("images/icon_more.png"),
-              ],
-            ),
-          );
-        }, childCount: 10),
+                        ],
+                      ),
+                    ],
+                  ),
+                  Image.asset("images/icon_more.png"),
+                ],
+              ),
+            );
+          },
+          childCount: state.playlist.tracks.length,
+        ),
       ),
     );
   }
 }
 
 class PlaylistActionButtons extends StatefulWidget {
-  const PlaylistActionButtons({super.key});
+  const PlaylistActionButtons({super.key, required this.time});
+  final String time;
 
   @override
   State<PlaylistActionButtons> createState() => _PlaylistActionButtonsState();
@@ -154,9 +187,9 @@ class _PlaylistActionButtonsState extends State<PlaylistActionButtons> {
               const SizedBox(
                 height: 10,
               ),
-              const Text(
-                "1,629,592 likes . 6h 48m",
-                style: TextStyle(
+              Text(
+                "1,629,592 likes . ${widget.time}",
+                style: const TextStyle(
                   fontFamily: "AM",
                   fontSize: 13,
                   color: MyColors.lightGrey,
@@ -229,7 +262,8 @@ class _PlaylistActionButtonsState extends State<PlaylistActionButtons> {
 }
 
 class _Header extends StatelessWidget {
-  const _Header();
+  const _Header({required this.cover});
+  final String cover;
 
   @override
   Widget build(BuildContext context) {
@@ -238,16 +272,16 @@ class _Header extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const SizedBox(
-            height: 30,
+            height: 20,
           ),
           GestureDetector(
             onTap: () {
               Navigator.pop(context);
             },
-            child: Image.asset('images/icon_arrow_left.png'),
-          ),
-          const SizedBox(
-            height: 15,
+            child: const Icon(
+              Icons.arrow_back_rounded,
+              color: Colors.white,
+            ),
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -277,10 +311,14 @@ class _Header extends StatelessWidget {
             ],
           ),
           const SizedBox(
-            height: 30,
+            height: 10,
           ),
           Center(
-            child: Image.asset('images/indie_pop.png'),
+            child: Image.asset(
+              'images/home/$cover',
+              height: 270,
+              width: 270,
+            ),
           ),
         ],
       ),

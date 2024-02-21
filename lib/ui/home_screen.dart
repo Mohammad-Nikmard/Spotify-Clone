@@ -1,11 +1,16 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:spotify_clone/DI/service_locator.dart';
 import 'package:spotify_clone/bloc/album/album_bloc.dart';
 import 'package:spotify_clone/bloc/album/album_event.dart';
+import 'package:spotify_clone/bloc/playlist/playlist_bloc.dart';
+import 'package:spotify_clone/bloc/playlist/playlist_event.dart';
 import 'package:spotify_clone/constants/constants.dart';
 import 'package:spotify_clone/ui/albumview_screen.dart';
+import 'package:spotify_clone/ui/playlist_search_screen.dart';
 import 'package:spotify_clone/widgets/bottom_player.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -73,26 +78,45 @@ class RecentPlays extends StatelessWidget {
               child: ListView(
                 scrollDirection: Axis.horizontal,
                 children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      SizedBox(
-                        height: 133,
-                        width: 133,
-                        child: Image.asset("images/home/Upbeat-Mix.jpg"),
-                      ),
-                      const SizedBox(
-                        height: 12,
-                      ),
-                      const Text(
-                        "Upbeat Mix",
-                        style: TextStyle(
-                          fontFamily: "AB",
-                          fontSize: 12,
-                          color: MyColors.whiteColor,
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => BlocProvider(
+                            create: (context) {
+                              var bloc = PlaylistBloc(locator.get());
+                              bloc.add(PlaylistFetchEvent("Upbeat"));
+                              return bloc;
+                            },
+                            child: const PlaylistSearchScreen(
+                              cover: "Upbeat-Mix.jpg",
+                            ),
+                          ),
                         ),
-                      ),
-                    ],
+                      );
+                    },
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        SizedBox(
+                          height: 133,
+                          width: 133,
+                          child: Image.asset("images/home/Upbeat-Mix.jpg"),
+                        ),
+                        const SizedBox(
+                          height: 12,
+                        ),
+                        const Text(
+                          "Upbeat Mix",
+                          style: TextStyle(
+                            fontFamily: "AB",
+                            fontSize: 12,
+                            color: MyColors.whiteColor,
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                   const SizedBox(width: 15),
                   Column(
@@ -125,7 +149,9 @@ class RecentPlays extends StatelessWidget {
                           builder: (context) => BlocProvider(
                             create: (context) {
                               var bloc = AlbumBloc(locator.get());
-                              bloc.add(AlbumListEvent("Travis Scott"));
+                              bloc.add(
+                                AlbumListEvent("Travis Scott"),
+                              );
                               return bloc;
                             },
                             child: const AlbumViewScreen(),
@@ -255,55 +281,35 @@ class JumpBackin extends StatelessWidget {
               child: ListView(
                 scrollDirection: Axis.horizontal,
                 children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      SizedBox(
-                        height: 153,
-                        width: 153,
-                        child: Image.asset("images/home/Rap-Workout.jpg"),
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      const SizedBox(
-                        width: 150,
-                        child: Text(
-                          "Future, Jack Harllow, Drake and more",
-                          style: TextStyle(
-                            fontFamily: "AM",
-                            fontSize: 12.5,
-                            color: MyColors.lightGrey,
-                          ),
-                        ),
-                      ),
-                    ],
+                  const _MixChip(
+                    subtitle: "Future, Jack Harllow, Drake and more",
+                    image: "Rap-Workout.jpg",
                   ),
                   const SizedBox(
                     width: 15,
                   ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      SizedBox(
-                          height: 153,
-                          width: 153,
-                          child: Image.asset("images/home/Drake-Mix.jpg")),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      const SizedBox(
-                        width: 150,
-                        child: Text(
-                          "JID, Baby Keem and 21 Savage",
-                          style: TextStyle(
-                            fontFamily: "AM",
-                            fontSize: 12.5,
-                            color: MyColors.lightGrey,
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => BlocProvider(
+                            create: (context) {
+                              var bloc = PlaylistBloc(locator.get());
+                              bloc.add(PlaylistFetchEvent('Drake mix'));
+                              return bloc;
+                            },
+                            child: const PlaylistSearchScreen(
+                              cover: "Drake-Mix.jpg",
+                            ),
                           ),
                         ),
-                      ),
-                    ],
+                      );
+                    },
+                    child: const _MixChip(
+                      subtitle: "JID, Baby Keem and 21 Savage",
+                      image: 'Daily-Mix-1.jpg',
+                    ),
                   ),
                   const SizedBox(
                     width: 15,
@@ -474,137 +480,112 @@ class TopMixes extends StatelessWidget {
               child: ListView(
                 scrollDirection: Axis.horizontal,
                 children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      SizedBox(
-                        height: 153,
-                        width: 153,
-                        child: Image.asset("images/home/2010s-mix.png"),
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      const SizedBox(
-                        width: 150,
-                        child: Text(
-                          "Travis Scott, Soul Chef, Kanye West and more",
-                          style: TextStyle(
-                            fontFamily: "AM",
-                            fontSize: 12.5,
-                            color: MyColors.lightGrey,
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => BlocProvider(
+                            create: (context) {
+                              var bloc = PlaylistBloc(locator.get());
+                              bloc.add(PlaylistFetchEvent('2010'));
+                              return bloc;
+                            },
+                            child: const PlaylistSearchScreen(
+                              cover: "2010s-mix.png",
+                            ),
                           ),
                         ),
-                      ),
-                    ],
+                      );
+                    },
+                    child: const _MixChip(
+                      subtitle: "Travis Scott, Soul Chef, Kanye West and more",
+                      image: "2010s-mix.png",
+                    ),
                   ),
                   const SizedBox(
                     width: 15,
                   ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      SizedBox(
-                        height: 153,
-                        width: 153,
-                        child: Image.asset("images/home/chill-mix.png"),
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      const SizedBox(
-                        width: 150,
-                        child: Text(
-                          "Talyor Swift, The Beatles and more",
-                          style: TextStyle(
-                            fontFamily: "AM",
-                            fontSize: 12.5,
-                            color: MyColors.lightGrey,
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => BlocProvider(
+                            create: (context) {
+                              var bloc = PlaylistBloc(locator.get());
+                              bloc.add(PlaylistFetchEvent("Chill"));
+                              return bloc;
+                            },
+                            child: const PlaylistSearchScreen(
+                                cover: "chill-mix.png"),
                           ),
                         ),
-                      ),
-                    ],
+                      );
+                    },
+                    child: const _MixChip(
+                      subtitle: "Talyor Swift, The Beatles and more",
+                      image: 'chill-mix.png',
+                    ),
                   ),
                   const SizedBox(
                     width: 15,
                   ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      SizedBox(
-                        height: 153,
-                        width: 153,
-                        child: Image.asset("images/home/Upbeat-Mix.jpg"),
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      const SizedBox(
-                        width: 150,
-                        child: Text(
-                          "benny blanco, Darke and more",
-                          style: TextStyle(
-                            fontFamily: "AM",
-                            fontSize: 12.5,
-                            color: MyColors.lightGrey,
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => BlocProvider(
+                            create: (context) {
+                              var bloc = PlaylistBloc(locator.get());
+                              bloc.add(PlaylistFetchEvent("Upbeat"));
+                              return bloc;
+                            },
+                            child: const PlaylistSearchScreen(
+                              cover: "Upbeat-Mix.jpg",
+                            ),
                           ),
                         ),
-                      ),
-                    ],
+                      );
+                    },
+                    child: const _MixChip(
+                      subtitle: "benny blanco, Darke and more",
+                      image: 'Upbeat-Mix.jpg',
+                    ),
                   ),
                   const SizedBox(
                     width: 15,
                   ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      SizedBox(
-                        height: 153,
-                        width: 153,
-                        child: Image.asset("images/home/Offset-Mix.jpg"),
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      const SizedBox(
-                        width: 150,
-                        child: Text(
-                          "Baby keem, Travis Scott and Drake",
-                          style: TextStyle(
-                            fontFamily: "AM",
-                            fontSize: 12.5,
-                            color: MyColors.lightGrey,
-                          ),
-                        ),
-                      ),
-                    ],
+                  const _MixChip(
+                    subtitle: "Baby keem, Travis Scott and Drake",
+                    image: "Offset-Mix.jpg",
                   ),
                   const SizedBox(
                     width: 15,
                   ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      SizedBox(
-                        height: 153,
-                        width: 153,
-                        child: Image.asset("images/home/Drake-Mix.jpg"),
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      const SizedBox(
-                        width: 150,
-                        child: Text(
-                          "JID, Baby Keem and 21 Savage",
-                          style: TextStyle(
-                            fontFamily: "AM",
-                            fontSize: 12.5,
-                            color: MyColors.lightGrey,
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => BlocProvider(
+                            create: (context) {
+                              var bloc = PlaylistBloc(locator.get());
+                              bloc.add(PlaylistFetchEvent('Drake mix'));
+                              return bloc;
+                            },
+                            child: const PlaylistSearchScreen(
+                              cover: "Drake-Mix.jpg",
+                            ),
                           ),
                         ),
-                      ),
-                    ],
+                      );
+                    },
+                    child: const _MixChip(
+                      subtitle: "JID, Baby Keem and 21 Savage",
+                      image: 'Drake-Mix.jpg',
+                    ),
                   ),
                 ],
               ),
@@ -830,14 +811,33 @@ class _Header extends StatelessWidget {
                   ],
                 ),
                 const SizedBox(height: 10),
-                const Row(
+                Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    _RecentPlaysChip(
-                      image: "home/Upbeat-Mix.jpg",
-                      title: "Upbeat Mix",
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => BlocProvider(
+                              create: (context) {
+                                var bloc = PlaylistBloc(locator.get());
+                                bloc.add(PlaylistFetchEvent("Upbeat"));
+                                return bloc;
+                              },
+                              child: const PlaylistSearchScreen(
+                                cover: "Upbeat-Mix.jpg",
+                              ),
+                            ),
+                          ),
+                        );
+                      },
+                      child: const _RecentPlaysChip(
+                        image: "home/Upbeat-Mix.jpg",
+                        title: "Upbeat Mix",
+                      ),
                     ),
-                    _RecentPlaysChip(
+                    const _RecentPlaysChip(
                       image: "home/Daily-Mix-1.jpg",
                       title: "Daily Mix",
                     ),
@@ -898,6 +898,40 @@ class _RecentPlaysChip extends StatelessWidget {
           ),
         ],
       ),
+    );
+  }
+}
+
+class _MixChip extends StatelessWidget {
+  const _MixChip({super.key, required this.subtitle, required this.image});
+  final String subtitle;
+  final String image;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        SizedBox(
+          height: 153,
+          width: 153,
+          child: Image.asset("images/home/$image"),
+        ),
+        const SizedBox(
+          height: 10,
+        ),
+        SizedBox(
+          width: 150,
+          child: Text(
+            subtitle,
+            style: const TextStyle(
+              fontFamily: "AM",
+              fontSize: 12.5,
+              color: MyColors.lightGrey,
+            ),
+          ),
+        ),
+      ],
     );
   }
 }
