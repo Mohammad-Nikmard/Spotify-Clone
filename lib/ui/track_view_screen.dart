@@ -122,7 +122,7 @@ class TrackViewScreen extends StatelessWidget {
 }
 
 class _SongActionButtons extends StatefulWidget {
-  const _SongActionButtons({super.key});
+  const _SongActionButtons();
 
   @override
   State<_SongActionButtons> createState() => _SongActionButtonsState();
@@ -482,7 +482,12 @@ class _Header extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => const SongControlScreen(),
+                    builder: (context) => const SongControlScreen(
+                      trackName: "Enough is Enough",
+                      singer: "Post Malone",
+                      color: Color(0xff8b9a63),
+                      albumImage: "AUSTIN.jpg",
+                    ),
                   ),
                 );
               },

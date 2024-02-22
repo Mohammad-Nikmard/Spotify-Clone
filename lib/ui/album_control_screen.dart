@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:spotify_clone/constants/constants.dart';
+import 'package:spotify_clone/data/model/album.dart';
 import 'package:spotify_clone/ui/share_song_screen.dart';
 
 class AlbumControlScreen extends StatelessWidget {
-  const AlbumControlScreen({super.key});
+  const AlbumControlScreen({super.key, required this.album});
+  final Album album;
 
   @override
   Widget build(BuildContext context) {
@@ -20,16 +22,18 @@ class AlbumControlScreen extends StatelessWidget {
                     width: 0,
                     color: MyColors.blackColor,
                   ),
-                  gradient: const LinearGradient(
+                  gradient: LinearGradient(
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter,
                     colors: [
-                      Color(0xff9E2216),
+                      album.colorPallete[0],
                       MyColors.blackColor,
                     ],
                   ),
                 ),
-                child: const _UpperContainerContent(),
+                child: _Header(
+                  album: album,
+                ),
               ),
             ),
           ),
@@ -91,7 +95,7 @@ class AlbumControlScreen extends StatelessWidget {
                           ),
                         ),
                       ),
-                      const SizedBox(height: 25),
+                      const SizedBox(height: 100),
                     ],
                   ),
                 ),
@@ -105,7 +109,7 @@ class AlbumControlScreen extends StatelessWidget {
 }
 
 class _AlbumChip extends StatelessWidget {
-  const _AlbumChip({super.key, required this.text, required this.image});
+  const _AlbumChip({required this.text, required this.image});
   final String text;
   final String image;
 
@@ -132,8 +136,9 @@ class _AlbumChip extends StatelessWidget {
   }
 }
 
-class _UpperContainerContent extends StatelessWidget {
-  const _UpperContainerContent();
+class _Header extends StatelessWidget {
+  const _Header({required this.album});
+  final Album album;
 
   @override
   Widget build(BuildContext context) {
@@ -144,17 +149,17 @@ class _UpperContainerContent extends StatelessWidget {
           height: 55,
         ),
         Image.asset(
-          "images/song_screen.png",
+          "images/home/${album.albumImage}",
           height: 164,
           width: 164,
         ),
         const SizedBox(
           height: 66,
         ),
-        const Center(
+        Center(
           child: Text(
-            "1(Remastered)",
-            style: TextStyle(
+            album.albumName,
+            style: const TextStyle(
               fontFamily: "AM",
               fontSize: 20,
               fontWeight: FontWeight.w700,
@@ -162,10 +167,10 @@ class _UpperContainerContent extends StatelessWidget {
             ),
           ),
         ),
-        const Center(
+        Center(
           child: Text(
-            "The Beatles",
-            style: TextStyle(
+            album.singerName,
+            style: const TextStyle(
               fontFamily: "AM",
               fontSize: 14,
               color: MyColors.lightGrey,

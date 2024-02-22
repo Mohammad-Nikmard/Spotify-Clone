@@ -3,7 +3,16 @@ import 'package:spotify_clone/constants/constants.dart';
 import 'package:spotify_clone/ui/share_song_screen.dart';
 
 class SongControlScreen extends StatelessWidget {
-  const SongControlScreen({super.key});
+  const SongControlScreen(
+      {super.key,
+      required this.trackName,
+      required this.color,
+      required this.singer,
+      required this.albumImage});
+  final String albumImage;
+  final String trackName;
+  final Color color;
+  final String singer;
 
   @override
   Widget build(BuildContext context) {
@@ -20,16 +29,20 @@ class SongControlScreen extends StatelessWidget {
                     width: 0,
                     color: MyColors.blackColor,
                   ),
-                  gradient: const LinearGradient(
+                  gradient: LinearGradient(
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter,
                     colors: [
-                      Colors.blue,
+                      color,
                       MyColors.blackColor,
                     ],
                   ),
                 ),
-                child: const _SongHeader(),
+                child: _SongHeader(
+                  trackName: trackName,
+                  singer: singer,
+                  albumImage: albumImage,
+                ),
               ),
             ),
           ),
@@ -94,7 +107,7 @@ class SongControlScreen extends StatelessWidget {
                           ),
                         ),
                       ),
-                      const SizedBox(height: 20),
+                      const SizedBox(height: 100),
                     ],
                   ),
                 ),
@@ -108,7 +121,7 @@ class SongControlScreen extends StatelessWidget {
 }
 
 class _AlbumChip extends StatelessWidget {
-  const _AlbumChip({super.key, required this.text, required this.image});
+  const _AlbumChip({required this.text, required this.image});
   final String text;
   final String image;
 
@@ -136,7 +149,13 @@ class _AlbumChip extends StatelessWidget {
 }
 
 class _SongHeader extends StatelessWidget {
-  const _SongHeader();
+  const _SongHeader(
+      {required this.trackName,
+      required this.albumImage,
+      required this.singer});
+  final String albumImage;
+  final String trackName;
+  final String singer;
 
   @override
   Widget build(BuildContext context) {
@@ -147,17 +166,17 @@ class _SongHeader extends StatelessWidget {
           height: 50,
         ),
         Image.asset(
-          "images/home/AUSTIN.jpg",
+          "images/home/$albumImage",
           height: 164,
           width: 164,
         ),
         const SizedBox(
           height: 55,
         ),
-        const Center(
+        Center(
           child: Text(
-            "AUSTIN",
-            style: TextStyle(
+            trackName,
+            style: const TextStyle(
               fontFamily: "AM",
               fontSize: 20,
               fontWeight: FontWeight.w700,
@@ -165,10 +184,10 @@ class _SongHeader extends StatelessWidget {
             ),
           ),
         ),
-        const Center(
+        Center(
           child: Text(
-            "Post Malone",
-            style: TextStyle(
+            singer,
+            style: const TextStyle(
               fontFamily: "AM",
               fontSize: 14,
               color: MyColors.lightGrey,

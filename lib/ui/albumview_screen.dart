@@ -169,7 +169,10 @@ class _AlbumViewScreenState extends State<AlbumViewScreen> {
                                   ),
                                   for (var element
                                       in state.album.trackList) ...{
-                                    _AlbumTrackList(track: element),
+                                    _AlbumTrackList(
+                                      track: element,
+                                      album: state.album,
+                                    ),
                                   }
                                 ],
                               ),
@@ -279,8 +282,9 @@ class _AlbumViewScreenState extends State<AlbumViewScreen> {
 }
 
 class _AlbumTrackList extends StatelessWidget {
-  const _AlbumTrackList({required this.track});
+  const _AlbumTrackList({required this.track, required this.album});
   final AlbumTrack track;
+  final Album album;
 
   @override
   Widget build(BuildContext context) {
@@ -331,7 +335,12 @@ class _AlbumTrackList extends StatelessWidget {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => const SongControlScreen(),
+                  builder: (context) => SongControlScreen(
+                    trackName: track.trackName,
+                    albumImage: album.albumImage,
+                    singer: track.singers,
+                    color: album.colorPallete[0],
+                  ),
                 ),
               );
             },
@@ -431,7 +440,9 @@ class _AlbumControlButtonsState extends State<_AlbumControlButtons> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => const AlbumControlScreen(),
+                          builder: (context) => AlbumControlScreen(
+                            album: widget.album,
+                          ),
                         ),
                       );
                     },
