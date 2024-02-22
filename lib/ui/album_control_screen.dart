@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:spotify_clone/constants/constants.dart';
 import 'package:spotify_clone/ui/share_song_screen.dart';
 

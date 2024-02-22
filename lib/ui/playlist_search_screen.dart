@@ -39,7 +39,7 @@ class PlaylistSearchScreen extends StatelessWidget {
                           _Header(
                             cover: cover,
                           ),
-                          PlaylistActionButtons(time: state.playlist.time),
+                          _PlaylistActionButtons(time: state.playlist.time),
                           _SongList(state: state),
                           const SliverPadding(
                             padding: EdgeInsets.only(bottom: 50),
@@ -133,15 +133,15 @@ class _SongList extends StatelessWidget {
   }
 }
 
-class PlaylistActionButtons extends StatefulWidget {
-  const PlaylistActionButtons({super.key, required this.time});
+class _PlaylistActionButtons extends StatefulWidget {
+  const _PlaylistActionButtons({required this.time});
   final String time;
 
   @override
-  State<PlaylistActionButtons> createState() => _PlaylistActionButtonsState();
+  State<_PlaylistActionButtons> createState() => _PlaylistActionButtonsState();
 }
 
-class _PlaylistActionButtonsState extends State<PlaylistActionButtons> {
+class _PlaylistActionButtonsState extends State<_PlaylistActionButtons> {
   bool _isInPlay = false;
   bool _isDownloaded = false;
   bool _isLiked = false;

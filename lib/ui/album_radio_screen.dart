@@ -28,7 +28,7 @@ class AlbumRadioScreen extends StatelessWidget {
               SizedBox(
                 height: 30,
               ),
-              AlbumRadioActionButtons(),
+              _AlbumRadioActionButtons(),
             ],
           ),
         ),
@@ -37,15 +37,15 @@ class AlbumRadioScreen extends StatelessWidget {
   }
 }
 
-class AlbumRadioActionButtons extends StatefulWidget {
-  const AlbumRadioActionButtons({super.key});
+class _AlbumRadioActionButtons extends StatefulWidget {
+  const _AlbumRadioActionButtons();
 
   @override
-  State<AlbumRadioActionButtons> createState() =>
+  State<_AlbumRadioActionButtons> createState() =>
       _AlbumRadioActionButtonsState();
 }
 
-class _AlbumRadioActionButtonsState extends State<AlbumRadioActionButtons> {
+class _AlbumRadioActionButtonsState extends State<_AlbumRadioActionButtons> {
   bool isInPlay = true;
   bool isInShuffle = false;
   bool isInRepeat = true;

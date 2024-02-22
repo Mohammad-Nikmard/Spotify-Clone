@@ -23,7 +23,6 @@ class AppNavigation {
   static final GoRouter router = GoRouter(
     initialLocation: initR,
     navigatorKey: _rootNavigatorKey,
-    debugLogDiagnostics: true,
     routes: <RouteBase>[
       StatefulShellRoute.indexedStack(
         builder: (context, state, navigationShell) {

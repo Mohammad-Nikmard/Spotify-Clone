@@ -21,7 +21,7 @@ class _ChooseGenderScreenState extends State<ChooseGenderScreen> {
           padding: const EdgeInsets.symmetric(horizontal: 25),
           child: Column(
             children: [
-              const Header(),
+              const _Header(),
               const Row(
                 children: [
                   SizedBox(width: 3),
@@ -135,8 +135,8 @@ class _ChooseGenderScreenState extends State<ChooseGenderScreen> {
   }
 }
 
-class Header extends StatelessWidget {
-  const Header({super.key});
+class _Header extends StatelessWidget {
+  const _Header();
 
   @override
   Widget build(BuildContext context) {

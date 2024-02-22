@@ -46,8 +46,8 @@ class ChoosePodcastScreen extends StatelessWidget {
                           ),
                         ),
                       ),
-                      const SearchBox(),
-                      PodcastList(getList: state.podcastList),
+                      const _SearchBox(),
+                      _PodcastList(getList: state.podcastList),
                     ],
                   ),
                   Container(
@@ -107,8 +107,8 @@ class ChoosePodcastScreen extends StatelessWidget {
   }
 }
 
-class PodcastList extends StatelessWidget {
-  const PodcastList({super.key, required this.getList});
+class _PodcastList extends StatelessWidget {
+  const _PodcastList({required this.getList});
   final List<Podcast> getList;
 
   @override
@@ -133,8 +133,8 @@ class PodcastList extends StatelessWidget {
   }
 }
 
-class SearchBox extends StatelessWidget {
-  const SearchBox({super.key});
+class _SearchBox extends StatelessWidget {
+  const _SearchBox();
 
   @override
   Widget build(BuildContext context) {

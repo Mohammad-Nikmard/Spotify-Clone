@@ -1,6 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:spotify_clone/DI/service_locator.dart';
@@ -30,9 +28,9 @@ class HomeScreen extends StatelessWidget {
               child: CustomScrollView(
                 slivers: [
                   _Header(),
-                  JumpBackin(),
-                  TopMixes(),
-                  RecentPlays(),
+                  _JumpBackin(),
+                  _TopMixes(),
+                  _RecentPlays(),
                   SliverPadding(
                     padding: EdgeInsets.only(bottom: 100),
                   ),
@@ -50,8 +48,8 @@ class HomeScreen extends StatelessWidget {
   }
 }
 
-class RecentPlays extends StatelessWidget {
-  const RecentPlays({super.key});
+class _RecentPlays extends StatelessWidget {
+  const _RecentPlays();
 
   @override
   Widget build(BuildContext context) {
@@ -254,8 +252,8 @@ class RecentPlays extends StatelessWidget {
   }
 }
 
-class JumpBackin extends StatelessWidget {
-  const JumpBackin({super.key});
+class _JumpBackin extends StatelessWidget {
+  const _JumpBackin();
 
   @override
   Widget build(BuildContext context) {
@@ -453,8 +451,8 @@ class JumpBackin extends StatelessWidget {
   }
 }
 
-class TopMixes extends StatelessWidget {
-  const TopMixes({super.key});
+class _TopMixes extends StatelessWidget {
+  const _TopMixes();
 
   @override
   Widget build(BuildContext context) {

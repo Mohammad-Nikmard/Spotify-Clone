@@ -35,15 +35,15 @@ class OnBoardingScreen extends StatelessWidget {
           const SizedBox(
             height: 25,
           ),
-          const ActionButtons(),
+          const _ActionButtons(),
         ],
       ),
     );
   }
 }
 
-class ActionButtons extends StatelessWidget {
-  const ActionButtons({super.key});
+class _ActionButtons extends StatelessWidget {
+  const _ActionButtons();
 
   @override
   Widget build(BuildContext context) {

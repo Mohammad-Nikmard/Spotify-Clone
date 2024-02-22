@@ -20,7 +20,7 @@ class _CreateEmailScreenState extends State<CreateEmailScreen> {
           padding: const EdgeInsets.symmetric(horizontal: 25),
           child: Column(
             children: [
-              const Header(),
+              const _Header(),
               const Row(
                 children: [
                   SizedBox(width: 3),
@@ -127,8 +127,8 @@ class _CreateEmailScreenState extends State<CreateEmailScreen> {
   }
 }
 
-class Header extends StatelessWidget {
-  const Header({super.key});
+class _Header extends StatelessWidget {
+  const _Header();
 
   @override
   Widget build(BuildContext context) {

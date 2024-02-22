@@ -1,7 +1,5 @@
 import 'package:animations/animations.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:spotify_clone/constants/constants.dart';
 import 'package:spotify_clone/ui/album_radio_screen.dart';
 import 'package:spotify_clone/ui/lyrics_screen.dart';
@@ -33,9 +31,9 @@ class TrackViewScreen extends StatelessWidget {
             child: CustomScrollView(
               slivers: [
                 const _Header(),
-                const SongCover(),
-                const SongInfo(),
-                const SongActionButtons(),
+                const _SongCover(),
+                const _SongInfo(),
+                const _SongActionButtons(),
                 SliverToBoxAdapter(
                   child: Padding(
                     padding: const EdgeInsets.only(top: 23, bottom: 10),
@@ -123,14 +121,14 @@ class TrackViewScreen extends StatelessWidget {
   }
 }
 
-class SongActionButtons extends StatefulWidget {
-  const SongActionButtons({super.key});
+class _SongActionButtons extends StatefulWidget {
+  const _SongActionButtons({super.key});
 
   @override
-  State<SongActionButtons> createState() => _SongActionButtonsState();
+  State<_SongActionButtons> createState() => _SongActionButtonsState();
 }
 
-class _SongActionButtonsState extends State<SongActionButtons> {
+class _SongActionButtonsState extends State<_SongActionButtons> {
   bool isPaused = true;
   bool isInRepeat = true;
   bool isShuffleOn = false;
@@ -307,14 +305,14 @@ Like it was funny, but it really ain't funny, uh
   }
 }
 
-class SongInfo extends StatefulWidget {
-  const SongInfo({super.key});
+class _SongInfo extends StatefulWidget {
+  const _SongInfo({super.key});
 
   @override
-  State<SongInfo> createState() => _SongInfoState();
+  State<_SongInfo> createState() => _SongInfoState();
 }
 
-class _SongInfoState extends State<SongInfo> {
+class _SongInfoState extends State<_SongInfo> {
   double _currentNumber = 25;
   @override
   Widget build(BuildContext context) {
@@ -433,8 +431,8 @@ class _SongInfoState extends State<SongInfo> {
   }
 }
 
-class SongCover extends StatelessWidget {
-  const SongCover({super.key});
+class _SongCover extends StatelessWidget {
+  const _SongCover();
 
   @override
   Widget build(BuildContext context) {

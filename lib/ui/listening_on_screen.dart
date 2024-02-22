@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:spotify_clone/constants/constants.dart';
 
 class ListeningOn extends StatefulWidget {
@@ -118,7 +117,7 @@ class _ListeningOnState extends State<ListeningOn> {
               const SizedBox(
                 height: 25,
               ),
-              const SelectDevice(),
+              const _SelectDeviceSection(),
               const SizedBox(
                 height: 30,
               ),
@@ -257,8 +256,8 @@ class _ListeningOnState extends State<ListeningOn> {
   }
 }
 
-class SelectDevice extends StatelessWidget {
-  const SelectDevice({super.key});
+class _SelectDeviceSection extends StatelessWidget {
+  const _SelectDeviceSection();
 
   @override
   Widget build(BuildContext context) {

@@ -1,6 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:spotify_clone/DI/service_locator.dart';
 import 'package:spotify_clone/bloc/album/album_bloc.dart';

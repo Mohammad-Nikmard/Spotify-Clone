@@ -30,7 +30,7 @@ class _CreateNameScreenState extends State<CreateNameScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              const Header(),
+              const _Header(),
               const Row(
                 children: [
                   SizedBox(width: 3),
@@ -281,8 +281,8 @@ class _CreateNameScreenState extends State<CreateNameScreen> {
   }
 }
 
-class Header extends StatelessWidget {
-  const Header({super.key});
+class _Header extends StatelessWidget {
+  const _Header();
 
   @override
   Widget build(BuildContext context) {

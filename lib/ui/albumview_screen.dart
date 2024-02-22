@@ -1,7 +1,4 @@
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:spotify_clone/bloc/album/album_bloc.dart';
 import 'package:spotify_clone/bloc/album/album_state.dart';
@@ -10,6 +7,7 @@ import 'package:spotify_clone/data/model/album.dart';
 import 'package:spotify_clone/data/model/album_track.dart';
 import 'package:spotify_clone/ui/album_control_screen.dart';
 import 'package:spotify_clone/ui/song_control_screen.dart';
+import 'package:spotify_clone/widgets/bottom_player.dart';
 import 'package:spotify_clone/widgets/stream_buttons.dart';
 
 class AlbumViewScreen extends StatefulWidget {
@@ -23,8 +21,8 @@ class _AlbumViewScreenState extends State<AlbumViewScreen> {
   ScrollController? _scrollController;
   double imageSize = 0;
   double initSize = 236;
-  double containerHeight = 460;
-  double containerInitialHeight = 460;
+  double containerHeight = 465;
+  double containerInitialHeight = 465;
   double imageOpacity = 1;
   bool showTopBar = false;
   bool _isInPlay = false;
@@ -68,185 +66,198 @@ class _AlbumViewScreenState extends State<AlbumViewScreen> {
           if (state is AlbumListResponseState) {
             return SafeArea(
               top: false,
+              bottom: false,
               child: Stack(
+                alignment: AlignmentDirectional.bottomCenter,
                 children: [
-                  Container(
-                    color: state.album.colorPallete[0],
-                    height: containerHeight,
-                    width: MediaQuery.of(context).size.width,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.only(top: 60),
-                          child: Opacity(
-                            opacity: imageOpacity.clamp(0, 1.0),
-                            child: Container(
-                              height: imageSize,
-                              width: imageSize,
-                              decoration: const BoxDecoration(
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: MyColors.blackColor,
-                                    offset: Offset(0, 10),
-                                    spreadRadius: -10,
-                                    blurRadius: 15,
+                  Stack(
+                    children: [
+                      Container(
+                        color: state.album.colorPallete[0],
+                        height: containerHeight,
+                        width: MediaQuery.of(context).size.width,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(top: 60),
+                              child: Opacity(
+                                opacity: imageOpacity.clamp(0, 1.0),
+                                child: Container(
+                                  height: imageSize,
+                                  width: imageSize,
+                                  decoration: const BoxDecoration(
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: MyColors.blackColor,
+                                        offset: Offset(0, 10),
+                                        spreadRadius: -10,
+                                        blurRadius: 15,
+                                      ),
+                                      BoxShadow(
+                                        color: MyColors.blackColor,
+                                        offset: Offset(0, -10),
+                                        spreadRadius: -10,
+                                        blurRadius: 15,
+                                      ),
+                                    ],
                                   ),
-                                  BoxShadow(
-                                    color: MyColors.blackColor,
-                                    offset: Offset(0, -10),
-                                    spreadRadius: -10,
-                                    blurRadius: 15,
+                                  child: Image.asset(
+                                    'images/home/${state.album.albumImage}',
                                   ),
+                                ),
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 30,
+                            ),
+                          ],
+                        ),
+                      ),
+                      SingleChildScrollView(
+                        controller: _scrollController,
+                        child: Column(
+                          children: [
+                            Container(
+                              decoration: BoxDecoration(
+                                gradient: LinearGradient(
+                                  begin: Alignment.topCenter,
+                                  end: Alignment.bottomCenter,
+                                  colors: [
+                                    MyColors.blackColor.withOpacity(0),
+                                    MyColors.blackColor.withOpacity(0.1),
+                                    MyColors.blackColor.withOpacity(1),
+                                  ],
+                                ),
+                                border: Border.all(
+                                  width: 0,
+                                  color: state.album.colorPallete[1],
+                                ),
+                              ),
+                              child: Padding(
+                                padding:
+                                    const EdgeInsets.only(right: 20, left: 20),
+                                child: Column(
+                                  children: [
+                                    SizedBox(
+                                      height: initSize + 45,
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.only(top: 25),
+                                      child: _AlbumControlButtons(
+                                        album: state.album,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                            Container(
+                              // height: 1000,
+                              decoration: BoxDecoration(
+                                color: MyColors.blackColor,
+                                border: Border.all(
+                                  width: 0,
+                                  color: MyColors.blackColor,
+                                ),
+                              ),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.stretch,
+                                children: [
+                                  const SizedBox(
+                                    height: 20,
+                                  ),
+                                  for (var element
+                                      in state.album.trackList) ...{
+                                    _AlbumTrackList(track: element),
+                                  }
                                 ],
                               ),
-                              child: Image.asset(
-                                'images/home/${state.album.albumImage}',
-                              ),
                             ),
-                          ),
+                          ],
                         ),
-                        const SizedBox(
-                          height: 30,
-                        ),
-                      ],
-                    ),
-                  ),
-                  SingleChildScrollView(
-                    controller: _scrollController,
-                    child: Column(
-                      children: [
-                        Container(
-                          decoration: BoxDecoration(
-                            gradient: LinearGradient(
-                              begin: Alignment.topCenter,
-                              end: Alignment.bottomCenter,
-                              colors: [
-                                MyColors.blackColor.withOpacity(0),
-                                MyColors.blackColor.withOpacity(0.1),
-                                MyColors.blackColor.withOpacity(1),
-                              ],
-                            ),
-                            border: Border.all(
-                              width: 0,
-                              color: state.album.colorPallete[1],
-                            ),
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsets.only(right: 20, left: 20),
-                            child: Column(
-                              children: [
-                                SizedBox(
-                                  height: initSize + 45,
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only(top: 25),
-                                  child: AlbumControlButtons(
-                                    album: state.album,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                        Container(
-                          // height: 1000,
-                          decoration: BoxDecoration(
-                            color: MyColors.blackColor,
-                            border: Border.all(
-                              width: 0,
-                              color: MyColors.blackColor,
-                            ),
-                          ),
+                      ),
+                      Positioned(
+                        child: AnimatedContainer(
+                          duration: const Duration(milliseconds: 250),
+                          height: 90,
+                          color: showTopBar
+                              ? state.album.colorPallete[0]
+                              : Colors.transparent,
+                          width: MediaQuery.of(context).size.width,
                           child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.stretch,
+                            mainAxisAlignment: MainAxisAlignment.end,
                             children: [
-                              const SizedBox(
-                                height: 20,
+                              SizedBox(
+                                width: MediaQuery.of(context).size.width,
+                                child: Stack(
+                                  clipBehavior: Clip.none,
+                                  alignment: AlignmentDirectional.centerStart,
+                                  children: [
+                                    Positioned(
+                                      left: 15,
+                                      child: GestureDetector(
+                                        onTap: () {
+                                          Navigator.pop(context);
+                                        },
+                                        child: const Icon(
+                                          Icons.arrow_back_rounded,
+                                          color: Colors.white,
+                                          size: 24,
+                                        ),
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.only(left: 60),
+                                      child: AnimatedOpacity(
+                                        duration:
+                                            const Duration(milliseconds: 200),
+                                        opacity: showTopBar ? 1 : 0,
+                                        child: Text(
+                                          state.album.albumName,
+                                          style: const TextStyle(
+                                            fontFamily: "AM",
+                                            fontSize: 16,
+                                            color: MyColors.whiteColor,
+                                            fontWeight: FontWeight.w700,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    Positioned(
+                                      right: 25,
+                                      bottom: 85 -
+                                          containerHeight.clamp(
+                                              125.0, double.infinity),
+                                      child: (!_isInPlay)
+                                          ? const PlayButton(
+                                              height: 56,
+                                              width: 56,
+                                              color: MyColors.greenColor,
+                                            )
+                                          : const PauseButton(
+                                              iconHeight: 19,
+                                              color: MyColors.greenColor,
+                                              height: 56,
+                                              width: 56,
+                                            ),
+                                    ),
+                                  ],
+                                ),
                               ),
-                              for (var element in state.album.trackList) ...{
-                                AlbumTrackList(track: element),
-                              }
+                              const SizedBox(
+                                height: 15,
+                              ),
                             ],
                           ),
                         ),
-                      ],
-                    ),
-                  ),
-                  Positioned(
-                    child: AnimatedContainer(
-                      duration: const Duration(milliseconds: 500),
-                      height: 90,
-                      color: showTopBar
-                          ? state.album.colorPallete[0]
-                          : Colors.transparent,
-                      width: MediaQuery.of(context).size.width,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          SizedBox(
-                            width: MediaQuery.of(context).size.width,
-                            child: Stack(
-                              clipBehavior: Clip.none,
-                              alignment: AlignmentDirectional.centerStart,
-                              children: [
-                                Positioned(
-                                  left: 15,
-                                  child: GestureDetector(
-                                    onTap: () {
-                                      Navigator.pop(context);
-                                    },
-                                    child: const Icon(
-                                      Icons.arrow_back_rounded,
-                                      color: Colors.white,
-                                      size: 24,
-                                    ),
-                                  ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only(left: 60),
-                                  child: AnimatedOpacity(
-                                    duration: const Duration(milliseconds: 200),
-                                    opacity: showTopBar ? 1 : 0,
-                                    child: Text(
-                                      state.album.albumName,
-                                      style: const TextStyle(
-                                        fontFamily: "AM",
-                                        fontSize: 16,
-                                        color: MyColors.whiteColor,
-                                        fontWeight: FontWeight.w700,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                                Positioned(
-                                  right: 25,
-                                  bottom: 85 -
-                                      containerHeight.clamp(
-                                          125.0, double.infinity),
-                                  child: (!_isInPlay)
-                                      ? const PlayButton(
-                                          height: 56,
-                                          width: 56,
-                                          color: MyColors.greenColor,
-                                        )
-                                      : const PauseButton(
-                                          iconHeight: 19,
-                                          color: MyColors.greenColor,
-                                          height: 56,
-                                          width: 56,
-                                        ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          const SizedBox(
-                            height: 15,
-                          ),
-                        ],
                       ),
-                    ),
+                    ],
                   ),
+                  const Padding(
+                    padding: EdgeInsets.only(bottom: 64),
+                    child: BottomPlayer(),
+                  )
                 ],
               ),
             );
@@ -267,8 +278,8 @@ class _AlbumViewScreenState extends State<AlbumViewScreen> {
   }
 }
 
-class AlbumTrackList extends StatelessWidget {
-  const AlbumTrackList({required this.track});
+class _AlbumTrackList extends StatelessWidget {
+  const _AlbumTrackList({required this.track});
   final AlbumTrack track;
 
   @override
@@ -335,15 +346,15 @@ class AlbumTrackList extends StatelessWidget {
   }
 }
 
-class AlbumControlButtons extends StatefulWidget {
-  const AlbumControlButtons({super.key, required this.album});
+class _AlbumControlButtons extends StatefulWidget {
+  const _AlbumControlButtons({required this.album});
   final Album album;
 
   @override
-  State<AlbumControlButtons> createState() => _AlbumControlButtonsState();
+  State<_AlbumControlButtons> createState() => _AlbumControlButtonsState();
 }
 
-class _AlbumControlButtonsState extends State<AlbumControlButtons> {
+class _AlbumControlButtonsState extends State<_AlbumControlButtons> {
   bool _isLiked = false;
 
   @override
@@ -433,179 +444,5 @@ class _AlbumControlButtonsState extends State<AlbumControlButtons> {
         ),
       ],
     );
-  }
-}
-
-class SliverHeader extends SliverPersistentHeaderDelegate {
-  final AlbumListResponseState state;
-
-  SliverHeader({required this.state});
-  @override
-  Widget build(
-      BuildContext context, double shrinkOffset, bool overlapsContent) {
-    double value = 285 - shrinkOffset;
-
-    return AnimatedSwitcher(
-      duration: const Duration(milliseconds: 300),
-      child: (shrinkOffset > 200)
-          ? Container(
-              key: const Key("1"),
-              height: 90,
-              width: MediaQuery.of(context).size.width,
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                  colors: [
-                    state.album.colorPallete[0],
-                    state.album.colorPallete[1],
-                  ],
-                ),
-              ),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  Row(
-                    children: [
-                      const SizedBox(
-                        width: 15,
-                      ),
-                      GestureDetector(
-                        onTap: () {
-                          Navigator.pop(context);
-                        },
-                        child: const Icon(
-                          Icons.arrow_back_rounded,
-                          color: Colors.white,
-                          size: 24,
-                        ),
-                      ),
-                      const SizedBox(
-                        width: 30,
-                      ),
-                      Text(
-                        state.album.albumName,
-                        style: const TextStyle(
-                          fontFamily: "AM",
-                          fontSize: 16,
-                          color: MyColors.whiteColor,
-                          fontWeight: FontWeight.w700,
-                        ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(
-                    height: 15,
-                  ),
-                ],
-              ),
-            )
-          : Container(
-              height: value + 15,
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                  colors: [
-                    state.album.colorPallete[0],
-                    state.album.colorPallete[1],
-                  ],
-                ),
-                border: Border.all(
-                  width: 0,
-                  color: state.album.colorPallete[1],
-                ),
-              ),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Padding(
-                        padding:
-                            const EdgeInsets.only(left: 15, right: 15, top: 50),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            GestureDetector(
-                              onTap: () {
-                                Navigator.pop(context);
-                              },
-                              child: AnimatedScale(
-                                duration: const Duration(milliseconds: 200),
-                                scale: (value < 100) ? 0 : 1,
-                                child: const Icon(
-                                  Icons.arrow_back_rounded,
-                                  color: Colors.white,
-                                  size: 24,
-                                ),
-                              ),
-                            ),
-                            AnimatedScale(
-                              duration: const Duration(milliseconds: 200),
-                              scale: (value < 130) ? 0 : 1,
-                              child: Container(
-                                height: calScale(value),
-                                width: calScale(value),
-                                decoration: const BoxDecoration(
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: MyColors.blackColor,
-                                      offset: Offset(0, 10),
-                                      spreadRadius: -10,
-                                      blurRadius: 15,
-                                    ),
-                                    BoxShadow(
-                                      color: MyColors.blackColor,
-                                      offset: Offset(0, -10),
-                                      spreadRadius: -10,
-                                      blurRadius: 15,
-                                    ),
-                                  ],
-                                ),
-                                child: Image.asset(
-                                  'images/home/${state.album.albumImage}',
-                                ),
-                              ),
-                            ),
-                            AnimatedScale(
-                              duration: const Duration(milliseconds: 200),
-                              scale: (value < 100) ? 0 : 1,
-                              child: const Icon(
-                                Icons.arrow_back_rounded,
-                                color: Colors.transparent,
-                                size: 24,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-    );
-  }
-
-  double calScale(value) {
-    if (value > 0) {
-      return value - 35;
-    } else {
-      return 0;
-    }
-  }
-
-  @override
-  double get maxExtent => 300.0;
-
-  @override
-  double get minExtent => 300.0;
-
-  @override
-  bool shouldRebuild(covariant SliverPersistentHeaderDelegate oldDelegate) {
-    return false;
   }
 }

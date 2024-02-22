@@ -28,7 +28,7 @@ class ShareSongScreen extends StatelessWidget {
                   ],
                 ),
               ),
-              child: const SongInfo(),
+              child: const _SongInfo(),
             ),
           ),
           Expanded(
@@ -50,8 +50,8 @@ class ShareSongScreen extends StatelessWidget {
   }
 }
 
-class SongInfo extends StatelessWidget {
-  const SongInfo({super.key});
+class _SongInfo extends StatelessWidget {
+  const _SongInfo({super.key});
 
   @override
   Widget build(BuildContext context) {

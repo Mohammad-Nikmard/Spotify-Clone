@@ -29,7 +29,7 @@ class SongControlScreen extends StatelessWidget {
                     ],
                   ),
                 ),
-                child: const _UpperContainerContent(),
+                child: const _SongHeader(),
               ),
             ),
           ),
@@ -48,13 +48,13 @@ class SongControlScreen extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(horizontal: 25),
                   child: Column(
                     children: [
-                      const AlbumChip(text: "Like", image: "icon_heart.png"),
-                      const AlbumChip(
+                      const _AlbumChip(text: "Like", image: "icon_heart.png"),
+                      const _AlbumChip(
                           text: "Hide song", image: "icon_hide_song.png"),
-                      const AlbumChip(
+                      const _AlbumChip(
                           text: "Add to playlist",
                           image: "icon_add_to_playlist.png"),
-                      const AlbumChip(
+                      const _AlbumChip(
                           text: "Add to queue", image: "icon_add_to_quoue.png"),
                       GestureDetector(
                         onTap: () {
@@ -65,18 +65,18 @@ class SongControlScreen extends StatelessWidget {
                             ),
                           );
                         },
-                        child: const AlbumChip(
+                        child: const _AlbumChip(
                             text: "Share", image: "icon_share.png"),
                       ),
-                      const AlbumChip(
+                      const _AlbumChip(
                           text: "Go to radio", image: "icon_radio.png"),
-                      const AlbumChip(
+                      const _AlbumChip(
                           text: "View album", image: "icon_album.png"),
-                      const AlbumChip(
+                      const _AlbumChip(
                           text: "View artist", image: "icon_view_artist.png"),
-                      const AlbumChip(
+                      const _AlbumChip(
                           text: "Song credits", image: "icon_song_credits.png"),
-                      const AlbumChip(
+                      const _AlbumChip(
                           text: "Sleep timer", image: "icon_sleep_timer.png"),
                       const SizedBox(height: 30),
                       Center(
@@ -107,8 +107,8 @@ class SongControlScreen extends StatelessWidget {
   }
 }
 
-class AlbumChip extends StatelessWidget {
-  const AlbumChip({super.key, required this.text, required this.image});
+class _AlbumChip extends StatelessWidget {
+  const _AlbumChip({super.key, required this.text, required this.image});
   final String text;
   final String image;
 
@@ -135,8 +135,8 @@ class AlbumChip extends StatelessWidget {
   }
 }
 
-class _UpperContainerContent extends StatelessWidget {
-  const _UpperContainerContent({super.key});
+class _SongHeader extends StatelessWidget {
+  const _SongHeader();
 
   @override
   Widget build(BuildContext context) {

@@ -1,6 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:spotify_clone/DI/service_locator.dart';
 import 'package:spotify_clone/bloc/album/album_bloc.dart';
@@ -124,8 +122,8 @@ class LibraryScreen extends StatelessWidget {
                       ),
                     ),
                   ),
-                  const LikedSongs(),
-                  const NewEpisodes(),
+                  const _LikedSongsSection(),
+                  const _NewEpisodesSection(),
                   SliverToBoxAdapter(
                     child: GestureDetector(
                       onTap: () {
@@ -227,8 +225,8 @@ class LibraryScreen extends StatelessWidget {
   }
 }
 
-class NewEpisodes extends StatelessWidget {
-  const NewEpisodes({super.key});
+class _NewEpisodesSection extends StatelessWidget {
+  const _NewEpisodesSection();
 
   @override
   Widget build(BuildContext context) {
@@ -285,8 +283,8 @@ class NewEpisodes extends StatelessWidget {
   }
 }
 
-class LikedSongs extends StatelessWidget {
-  const LikedSongs({super.key});
+class _LikedSongsSection extends StatelessWidget {
+  const _LikedSongsSection();
 
   @override
   Widget build(BuildContext context) {

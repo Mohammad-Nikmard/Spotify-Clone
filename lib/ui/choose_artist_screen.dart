@@ -26,9 +26,9 @@ class ChooseArtistScreen extends StatelessWidget {
                 children: [
                   CustomScrollView(
                     slivers: [
-                      const Header(),
-                      const SearchBox(),
-                      AvatarsSection(
+                      const _Header(),
+                      const _SearchBox(),
+                      _AvatarsSection(
                         artist: state.artistList,
                       ),
                     ],
@@ -104,8 +104,8 @@ class ChooseArtistScreen extends StatelessWidget {
   }
 }
 
-class Header extends StatelessWidget {
-  const Header({super.key});
+class _Header extends StatelessWidget {
+  const _Header();
 
   @override
   Widget build(BuildContext context) {
@@ -155,8 +155,8 @@ class Header extends StatelessWidget {
   }
 }
 
-class AvatarsSection extends StatelessWidget {
-  const AvatarsSection({super.key, required this.artist});
+class _AvatarsSection extends StatelessWidget {
+  const _AvatarsSection({required this.artist});
   final List<Artist> artist;
 
   @override
@@ -181,8 +181,8 @@ class AvatarsSection extends StatelessWidget {
   }
 }
 
-class SearchBox extends StatelessWidget {
-  const SearchBox({super.key});
+class _SearchBox extends StatelessWidget {
+  const _SearchBox();
 
   @override
   Widget build(BuildContext context) {

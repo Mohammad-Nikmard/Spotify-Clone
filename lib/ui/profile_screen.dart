@@ -33,7 +33,7 @@ class ProfileScreen extends StatelessWidget {
                       ],
                     ),
                   ),
-                  child: const UpperContainerContent(),
+                  child: const _ProfileHeader(),
                 ),
               ),
               Expanded(
@@ -46,7 +46,7 @@ class ProfileScreen extends StatelessWidget {
                     ),
                     color: const Color(0xff101010),
                   ),
-                  child: const LowerContainerContent(),
+                  child: const _ProfilePlaylists(),
                 ),
               ),
             ],
@@ -61,8 +61,8 @@ class ProfileScreen extends StatelessWidget {
   }
 }
 
-class LowerContainerContent extends StatelessWidget {
-  const LowerContainerContent({super.key});
+class _ProfilePlaylists extends StatelessWidget {
+  const _ProfilePlaylists();
 
   @override
   Widget build(BuildContext context) {
@@ -106,8 +106,8 @@ class LowerContainerContent extends StatelessWidget {
   }
 }
 
-class UpperContainerContent extends StatelessWidget {
-  const UpperContainerContent({super.key});
+class _ProfileHeader extends StatelessWidget {
+  const _ProfileHeader();
 
   @override
   Widget build(BuildContext context) {

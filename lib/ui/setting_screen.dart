@@ -37,18 +37,18 @@ class SettingScreen extends StatelessWidget {
             padding: EdgeInsets.symmetric(horizontal: 20),
             child: CustomScrollView(
               slivers: [
-                ProfileChip(),
-                SettingsChip(title: "Account"),
-                SettingsChip(title: "Data Saver"),
-                SettingsChip(title: "Langugages"),
-                SettingsChip(title: "Playback"),
-                SettingsChip(title: "Explicit Content"),
-                SettingsChip(title: "Devices"),
-                SettingsChip(title: "Car"),
-                SettingsChip(title: "Social"),
-                SettingsChip(title: "Voice Assistant & Apps"),
-                SettingsChip(title: "Audio Quality"),
-                SettingsChip(title: "Storage"),
+                _ProfileSection(),
+                _SettingsOptionChip(title: "Account"),
+                _SettingsOptionChip(title: "Data Saver"),
+                _SettingsOptionChip(title: "Langugages"),
+                _SettingsOptionChip(title: "Playback"),
+                _SettingsOptionChip(title: "Explicit Content"),
+                _SettingsOptionChip(title: "Devices"),
+                _SettingsOptionChip(title: "Car"),
+                _SettingsOptionChip(title: "Social"),
+                _SettingsOptionChip(title: "Voice Assistant & Apps"),
+                _SettingsOptionChip(title: "Audio Quality"),
+                _SettingsOptionChip(title: "Storage"),
               ],
             ),
           ),
@@ -62,8 +62,8 @@ class SettingScreen extends StatelessWidget {
   }
 }
 
-class SettingsChip extends StatelessWidget {
-  const SettingsChip({super.key, required this.title});
+class _SettingsOptionChip extends StatelessWidget {
+  const _SettingsOptionChip({required this.title});
   final String title;
 
   @override
@@ -90,8 +90,8 @@ class SettingsChip extends StatelessWidget {
   }
 }
 
-class ProfileChip extends StatelessWidget {
-  const ProfileChip({super.key});
+class _ProfileSection extends StatelessWidget {
+  const _ProfileSection({super.key});
 
   @override
   Widget build(BuildContext context) {
