@@ -104,7 +104,7 @@ class _BottomPlayerState extends State<BottomPlayer> {
                       ),
                     ),
                     SizedBox(
-                      width: 100,
+                      width: 103,
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -135,30 +135,33 @@ class _BottomPlayerState extends State<BottomPlayer> {
                               width: 24,
                             ),
                           ),
-                          GestureDetector(
-                            onTap: () {
-                              setState(() {
-                                _isLiked = !_isLiked;
-                              });
-                            },
-                            child: (_isLiked)
-                                ? Row(
-                                    children: [
-                                      Image.asset(
-                                          'images/icon_heart_filled.png'),
-                                      const SizedBox(
-                                        width: 9,
-                                      ),
-                                    ],
-                                  )
-                                : Row(
-                                    children: [
-                                      Image.asset('images/icon_heart.png'),
-                                      const SizedBox(
-                                        width: 9,
-                                      ),
-                                    ],
-                                  ),
+                          Padding(
+                            padding: const EdgeInsets.only(left: 7),
+                            child: GestureDetector(
+                              onTap: () {
+                                setState(() {
+                                  _isLiked = !_isLiked;
+                                });
+                              },
+                              child: (_isLiked)
+                                  ? Row(
+                                      children: [
+                                        Image.asset(
+                                            'images/icon_heart_filled.png'),
+                                        const SizedBox(
+                                          width: 9,
+                                        ),
+                                      ],
+                                    )
+                                  : Row(
+                                      children: [
+                                        Image.asset('images/icon_heart.png'),
+                                        const SizedBox(
+                                          width: 9,
+                                        ),
+                                      ],
+                                    ),
+                            ),
                           ),
                           InkWell(
                             onTap: () {

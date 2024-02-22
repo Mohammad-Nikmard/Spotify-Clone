@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -6,9 +7,9 @@ import 'package:spotify_clone/bloc/album/album_bloc.dart';
 import 'package:spotify_clone/bloc/album/album_state.dart';
 import 'package:spotify_clone/constants/constants.dart';
 import 'package:spotify_clone/data/model/album.dart';
+import 'package:spotify_clone/data/model/album_track.dart';
 import 'package:spotify_clone/ui/album_control_screen.dart';
 import 'package:spotify_clone/ui/song_control_screen.dart';
-import 'package:spotify_clone/widgets/bottom_player.dart';
 import 'package:spotify_clone/widgets/stream_buttons.dart';
 
 class AlbumViewScreen extends StatefulWidget {
@@ -19,6 +20,45 @@ class AlbumViewScreen extends StatefulWidget {
 }
 
 class _AlbumViewScreenState extends State<AlbumViewScreen> {
+  ScrollController? _scrollController;
+  double imageSize = 0;
+  double initSize = 236;
+  double containerHeight = 460;
+  double containerInitialHeight = 460;
+  double imageOpacity = 1;
+  bool showTopBar = false;
+  bool _isInPlay = false;
+  @override
+  void initState() {
+    imageSize = initSize;
+
+    _scrollController = ScrollController()
+      ..addListener(() {
+        imageSize = initSize - _scrollController!.offset;
+        if (imageSize < 0) {
+          imageSize = 0;
+        }
+        containerHeight = containerInitialHeight - _scrollController!.offset;
+        if (containerHeight < 0) {
+          containerHeight = 0;
+        }
+        imageOpacity = imageSize / initSize;
+        if (_scrollController!.offset > 224) {
+          showTopBar = true;
+        } else {
+          showTopBar = false;
+        }
+        setState(() {});
+      });
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _scrollController!.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,24 +69,184 @@ class _AlbumViewScreenState extends State<AlbumViewScreen> {
             return SafeArea(
               top: false,
               child: Stack(
-                alignment: AlignmentDirectional.bottomCenter,
                 children: [
-                  CustomScrollView(
-                    slivers: [
-                      SliverPersistentHeader(
-                        delegate: SliverHeader(state: state),
-                        pinned: true,
-                        floating: true,
-                      ),
-                      SliverToBoxAdapter(
-                        child: AlbumControlButtons(
-                          album: state.album,
+                  Container(
+                    color: state.album.colorPallete[0],
+                    height: containerHeight,
+                    width: MediaQuery.of(context).size.width,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(top: 60),
+                          child: Opacity(
+                            opacity: imageOpacity.clamp(0, 1.0),
+                            child: Container(
+                              height: imageSize,
+                              width: imageSize,
+                              decoration: const BoxDecoration(
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: MyColors.blackColor,
+                                    offset: Offset(0, 10),
+                                    spreadRadius: -10,
+                                    blurRadius: 15,
+                                  ),
+                                  BoxShadow(
+                                    color: MyColors.blackColor,
+                                    offset: Offset(0, -10),
+                                    spreadRadius: -10,
+                                    blurRadius: 15,
+                                  ),
+                                ],
+                              ),
+                              child: Image.asset(
+                                'images/home/${state.album.albumImage}',
+                              ),
+                            ),
+                          ),
                         ),
-                      ),
-                      _AlbumTrackList(albumList: state.album),
-                    ],
+                        const SizedBox(
+                          height: 30,
+                        ),
+                      ],
+                    ),
                   ),
-                  const BottomPlayer(),
+                  SingleChildScrollView(
+                    controller: _scrollController,
+                    child: Column(
+                      children: [
+                        Container(
+                          decoration: BoxDecoration(
+                            gradient: LinearGradient(
+                              begin: Alignment.topCenter,
+                              end: Alignment.bottomCenter,
+                              colors: [
+                                MyColors.blackColor.withOpacity(0),
+                                MyColors.blackColor.withOpacity(0.1),
+                                MyColors.blackColor.withOpacity(1),
+                              ],
+                            ),
+                            border: Border.all(
+                              width: 0,
+                              color: state.album.colorPallete[1],
+                            ),
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.only(right: 20, left: 20),
+                            child: Column(
+                              children: [
+                                SizedBox(
+                                  height: initSize + 45,
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(top: 25),
+                                  child: AlbumControlButtons(
+                                    album: state.album,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                        Container(
+                          // height: 1000,
+                          decoration: BoxDecoration(
+                            color: MyColors.blackColor,
+                            border: Border.all(
+                              width: 0,
+                              color: MyColors.blackColor,
+                            ),
+                          ),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.stretch,
+                            children: [
+                              const SizedBox(
+                                height: 20,
+                              ),
+                              for (var element in state.album.trackList) ...{
+                                AlbumTrackList(track: element),
+                              }
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Positioned(
+                    child: AnimatedContainer(
+                      duration: const Duration(milliseconds: 500),
+                      height: 90,
+                      color: showTopBar
+                          ? state.album.colorPallete[0]
+                          : Colors.transparent,
+                      width: MediaQuery.of(context).size.width,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          SizedBox(
+                            width: MediaQuery.of(context).size.width,
+                            child: Stack(
+                              clipBehavior: Clip.none,
+                              alignment: AlignmentDirectional.centerStart,
+                              children: [
+                                Positioned(
+                                  left: 15,
+                                  child: GestureDetector(
+                                    onTap: () {
+                                      Navigator.pop(context);
+                                    },
+                                    child: const Icon(
+                                      Icons.arrow_back_rounded,
+                                      color: Colors.white,
+                                      size: 24,
+                                    ),
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(left: 60),
+                                  child: AnimatedOpacity(
+                                    duration: const Duration(milliseconds: 200),
+                                    opacity: showTopBar ? 1 : 0,
+                                    child: Text(
+                                      state.album.albumName,
+                                      style: const TextStyle(
+                                        fontFamily: "AM",
+                                        fontSize: 16,
+                                        color: MyColors.whiteColor,
+                                        fontWeight: FontWeight.w700,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                Positioned(
+                                  right: 25,
+                                  bottom: 85 -
+                                      containerHeight.clamp(
+                                          125.0, double.infinity),
+                                  child: (!_isInPlay)
+                                      ? const PlayButton(
+                                          height: 56,
+                                          width: 56,
+                                          color: MyColors.greenColor,
+                                        )
+                                      : const PauseButton(
+                                          iconHeight: 19,
+                                          color: MyColors.greenColor,
+                                          height: 56,
+                                          width: 56,
+                                        ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 15,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
                 ],
               ),
             );
@@ -67,76 +267,69 @@ class _AlbumViewScreenState extends State<AlbumViewScreen> {
   }
 }
 
-class _AlbumTrackList extends StatelessWidget {
-  const _AlbumTrackList({required this.albumList});
-  final Album albumList;
+class AlbumTrackList extends StatelessWidget {
+  const AlbumTrackList({required this.track});
+  final AlbumTrack track;
 
   @override
   Widget build(BuildContext context) {
-    return SliverPadding(
-      padding: const EdgeInsets.only(top: 15, bottom: 25, right: 20, left: 20),
-      sliver: SliverList(
-        delegate: SliverChildBuilderDelegate(
-          (context, index) {
-            return Padding(
-              padding: const EdgeInsets.only(bottom: 20),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      SizedBox(
-                        width: MediaQuery.of(context).size.width - 110,
-                        child: Text(
-                          albumList.trackList[index].trackName,
-                          style: const TextStyle(
-                            fontFamily: "AM",
-                            fontSize: 16,
-                            color: MyColors.whiteColor,
-                          ),
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                      ),
-                      Row(
-                        children: [
-                          Image.asset(
-                            'images/icon_downloaded.png',
-                            height: 13,
-                            width: 13,
-                          ),
-                          const SizedBox(
-                            width: 5,
-                          ),
-                          Text(
-                            albumList.trackList[index].singers,
-                            style: const TextStyle(
-                              fontFamily: "AM",
-                              fontSize: 13,
-                              color: MyColors.lightGrey,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 20, left: 15, right: 15),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(
+                width: MediaQuery.of(context).size.width - 110,
+                child: Text(
+                  track.trackName,
+                  style: const TextStyle(
+                    fontFamily: "AM",
+                    fontSize: 16,
+                    color: MyColors.whiteColor,
                   ),
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const SongControlScreen(),
-                        ),
-                      );
-                    },
-                    child: Image.asset('images/icon_more.png'),
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ),
+              Row(
+                children: [
+                  Image.asset(
+                    'images/icon_downloaded.png',
+                    height: 13,
+                    width: 13,
+                  ),
+                  const SizedBox(
+                    width: 5,
+                  ),
+                  Text(
+                    track.singers,
+                    style: const TextStyle(
+                      fontFamily: "AM",
+                      fontSize: 13,
+                      color: MyColors.lightGrey,
+                    ),
                   ),
                 ],
               ),
-            );
-          },
-          childCount: albumList.trackList.length,
-        ),
+            ],
+          ),
+          GestureDetector(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const SongControlScreen(),
+                ),
+              );
+            },
+            child: const Icon(
+              Icons.more_vert,
+              color: Colors.white,
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -152,127 +345,93 @@ class AlbumControlButtons extends StatefulWidget {
 
 class _AlbumControlButtonsState extends State<AlbumControlButtons> {
   bool _isLiked = false;
-  bool _isInPlay = true;
+
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
-          colors: [
-            widget.album.colorPallete[1],
-            MyColors.blackColor,
-          ],
-        ),
-      ),
-      child: Padding(
-        padding: const EdgeInsets.only(left: 20, right: 20, top: 25),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+            Text(
+              widget.album.albumName,
+              style: const TextStyle(
+                fontFamily: "AM",
+                fontSize: 25,
+                color: MyColors.whiteColor,
+                fontWeight: FontWeight.w700,
+              ),
+            ),
+            const SizedBox(
+              height: 5,
+            ),
+            Row(
               children: [
+                CircleAvatar(
+                  radius: 15,
+                  backgroundImage:
+                      AssetImage('images/artists/${widget.album.artistImage}'),
+                ),
+                const SizedBox(
+                  width: 8,
+                ),
                 Text(
-                  widget.album.albumName,
+                  widget.album.singerName,
                   style: const TextStyle(
                     fontFamily: "AM",
-                    fontSize: 25,
+                    fontSize: 14,
                     color: MyColors.whiteColor,
-                    fontWeight: FontWeight.w700,
-                  ),
-                ),
-                const SizedBox(
-                  height: 5,
-                ),
-                Row(
-                  children: [
-                    CircleAvatar(
-                      radius: 15,
-                      backgroundImage: AssetImage(
-                          'images/artists/${widget.album.artistImage}'),
-                    ),
-                    const SizedBox(
-                      width: 8,
-                    ),
-                    Text(
-                      widget.album.singerName,
-                      style: const TextStyle(
-                        fontFamily: "AM",
-                        fontSize: 14,
-                        color: MyColors.whiteColor,
-                        fontWeight: FontWeight.w400,
-                      ),
-                    ),
-                  ],
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                Text(
-                  "Album . ${widget.album.year}",
-                  style: const TextStyle(
-                    fontFamily: "AM",
-                    fontSize: 13,
-                    color: Color.fromARGB(255, 165, 165, 165),
-                  ),
-                ),
-                SizedBox(
-                  width: 120,
-                  height: 45,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      GestureDetector(
-                        onTap: () {
-                          setState(() {
-                            _isLiked = !_isLiked;
-                          });
-                        },
-                        child: (_isLiked)
-                            ? Image.asset('images/icon_heart.png')
-                            : Image.asset('images/icon_heart_filled.png'),
-                      ),
-                      Image.asset('images/icon_downloaded.png'),
-                      GestureDetector(
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const AlbumControlScreen(),
-                            ),
-                          );
-                        },
-                        child: Image.asset('images/icon_more.png'),
-                      ),
-                    ],
+                    fontWeight: FontWeight.w400,
                   ),
                 ),
               ],
             ),
-            GestureDetector(
-              onTap: () {
-                setState(() {
-                  _isInPlay = !_isInPlay;
-                });
-              },
-              child: (_isInPlay)
-                  ? const PlayButton(
-                      height: 56,
-                      width: 56,
-                      color: MyColors.greenColor,
-                    )
-                  : const PauseButton(
-                      iconHeight: 19,
-                      color: MyColors.greenColor,
-                      height: 56,
-                      width: 56,
-                    ),
+            const SizedBox(
+              height: 10,
+            ),
+            Text(
+              "Album . ${widget.album.year}",
+              style: const TextStyle(
+                fontFamily: "AM",
+                fontSize: 13,
+                color: Color.fromARGB(255, 165, 165, 165),
+              ),
+            ),
+            SizedBox(
+              width: 120,
+              height: 45,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        _isLiked = !_isLiked;
+                      });
+                    },
+                    child: (_isLiked)
+                        ? Image.asset('images/icon_heart.png')
+                        : Image.asset('images/icon_heart_filled.png'),
+                  ),
+                  Image.asset('images/icon_downloaded.png'),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const AlbumControlScreen(),
+                        ),
+                      );
+                    },
+                    child: Image.asset('images/icon_more.png'),
+                  ),
+                ],
+              ),
             ),
           ],
         ),
-      ),
+      ],
     );
   }
 }
@@ -288,7 +447,7 @@ class SliverHeader extends SliverPersistentHeaderDelegate {
 
     return AnimatedSwitcher(
       duration: const Duration(milliseconds: 300),
-      child: (shrinkOffset > 190)
+      child: (shrinkOffset > 200)
           ? Container(
               key: const Key("1"),
               height: 90,
@@ -342,7 +501,6 @@ class SliverHeader extends SliverPersistentHeaderDelegate {
               ),
             )
           : Container(
-              key: const Key("2"),
               height: value + 15,
               decoration: BoxDecoration(
                 gradient: LinearGradient(
