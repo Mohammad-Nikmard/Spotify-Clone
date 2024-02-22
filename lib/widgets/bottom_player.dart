@@ -129,9 +129,10 @@ class _BottomPlayerState extends State<BottomPlayer> {
                               );
                             },
                             child: Image.asset(
-                              'images/bluetooth.png',
-                              height: 29,
-                              width: 29,
+                              'images/icon_listen.png',
+                              color: const Color.fromARGB(255, 190, 190, 190),
+                              height: 24,
+                              width: 24,
                             ),
                           ),
                           GestureDetector(

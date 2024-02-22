@@ -1,6 +1,10 @@
+import 'package:animations/animations.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:spotify_clone/constants/constants.dart';
 import 'package:spotify_clone/ui/album_radio_screen.dart';
+import 'package:spotify_clone/ui/lyrics_screen.dart';
 import 'package:spotify_clone/ui/share_song_screen.dart';
 import 'package:spotify_clone/ui/song_control_screen.dart';
 import 'package:spotify_clone/widgets/stream_buttons.dart';
@@ -93,7 +97,23 @@ class TrackViewScreen extends StatelessWidget {
                     ),
                   ),
                 ),
-                const LyricsSection(),
+                SliverToBoxAdapter(
+                  child: OpenContainer(
+                    transitionType: ContainerTransitionType.fade,
+                    transitionDuration: const Duration(seconds: 1),
+                    closedColor: Colors.transparent,
+                    openColor: Colors.transparent,
+                    openElevation: 0.0,
+                    closedElevation: 0.0,
+                    middleColor: Colors.transparent,
+                    closedBuilder: (context, action) {
+                      return const _LyricsSection();
+                    },
+                    openBuilder: (context, action) {
+                      return const LyricsScreen();
+                    },
+                  ),
+                ),
               ],
             ),
           ),
@@ -111,7 +131,7 @@ class SongActionButtons extends StatefulWidget {
 }
 
 class _SongActionButtonsState extends State<SongActionButtons> {
-  bool isPaused = false;
+  bool isPaused = true;
   bool isInRepeat = true;
   bool isShuffleOn = false;
   @override
@@ -178,77 +198,111 @@ class _SongActionButtonsState extends State<SongActionButtons> {
   }
 }
 
-class LyricsSection extends StatelessWidget {
-  const LyricsSection({super.key});
+class _LyricsSection extends StatelessWidget {
+  const _LyricsSection();
 
   @override
   Widget build(BuildContext context) {
-    return SliverToBoxAdapter(
-      child: Stack(
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(top: 20, bottom: 30),
-            child: Container(
-              width: MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.width,
-              decoration: const BoxDecoration(
-                color: Colors.blue,
-                borderRadius: BorderRadius.all(
-                  Radius.circular(8),
+    return Stack(
+      alignment: AlignmentDirectional.center,
+      children: [
+        Padding(
+          padding: const EdgeInsets.only(top: 20, bottom: 30),
+          child: Container(
+            width: MediaQuery.of(context).size.width,
+            height: MediaQuery.of(context).size.width,
+            decoration: const BoxDecoration(
+              color: Colors.blue,
+              borderRadius: BorderRadius.all(
+                Radius.circular(8),
+              ),
+            ),
+          ),
+        ),
+        const Positioned(
+          top: 33,
+          left: 15,
+          child: Text(
+            "Lyrics",
+            style: TextStyle(
+              fontFamily: "AM",
+              fontSize: 18,
+              fontWeight: FontWeight.w600,
+              color: MyColors.whiteColor,
+            ),
+          ),
+        ),
+        Positioned(
+          top: 33,
+          right: 15,
+          child: Container(
+            height: 28,
+            decoration: BoxDecoration(
+              color: MyColors.darGreyColor.withOpacity(0.6),
+              borderRadius: const BorderRadius.all(
+                Radius.circular(15),
+              ),
+            ),
+            child: Center(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 10),
+                child: Row(
+                  children: [
+                    const Text(
+                      "MORE",
+                      style: TextStyle(
+                        fontFamily: "AM",
+                        fontSize: 10,
+                        color: MyColors.whiteColor,
+                        fontWeight: FontWeight.w400,
+                      ),
+                    ),
+                    const SizedBox(
+                      width: 8,
+                    ),
+                    Image.asset("images/icon_bigger_size.png"),
+                  ],
                 ),
               ),
             ),
           ),
-          const Positioned(
-            top: 33,
-            left: 15,
-            child: Text(
-              "Lyrics",
-              style: TextStyle(
-                fontFamily: "AM",
-                fontSize: 18,
-                fontWeight: FontWeight.w600,
-                color: MyColors.whiteColor,
-              ),
-            ),
-          ),
-          Positioned(
-            top: 33,
-            right: 15,
-            child: Container(
-              height: 28,
-              decoration: BoxDecoration(
-                color: MyColors.darGreyColor.withOpacity(0.6),
-                borderRadius: const BorderRadius.all(
-                  Radius.circular(15),
-                ),
-              ),
-              child: Center(
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 10),
-                  child: Row(
-                    children: [
-                      const Text(
-                        "MORE",
-                        style: TextStyle(
-                          fontFamily: "AM",
-                          fontSize: 10,
-                          color: MyColors.whiteColor,
-                          fontWeight: FontWeight.w400,
-                        ),
-                      ),
-                      const SizedBox(
-                        width: 8,
-                      ),
-                      Image.asset("images/icon_bigger_size.png"),
-                    ],
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 30),
+          child: SizedBox(
+            height: 300,
+            width: MediaQuery.of(context).size.width,
+            child: const SingleChildScrollView(
+              child: Column(
+                children: [
+                  Text(
+                    """2 AM, they ran out of lemonade 
+So I shot that vodka straight, anyway    
+She came in, missin' bottle off the shelf""",
+                    style: TextStyle(
+                      color: MyColors.whiteColor,
+                      fontFamily: "AB",
+                      fontSize: 24,
+                    ),
                   ),
-                ),
+                  Text(
+                    """
+I can't drink this by myself, sit with me, babe
+Then I started laughin'
+Like it was funny, but it really ain't funny, uh
+""",
+                    style: TextStyle(
+                      color: MyColors.blackColor,
+                      fontFamily: "AB",
+                      fontSize: 24,
+                    ),
+                  ),
+                ],
               ),
             ),
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }
@@ -261,7 +315,7 @@ class SongInfo extends StatefulWidget {
 }
 
 class _SongInfoState extends State<SongInfo> {
-  double _currentNumber = 0;
+  double _currentNumber = 25;
   @override
   Widget build(BuildContext context) {
     return SliverToBoxAdapter(
@@ -336,7 +390,7 @@ class _SongInfoState extends State<SongInfo> {
                 min: 0,
                 max: 100,
                 activeColor: const Color.fromARGB(255, 230, 229, 229),
-                inactiveColor: MyColors.lightGrey,
+                inactiveColor: const Color.fromARGB(255, 148, 147, 147),
                 value: _currentNumber,
                 onChanged: (onChanged) {
                   setState(() {
@@ -355,7 +409,7 @@ class _SongInfoState extends State<SongInfo> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  "0:00",
+                  "0:55",
                   style: TextStyle(
                     fontFamily: "AM",
                     fontSize: 12,
@@ -418,7 +472,7 @@ class _Header extends StatelessWidget {
               ),
             ),
             const Text(
-              "1(Remastered)",
+              "Enough is Enough",
               style: TextStyle(
                 fontFamily: "AM",
                 fontWeight: FontWeight.w400,

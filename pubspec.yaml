@@ -14,6 +14,7 @@ dependencies:
     sdk: flutter
   flutter_screenutil: ^5.9.0
   marquee: ^2.2.3
+  animations: ^2.0.11
   flutter_barcode_scanner: ^2.0.0
   go_router: ^13.2.0
   
