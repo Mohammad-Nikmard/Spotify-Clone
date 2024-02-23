@@ -4,6 +4,7 @@ import 'package:spotify_clone/bloc/podcast/pocast_bloc.dart';
 import 'package:spotify_clone/bloc/podcast/podcast_state.dart';
 import 'package:spotify_clone/constants/constants.dart';
 import 'package:spotify_clone/data/model/podcast.dart';
+import 'package:spotify_clone/ui/dashboard_screen.dart';
 import 'package:spotify_clone/widgets/podcast_avatar_widget.dart';
 
 class ChoosePodcastScreen extends StatelessWidget {
@@ -51,7 +52,7 @@ class ChoosePodcastScreen extends StatelessWidget {
                     ],
                   ),
                   Container(
-                    height: 170,
+                    height: 50,
                     width: MediaQuery.of(context).size.width,
                     decoration: BoxDecoration(
                       gradient: LinearGradient(
@@ -76,7 +77,14 @@ class ChoosePodcastScreen extends StatelessWidget {
                         ),
                         backgroundColor: MyColors.whiteColor,
                       ),
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const DashBoardScreen(),
+                          ),
+                        );
+                      },
                       child: const Text(
                         "Done",
                         style: TextStyle(

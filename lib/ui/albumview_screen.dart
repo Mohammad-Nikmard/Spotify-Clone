@@ -239,6 +239,7 @@ class _AlbumViewScreenState extends State<AlbumViewScreen> {
                                               color: MyColors.greenColor,
                                             )
                                           : const PauseButton(
+                                              iconWidth: 3,
                                               iconHeight: 19,
                                               color: MyColors.greenColor,
                                               height: 56,
@@ -257,10 +258,7 @@ class _AlbumViewScreenState extends State<AlbumViewScreen> {
                       ),
                     ],
                   ),
-                  const Padding(
-                    padding: EdgeInsets.only(bottom: 64),
-                    child: BottomPlayer(),
-                  )
+                  const BottomPlayer(),
                 ],
               ),
             );
@@ -432,7 +430,11 @@ class _AlbumControlButtonsState extends State<_AlbumControlButtons> {
                     },
                     child: (_isLiked)
                         ? Image.asset('images/icon_heart.png')
-                        : Image.asset('images/icon_heart_filled.png'),
+                        : Image.asset(
+                            'images/icon_heart_filled.png',
+                            height: 22,
+                            width: 20,
+                          ),
                   ),
                   Image.asset('images/icon_downloaded.png'),
                   GestureDetector(

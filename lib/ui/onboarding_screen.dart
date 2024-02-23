@@ -10,33 +10,37 @@ class OnBoardingScreen extends StatelessWidget {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: MyColors.blackColor,
-      body: Column(
-        children: [
-          Image.asset("images/onboarding_background.png"),
-          const SizedBox(
-            height: 10,
-          ),
-          const Text(
-            "Millions of songs.",
-            style: TextStyle(
-              fontFamily: "AB",
-              fontSize: 28,
-              color: MyColors.whiteColor,
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Image.asset(
+              "images/onboarding_background.png",
             ),
-          ),
-          const Text(
-            "Free on Spotify.",
-            style: TextStyle(
-              fontFamily: "AB",
-              fontSize: 28,
-              color: MyColors.whiteColor,
+            const SizedBox(
+              height: 10,
             ),
-          ),
-          const SizedBox(
-            height: 25,
-          ),
-          const _ActionButtons(),
-        ],
+            const Text(
+              "Millions of songs.",
+              style: TextStyle(
+                fontFamily: "AB",
+                fontSize: 28,
+                color: MyColors.whiteColor,
+              ),
+            ),
+            const Text(
+              "Free on Spotify.",
+              style: TextStyle(
+                fontFamily: "AB",
+                fontSize: 28,
+                color: MyColors.whiteColor,
+              ),
+            ),
+            const SizedBox(
+              height: 25,
+            ),
+            const _ActionButtons(),
+          ],
+        ),
       ),
     );
   }

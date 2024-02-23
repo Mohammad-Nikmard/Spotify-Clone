@@ -18,6 +18,7 @@ class _TrackViewScreenState extends State<TrackViewScreen> {
   bool isSwitchedToNextTab = false;
   bool shadowSwitcher = false;
   double _currentNumber = 25;
+  bool _isLiked = false;
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +28,7 @@ class _TrackViewScreenState extends State<TrackViewScreen> {
           Stack(
             children: [
               AnimatedSwitcher(
-                duration: const Duration(milliseconds: 300),
+                duration: const Duration(milliseconds: 200),
                 switchInCurve: Curves.decelerate,
                 switchOutCurve: Curves.decelerate,
                 child: (isSwitchedToNextTab)
@@ -82,10 +83,10 @@ class _TrackViewScreenState extends State<TrackViewScreen> {
               ),
               const _Header(),
               AnimatedPositioned(
-                duration: const Duration(milliseconds: 300),
+                duration: const Duration(milliseconds: 200),
                 top: (isSwitchedToNextTab)
-                    ? (MediaQuery.of(context).size.height * 0.6)
-                    : (MediaQuery.of(context).size.height * 0.2),
+                    ? (MediaQuery.of(context).size.height * 0.5)
+                    : (MediaQuery.of(context).size.height * 0.4),
                 right: 0,
                 left: 0,
                 child: AnimatedOpacity(
@@ -129,7 +130,7 @@ class _TrackViewScreenState extends State<TrackViewScreen> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               AnimatedPadding(
-                                duration: const Duration(milliseconds: 300),
+                                duration: const Duration(milliseconds: 200),
                                 padding: EdgeInsets.only(
                                     top: (isSwitchedToNextTab) ? 50 : 0),
                                 child: Column(
@@ -214,10 +215,11 @@ class _TrackViewScreenState extends State<TrackViewScreen> {
                               Row(
                                 children: [
                                   AnimatedPadding(
-                                    duration: const Duration(milliseconds: 300),
+                                    duration: const Duration(milliseconds: 200),
                                     padding: EdgeInsets.only(
                                         top: (isSwitchedToNextTab) ? 40 : 0),
                                     child: const PauseButton(
+                                      iconWidth: 2.5,
                                       height: 40,
                                       iconHeight: 14,
                                       width: 40,
@@ -275,9 +277,18 @@ class _TrackViewScreenState extends State<TrackViewScreen> {
                               AnimatedOpacity(
                                 duration: const Duration(milliseconds: 250),
                                 opacity: (isSwitchedToNextTab) ? 0 : 1,
-                                child: Image.asset(
-                                  'images/icon_heart.png',
-                                  color: Colors.white,
+                                child: GestureDetector(
+                                  onTap: () {},
+                                  child: (_isLiked)
+                                      ? Image.asset(
+                                          'images/icon_heart_filled.png',
+                                          height: 22,
+                                          width: 22,
+                                        )
+                                      : Image.asset(
+                                          'images/icon_heart.png',
+                                          color: Colors.white,
+                                        ),
                                 ),
                               ),
                             ],
@@ -288,7 +299,7 @@ class _TrackViewScreenState extends State<TrackViewScreen> {
                           right: 0,
                           left: 0,
                           child: AnimatedPadding(
-                            duration: const Duration(milliseconds: 300),
+                            duration: const Duration(milliseconds: 200),
                             padding: EdgeInsets.only(
                                 left: (isSwitchedToNextTab) ? 50 : 0),
                             child: Column(
@@ -302,7 +313,7 @@ class _TrackViewScreenState extends State<TrackViewScreen> {
                                         overlayRadius: 0.0),
                                   ),
                                   child: AnimatedContainer(
-                                    duration: const Duration(milliseconds: 300),
+                                    duration: const Duration(milliseconds: 200),
                                     width: MediaQuery.of(context).size.width,
                                     child: Slider(
                                       min: 0,

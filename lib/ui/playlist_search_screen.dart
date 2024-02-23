@@ -18,7 +18,7 @@ class PlaylistSearchScreen extends StatelessWidget {
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
           colors: [
-            Color(0xff806C53),
+            Color(0xff7c837b),
             Colors.black,
           ],
         ),
@@ -248,6 +248,7 @@ class _PlaylistActionButtonsState extends State<_PlaylistActionButtons> {
                       width: 56,
                     )
                   : const PauseButton(
+                      iconWidth: 5,
                       iconHeight: 19,
                       color: MyColors.greenColor,
                       height: 56,

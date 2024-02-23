@@ -34,7 +34,7 @@ class ChooseArtistScreen extends StatelessWidget {
                     ],
                   ),
                   Container(
-                    height: 170,
+                    height: 50,
                     width: MediaQuery.of(context).size.width,
                     decoration: BoxDecoration(
                       gradient: LinearGradient(

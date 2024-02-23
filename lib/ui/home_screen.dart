@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
 import 'package:spotify_clone/DI/service_locator.dart';
 import 'package:spotify_clone/bloc/album/album_bloc.dart';
 import 'package:spotify_clone/bloc/album/album_event.dart';
@@ -10,6 +9,7 @@ import 'package:spotify_clone/bloc/playlist/playlist_event.dart';
 import 'package:spotify_clone/constants/constants.dart';
 import 'package:spotify_clone/ui/albumview_screen.dart';
 import 'package:spotify_clone/ui/playlist_search_screen.dart';
+import 'package:spotify_clone/ui/setting_screen.dart';
 import 'package:spotify_clone/widgets/bottom_player.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -635,7 +635,12 @@ class _Header extends StatelessWidget {
                       Image.asset("images/icon_recent.png"),
                       GestureDetector(
                         onTap: () {
-                          context.goNamed("setting");
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const SettingScreen(),
+                            ),
+                          );
                         },
                         child: Image.asset("images/icon_settings.png"),
                       ),
@@ -735,7 +740,7 @@ class _Header extends StatelessWidget {
                                 ),
                               ),
                               Image.asset(
-                                'images/icon_heart_filled.png',
+                                'images/icon_heart_white.png',
                                 height: 20,
                                 width: 20,
                               ),

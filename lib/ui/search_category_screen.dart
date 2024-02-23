@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
-import 'package:go_router/go_router.dart';
 import 'package:spotify_clone/constants/constants.dart';
+import 'package:spotify_clone/ui/search_screen.dart';
 import 'package:spotify_clone/widgets/bottom_player.dart';
 
 class SearchCategoryScreen extends StatefulWidget {
@@ -231,7 +231,12 @@ class _SearchBox extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 15),
           child: InkWell(
             onTap: () {
-              context.goNamed("Search");
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const SearchScreen(),
+                ),
+              );
             },
             child: Row(
               children: [

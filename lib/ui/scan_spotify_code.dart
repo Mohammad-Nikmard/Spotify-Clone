@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:spotify_clone/constants/constants.dart';
 
 class ScanSpotifyCodeScreen extends StatelessWidget {
@@ -47,8 +46,8 @@ class ScanSpotifyCodeScreen extends StatelessWidget {
               ),
               Center(
                 child: Container(
-                  height: ScreenUtil().setHeight(241),
-                  width: ScreenUtil().setWidth(241),
+                  height: 241,
+                  width: 241,
                   decoration: BoxDecoration(
                     color: Colors.black,
                     border: Border.all(

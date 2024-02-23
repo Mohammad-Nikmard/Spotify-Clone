@@ -64,7 +64,7 @@ class _LyricsSection extends StatelessWidget {
             padding: const EdgeInsets.only(top: 20, bottom: 30),
             child: Container(
               width: MediaQuery.of(context).size.width,
-              height: 500,
+              height: MediaQuery.of(context).size.height * 0.45,
               decoration: const BoxDecoration(
                 color: Color(0xff2b8094),
                 borderRadius: BorderRadius.all(
@@ -167,7 +167,7 @@ class _LyricsSection extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.only(left: 15, right: 30),
             child: SizedBox(
-              height: 330,
+              height: MediaQuery.of(context).size.height * 0.22,
               width: MediaQuery.of(context).size.width,
               child: const SingleChildScrollView(
                 child: Column(

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:spotify_clone/constants/constants.dart';
 
 class ShareSongScreen extends StatelessWidget {
@@ -72,11 +71,11 @@ class _SongInfo extends StatelessWidget {
                 child:
                     Image.asset("images/icon_back.png", height: 15, width: 15),
               ),
-              Text(
+              const Text(
                 "Share",
                 style: TextStyle(
                   fontFamily: "AM",
-                  fontSize: ScreenUtil().setSp(18),
+                  fontSize: 18,
                   color: MyColors.whiteColor,
                   fontWeight: FontWeight.w400,
                 ),
@@ -93,21 +92,21 @@ class _SongInfo extends StatelessWidget {
         ),
         Image.asset(
           "images/home/AUSTIN.jpg",
-          height: ScreenUtil().setHeight(220),
-          width: ScreenUtil().setWidth(220),
+          height: 220,
+          width: 220,
         ),
         const SizedBox(
           height: 25,
         ),
-        Center(
+        const Center(
           child: SizedBox(
-            width: ScreenUtil().setWidth(235),
+            width: 235,
             child: Text(
               "Enough is Enough",
               style: TextStyle(
                 fontFamily: "AM",
                 color: MyColors.whiteColor,
-                fontSize: ScreenUtil().setSp(25),
+                fontSize: 25,
                 fontWeight: FontWeight.w700,
                 height: 1,
               ),

@@ -85,6 +85,7 @@ class _AlbumRadioActionButtonsState extends State<_AlbumRadioActionButtons> {
                 ? const PlayButton(
                     color: MyColors.whiteColor, height: 59, width: 59)
                 : const PauseButton(
+                    iconWidth: 2.5,
                     color: MyColors.whiteColor,
                     height: 59,
                     width: 59,

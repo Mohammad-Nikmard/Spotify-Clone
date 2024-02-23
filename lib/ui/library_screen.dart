@@ -297,7 +297,7 @@ class _LikedSongsSection extends StatelessWidget {
               alignment: AlignmentDirectional.center,
               children: [
                 Image.asset("images/liked_songs.png"),
-                Image.asset("images/icon_heart_filled.png"),
+                Image.asset("images/icon_heart_white.png"),
               ],
             ),
             const SizedBox(

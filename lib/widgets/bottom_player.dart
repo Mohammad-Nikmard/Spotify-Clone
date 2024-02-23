@@ -135,7 +135,10 @@ class _BottomPlayerState extends State<BottomPlayer> {
                                   ? Row(
                                       children: [
                                         Image.asset(
-                                            'images/icon_heart_filled.png'),
+                                          'images/icon_heart_filled.png',
+                                          height: 22,
+                                          width: 22,
+                                        ),
                                         const SizedBox(
                                           width: 9,
                                         ),

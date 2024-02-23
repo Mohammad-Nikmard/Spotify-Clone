@@ -1,21 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:spotify_clone/constants/constants.dart';
+import 'package:spotify_clone/ui/home_screen.dart';
+import 'package:spotify_clone/ui/library_screen.dart';
+import 'package:spotify_clone/ui/search_category_screen.dart';
 
 class DashBoardScreen extends StatefulWidget {
-  const DashBoardScreen({super.key, required this.navigationShell});
-  final StatefulNavigationShell navigationShell;
+  const DashBoardScreen({super.key});
 
   @override
   State<DashBoardScreen> createState() => _DashBoardScreenState();
 }
 
 class _DashBoardScreenState extends State<DashBoardScreen> {
-  void _goToBranch(int index) {
-    widget.navigationShell.goBranch(index,
-        initialLocation: index == widget.navigationShell.currentIndex);
-  }
-
   int _currentIndex = 0;
   @override
   Widget build(BuildContext context) {
@@ -41,7 +37,6 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
               setState(() {
                 _currentIndex = value;
               });
-              _goToBranch(_currentIndex);
             },
             items: [
               BottomNavigationBarItem(
@@ -74,10 +69,13 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
           ),
         ),
       ),
-      body: SizedBox(
-        height: double.infinity,
-        width: double.infinity,
-        child: widget.navigationShell,
+      body: IndexedStack(
+        index: _currentIndex,
+        children: const [
+          HomeScreen(),
+          SearchCategoryScreen(),
+          LibraryScreen(),
+        ],
       ),
     );
   }

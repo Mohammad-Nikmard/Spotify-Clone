@@ -37,11 +37,13 @@ class PauseButton extends StatelessWidget {
     required this.height,
     required this.width,
     required this.iconHeight,
+    required this.iconWidth,
   });
   final double height;
   final double width;
   final Color color;
   final double iconHeight;
+  final double iconWidth;
 
   @override
   Widget build(BuildContext context) {
@@ -57,7 +59,7 @@ class PauseButton extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Container(
-              width: 2.5,
+              width: iconWidth,
               height: iconHeight,
               color: MyColors.blackColor,
             ),
@@ -66,7 +68,7 @@ class PauseButton extends StatelessWidget {
             ),
             Container(
               height: iconHeight,
-              width: 2.5,
+              width: iconWidth,
               color: MyColors.blackColor,
             ),
           ],

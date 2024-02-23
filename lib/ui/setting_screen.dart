@@ -52,10 +52,7 @@ class SettingScreen extends StatelessWidget {
               ],
             ),
           ),
-          Padding(
-            padding: EdgeInsets.only(bottom: 64),
-            child: BottomPlayer(),
-          ),
+          BottomPlayer(),
         ],
       ),
     );

@@ -241,10 +241,11 @@ class __ActionButtonsState extends State<_ActionButtons> {
                 },
                 child: (_isInPlay)
                     ? const PauseButton(
+                        iconWidth: 5,
                         color: MyColors.whiteColor,
                         height: 60,
                         width: 60,
-                        iconHeight: 23,
+                        iconHeight: 20,
                       )
                     : const PlayButton(
                         color: MyColors.whiteColor,

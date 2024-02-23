@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:spotify_clone/constants/constants.dart';
 import 'package:spotify_clone/widgets/bottom_player.dart';
 
@@ -51,10 +50,7 @@ class ProfileScreen extends StatelessWidget {
               ),
             ],
           ),
-          const Padding(
-            padding: EdgeInsets.only(bottom: 64),
-            child: BottomPlayer(),
-          ),
+          const BottomPlayer(),
         ],
       ),
     );
@@ -168,7 +164,7 @@ class _ProfileHeader extends StatelessWidget {
                 const SizedBox(
                   height: 65,
                 ),
-                Row(
+                const Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     Column(
@@ -177,7 +173,7 @@ class _ProfileHeader extends StatelessWidget {
                           '23',
                           style: TextStyle(
                             fontFamily: "AM",
-                            fontSize: ScreenUtil().setSp(12),
+                            fontSize: 12,
                             color: MyColors.whiteColor,
                           ),
                         ),
@@ -185,7 +181,7 @@ class _ProfileHeader extends StatelessWidget {
                           "PlayLists",
                           style: TextStyle(
                             fontFamily: "AM",
-                            fontSize: ScreenUtil().setSp(10),
+                            fontSize: 12,
                             color: MyColors.lightGrey,
                           ),
                         ),
@@ -197,7 +193,7 @@ class _ProfileHeader extends StatelessWidget {
                           '58',
                           style: TextStyle(
                             fontFamily: "AM",
-                            fontSize: ScreenUtil().setSp(12),
+                            fontSize: 12,
                             color: MyColors.whiteColor,
                           ),
                         ),
@@ -205,7 +201,7 @@ class _ProfileHeader extends StatelessWidget {
                           "Followers",
                           style: TextStyle(
                             fontFamily: "AM",
-                            fontSize: ScreenUtil().setSp(10),
+                            fontSize: 10,
                             color: MyColors.lightGrey,
                           ),
                         ),
@@ -217,7 +213,7 @@ class _ProfileHeader extends StatelessWidget {
                           '43',
                           style: TextStyle(
                             fontFamily: "AM",
-                            fontSize: ScreenUtil().setSp(12),
+                            fontSize: 12,
                             color: MyColors.whiteColor,
                           ),
                         ),
@@ -225,7 +221,7 @@ class _ProfileHeader extends StatelessWidget {
                           "Following",
                           style: TextStyle(
                             fontFamily: "AM",
-                            fontSize: ScreenUtil().setSp(10),
+                            fontSize: 10,
                             color: MyColors.lightGrey,
                           ),
                         ),
