@@ -57,7 +57,7 @@ class PauseButton extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Container(
-              width: 6,
+              width: 2.5,
               height: iconHeight,
               color: MyColors.blackColor,
             ),
@@ -66,7 +66,7 @@ class PauseButton extends StatelessWidget {
             ),
             Container(
               height: iconHeight,
-              width: 6,
+              width: 2.5,
               color: MyColors.blackColor,
             ),
           ],

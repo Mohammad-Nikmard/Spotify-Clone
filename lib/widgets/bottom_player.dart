@@ -41,7 +41,7 @@ class _BottomPlayerState extends State<BottomPlayer> {
                       onTap: () => Navigator.push(
                         context,
                         PageRouteBuilder(
-                          transitionDuration: const Duration(milliseconds: 300),
+                          transitionDuration: const Duration(milliseconds: 250),
                           pageBuilder:
                               (context, animation, secondaryAnimation) =>
                                   const TrackViewScreen(),
@@ -110,22 +110,10 @@ class _BottomPlayerState extends State<BottomPlayer> {
                         children: [
                           GestureDetector(
                             onTap: () {
-                              showModalBottomSheet(
-                                backgroundColor: Colors.transparent,
-                                isScrollControlled: true,
-                                barrierColor: Colors.transparent,
-                                context: context,
-                                builder: (context) {
-                                  return DraggableScrollableSheet(
-                                    minChildSize: 0.9,
-                                    maxChildSize: 0.9,
-                                    initialChildSize: 0.9,
-                                    builder: (context, contorller) {
-                                      return ListeningOn(
-                                          controller: contorller);
-                                    },
-                                  );
-                                },
+                              Navigator.of(context).push(
+                                MaterialPageRoute(
+                                  builder: (context) => const ListeningOn(),
+                                ),
                               );
                             },
                             child: Image.asset(

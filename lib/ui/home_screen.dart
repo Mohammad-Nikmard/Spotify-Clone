@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:spotify_clone/DI/service_locator.dart';
@@ -704,7 +705,7 @@ class _Header extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Container(
-                      height: 60,
+                      height: 55,
                       width: (MediaQuery.of(context).size.width / 1.77) - 45,
                       decoration: const BoxDecoration(
                         color: MyColors.darGreyColor,
@@ -886,14 +887,14 @@ class _RecentPlaysChip extends StatelessWidget {
           const SizedBox(
             width: 10,
           ),
-          Text(
+          AutoSizeText(
             title,
             style: const TextStyle(
+              fontSize: 10,
+              color: Colors.white,
               fontFamily: "AB",
-              fontSize: 12,
-              color: MyColors.whiteColor,
             ),
-          ),
+          )
         ],
       ),
     );
@@ -901,7 +902,7 @@ class _RecentPlaysChip extends StatelessWidget {
 }
 
 class _MixChip extends StatelessWidget {
-  const _MixChip({super.key, required this.subtitle, required this.image});
+  const _MixChip({required this.subtitle, required this.image});
   final String subtitle;
   final String image;
 

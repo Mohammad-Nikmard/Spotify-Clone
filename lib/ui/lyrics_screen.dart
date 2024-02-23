@@ -7,22 +7,153 @@ class LyricsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.blue[400],
-      body: const SafeArea(
-        child: Column(
-          children: [
-            _Header(),
-            SizedBox(
-              height: 30,
-            ),
-            _Lyrics(),
-            SizedBox(
-              height: 15,
-            ),
-            _ActionButtons(),
-          ],
+    return const Scaffold(
+      backgroundColor: Color(0xff2b8094),
+      body: Column(
+        children: [
+          _Header(),
+          SizedBox(height: 20),
+          _Lyrics(),
+          SizedBox(
+            height: 20,
+          ),
+          _ActionButtons(),
+        ],
+      ),
+    );
+  }
+}
+
+class _Lyrics extends StatelessWidget {
+  const _Lyrics();
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(
+        horizontal: 25,
+      ),
+      child: SizedBox(
+        height: MediaQuery.of(context).size.height - 310,
+        width: MediaQuery.of(context).size.width,
+        child: const SingleChildScrollView(
+          child: Column(
+            children: [
+              Text(
+                """
+2 AM, they ran out of lemonade
+So I shot that vodka straight, anyway
+She came in, missin' bottle off the shelf
+I can't drink this by myself, sit with me, babe
+Then I started laughin'
+Like it was funny, but it really ain't funny, uh
+Take me home, don't shut me out
+It's easier to leave me down here on the ground
+Take me home, baby, I'm fucked up now
+I know it's easier to leave me down here on the ground""",
+                style: TextStyle(
+                  color: MyColors.whiteColor,
+                  fontFamily: "AM",
+                  fontWeight: FontWeight.w700,
+                  fontSize: 24,
+                ),
+              ),
+              Text(
+                """
+'Cause enough is enough
+I can't stand up
+I can't stand, can't stand, 'causе enough is enough
+Long nights in the city of sin
+Thеy said I pick fights that I won't ever win
+I got a bad bitch that'll bring all her friends
+But when I'm with you it's like I'm livin' again
+And baby, I'm shit-faced sittin' on the sidewalk
+Ain't nobody listenin' when I talk
+I fall down and laugh, but it really ain't funny, uh
+Take me home, don't shut me out
+It's easier to leave me down here on the ground
+Take me home, baby, I'm fucked up now
+I know it's easier to leave me down here on the ground
+'Cause enough is enough (Shut me out)
+I can't stand up (I, I)
+I can't stand, can't stand, 'cause enough is enough (I, I)
+Hah, hah, I can't stand up
+Ah-ah-ah, I, I can't stand, can't stand
+2 AM, they ran out of lemonade
+So I shot that vodka straight, anyway (Ooh)
+""",
+                style: TextStyle(
+                  color: MyColors.blackColor,
+                  fontFamily: "AM",
+                  fontWeight: FontWeight.w700,
+                  fontSize: 24,
+                ),
+              ),
+            ],
+          ),
         ),
+      ),
+    );
+  }
+}
+
+class _Header extends StatelessWidget {
+  const _Header();
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(right: 20, left: 20, top: 35),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          GestureDetector(
+            onTap: () {
+              Navigator.pop(context);
+            },
+            child: Container(
+              height: 32,
+              width: 32,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: const Color(0xff000000).withOpacity(0.4),
+              ),
+              child: const Center(
+                child: Icon(
+                  Icons.keyboard_arrow_down,
+                  color: Colors.white,
+                  size: 26,
+                ),
+              ),
+            ),
+          ),
+          const Column(
+            children: [
+              Text(
+                "Enough is Enough",
+                style: TextStyle(
+                  fontWeight: FontWeight.w700,
+                  fontFamily: "AM",
+                  color: MyColors.whiteColor,
+                  fontSize: 18,
+                ),
+              ),
+              Text(
+                "Post Malone",
+                style: TextStyle(
+                  fontFamily: "AM",
+                  fontSize: 12,
+                  color: Color.fromARGB(255, 253, 239, 239),
+                ),
+              ),
+            ],
+          ),
+          Image.asset(
+            'images/icon_flag.png',
+            height: 24,
+            width: 24,
+          ),
+        ],
       ),
     );
   }
@@ -130,139 +261,6 @@ class __ActionButtonsState extends State<_ActionButtons> {
             ],
           ),
         ],
-      ),
-    );
-  }
-}
-
-class _Header extends StatelessWidget {
-  const _Header();
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(right: 20, left: 20, top: 35),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          GestureDetector(
-            onTap: () {
-              Navigator.pop(context);
-            },
-            child: Container(
-              height: 32,
-              width: 32,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: const Color(0xff000000).withOpacity(0.4),
-              ),
-              child: const Center(
-                child: Icon(
-                  Icons.keyboard_arrow_down,
-                  color: Colors.white,
-                  size: 26,
-                ),
-              ),
-            ),
-          ),
-          const Column(
-            children: [
-              Text(
-                "Enough is Enough",
-                style: TextStyle(
-                  fontWeight: FontWeight.w700,
-                  fontFamily: "AM",
-                  color: MyColors.whiteColor,
-                  fontSize: 18,
-                ),
-              ),
-              Text(
-                "Post Malone",
-                style: TextStyle(
-                  fontFamily: "AM",
-                  fontSize: 12,
-                  color: Color.fromARGB(255, 253, 239, 239),
-                ),
-              ),
-            ],
-          ),
-          Image.asset(
-            'images/icon_flag.png',
-            height: 24,
-            width: 24,
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class _Lyrics extends StatelessWidget {
-  const _Lyrics();
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(
-        horizontal: 25,
-      ),
-      child: SizedBox(
-        height: MediaQuery.of(context).size.height - 310,
-        width: MediaQuery.of(context).size.width,
-        child: const SingleChildScrollView(
-          child: Column(
-            children: [
-              Text(
-                """
-2 AM, they ran out of lemonade
-So I shot that vodka straight, anyway
-She came in, missin' bottle off the shelf
-I can't drink this by myself, sit with me, babe
-Then I started laughin'
-Like it was funny, but it really ain't funny, uh
-Take me home, don't shut me out
-It's easier to leave me down here on the ground
-Take me home, baby, I'm fucked up now
-I know it's easier to leave me down here on the ground""",
-                style: TextStyle(
-                  color: MyColors.whiteColor,
-                  fontFamily: "AB",
-                  fontSize: 24,
-                ),
-              ),
-              Text(
-                """
-'Cause enough is enough
-I can't stand up
-I can't stand, can't stand, 'causе enough is enough
-Long nights in the city of sin
-Thеy said I pick fights that I won't ever win
-I got a bad bitch that'll bring all her friends
-But when I'm with you it's like I'm livin' again
-And baby, I'm shit-faced sittin' on the sidewalk
-Ain't nobody listenin' when I talk
-I fall down and laugh, but it really ain't funny, uh
-Take me home, don't shut me out
-It's easier to leave me down here on the ground
-Take me home, baby, I'm fucked up now
-I know it's easier to leave me down here on the ground
-'Cause enough is enough (Shut me out)
-I can't stand up (I, I)
-I can't stand, can't stand, 'cause enough is enough (I, I)
-Hah, hah, I can't stand up
-Ah-ah-ah, I, I can't stand, can't stand
-2 AM, they ran out of lemonade
-So I shot that vodka straight, anyway (Ooh)
-""",
-                style: TextStyle(
-                  color: MyColors.blackColor,
-                  fontFamily: "AB",
-                  fontSize: 24,
-                ),
-              ),
-            ],
-          ),
-        ),
       ),
     );
   }

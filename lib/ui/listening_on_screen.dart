@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:spotify_clone/constants/constants.dart';
 
 class ListeningOn extends StatefulWidget {
-  const ListeningOn({super.key, required this.controller});
-  final ScrollController controller;
+  const ListeningOn({super.key});
 
   @override
   State<ListeningOn> createState() => _ListeningOnState();
@@ -13,12 +12,9 @@ class _ListeningOnState extends State<ListeningOn> {
   double _value = 0.0;
   @override
   Widget build(BuildContext context) {
-    return ClipRRect(
-      borderRadius: const BorderRadius.only(
-        topLeft: Radius.circular(20),
-        topRight: Radius.circular(20),
-      ),
-      child: Container(
+    return Scaffold(
+      backgroundColor: Colors.transparent,
+      body: Container(
         color: MyColors.blackColor,
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20),

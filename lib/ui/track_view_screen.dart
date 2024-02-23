@@ -1,449 +1,442 @@
-import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
 import 'package:spotify_clone/constants/constants.dart';
-import 'package:spotify_clone/ui/album_radio_screen.dart';
-import 'package:spotify_clone/ui/lyrics_screen.dart';
-import 'package:spotify_clone/ui/share_song_screen.dart';
+import 'package:spotify_clone/ui/listening_on_screen.dart';
+import 'package:spotify_clone/ui/lyrics_section.dart';
 import 'package:spotify_clone/ui/song_control_screen.dart';
 import 'package:spotify_clone/widgets/stream_buttons.dart';
+import 'package:spotify_clone/widgets/video_player.dart';
 
-class TrackViewScreen extends StatelessWidget {
+class TrackViewScreen extends StatefulWidget {
   const TrackViewScreen({super.key});
 
   @override
+  State<TrackViewScreen> createState() => _TrackViewScreenState();
+}
+
+class _TrackViewScreenState extends State<TrackViewScreen> {
+  bool isOnPlaying = true;
+  bool isSwitchedToNextTab = false;
+  bool shadowSwitcher = false;
+  double _currentNumber = 25;
+
+  @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
-          colors: [
-            Colors.blue[400]!,
-            MyColors.blackColor,
-          ],
-        ),
-      ),
-      child: Scaffold(
-        backgroundColor: Colors.transparent,
-        body: SafeArea(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: CustomScrollView(
-              slivers: [
-                const _Header(),
-                const _SongCover(),
-                const _SongInfo(),
-                const _SongActionButtons(),
-                SliverToBoxAdapter(
-                  child: Padding(
-                    padding: const EdgeInsets.only(top: 23, bottom: 10),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Row(
+    return Scaffold(
+      body: Stack(
+        children: [
+          Stack(
+            children: [
+              AnimatedSwitcher(
+                duration: const Duration(milliseconds: 300),
+                switchInCurve: Curves.decelerate,
+                switchOutCurve: Curves.decelerate,
+                child: (isSwitchedToNextTab)
+                    ? const LyricsSection(
+                        key: Key("1"),
+                      )
+                    : GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            shadowSwitcher = !shadowSwitcher;
+                          });
+                        },
+                        child: Stack(
                           children: [
-                            Image.asset('images/icon_bluetooth.png'),
-                            const Text(
-                              "Airpod 3",
-                              style: TextStyle(
-                                fontFamily: "AM",
-                                fontSize: 10,
-                                color: MyColors.greenColor,
+                            const BackVideoPlayer(
+                              key: Key("2"),
+                            ),
+                            Container(
+                              color: (!shadowSwitcher)
+                                  ? MyColors.blackColor.withOpacity(0.45)
+                                  : Colors.transparent,
+                            ),
+                            Positioned(
+                              left: 25,
+                              bottom: 70,
+                              child: AnimatedOpacity(
+                                duration: const Duration(milliseconds: 200),
+                                opacity: (shadowSwitcher) ? 1 : 0,
+                                child: const Row(
+                                  children: [
+                                    CircleAvatar(
+                                      radius: 15,
+                                      backgroundImage: AssetImage(
+                                          'images/artists/Post-Malone.jpg'),
+                                    ),
+                                    SizedBox(width: 15),
+                                    Text(
+                                      "by Post Malone",
+                                      style: TextStyle(
+                                        fontFamily: "AM",
+                                        fontSize: 16,
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                  ],
+                                ),
                               ),
                             ),
                           ],
                         ),
-                        SizedBox(
-                          width: 80,
+                      ),
+              ),
+              const _Header(),
+              AnimatedPositioned(
+                duration: const Duration(milliseconds: 300),
+                top: (isSwitchedToNextTab)
+                    ? (MediaQuery.of(context).size.height * 0.6)
+                    : (MediaQuery.of(context).size.height * 0.2),
+                right: 0,
+                left: 0,
+                child: AnimatedOpacity(
+                  duration: const Duration(milliseconds: 200),
+                  opacity: (shadowSwitcher) ? 0 : 1,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    child: Stack(
+                      clipBehavior: Clip.none,
+                      children: [
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            AnimatedOpacity(
+                              duration: const Duration(milliseconds: 250),
+                              opacity: (isSwitchedToNextTab) ? 0 : 1,
+                              child: SizedBox(
+                                height: 120,
+                                width: 120,
+                                child: Center(
+                                  child: Image.asset(
+                                    "images/home/AUSTIN.jpg",
+                                  ),
+                                ),
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 18,
+                            ),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                          ],
+                        ),
+                        Positioned(
+                          right: 0,
+                          left: 0,
+                          top: 125,
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              AnimatedPadding(
+                                duration: const Duration(milliseconds: 300),
+                                padding: EdgeInsets.only(
+                                    top: (isSwitchedToNextTab) ? 50 : 0),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.only(right: 25),
+                                      child: SizedBox(
+                                        width:
+                                            MediaQuery.of(context).size.width -
+                                                95,
+                                        height: 30,
+                                        child: const Text(
+                                          "Enough is Enough",
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.w700,
+                                            fontFamily: "AM",
+                                            color: MyColors.whiteColor,
+                                            fontSize: 20,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    const Text(
+                                      "Post Malne",
+                                      style: TextStyle(
+                                        fontFamily: "AM",
+                                        fontSize: 14,
+                                        color: MyColors.whiteColor,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Column(
+                                children: [
+                                  AnimatedOpacity(
+                                    duration: const Duration(milliseconds: 250),
+                                    opacity: (isSwitchedToNextTab) ? 0 : 1,
+                                    child: GestureDetector(
+                                      onTap: () {
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                const SongControlScreen(
+                                                    trackName:
+                                                        "Enough is Enough",
+                                                    color: Color(0xff8b9a63),
+                                                    singer: "Post Malone",
+                                                    albumImage: "AUSTIN.jpg"),
+                                          ),
+                                        );
+                                      },
+                                      child: const Icon(
+                                        Icons.more_vert,
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                  ),
+                                  const SizedBox(height: 20),
+                                  AnimatedOpacity(
+                                    duration: const Duration(milliseconds: 250),
+                                    opacity: (isSwitchedToNextTab) ? 0 : 1,
+                                    child: Image.asset(
+                                      'images/share.png',
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
+                        Positioned(
+                          top: 205,
+                          right: 0,
+                          left: 0,
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              GestureDetector(
-                                onTap: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) =>
-                                          const ShareSongScreen(),
+                              Row(
+                                children: [
+                                  AnimatedPadding(
+                                    duration: const Duration(milliseconds: 300),
+                                    padding: EdgeInsets.only(
+                                        top: (isSwitchedToNextTab) ? 40 : 0),
+                                    child: const PauseButton(
+                                      height: 40,
+                                      iconHeight: 14,
+                                      width: 40,
+                                      color: MyColors.whiteColor,
                                     ),
-                                  );
-                                },
-                                child: Image.asset(
-                                  'images/icon_share.png',
-                                  color: Colors.white,
-                                ),
+                                  ),
+                                  const SizedBox(
+                                    width: 10,
+                                  ),
+                                  AnimatedOpacity(
+                                    duration: const Duration(milliseconds: 250),
+                                    opacity: (isSwitchedToNextTab) ? 0 : 1,
+                                    child: Container(
+                                      height: 40,
+                                      width: 40,
+                                      decoration: BoxDecoration(
+                                        shape: BoxShape.circle,
+                                        color: MyColors.blackColor
+                                            .withOpacity(0.3),
+                                      ),
+                                      child: Center(
+                                        child: Image.asset(
+                                          "images/icon_back_song.png",
+                                          height: 16,
+                                          width: 16,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  const SizedBox(
+                                    width: 10,
+                                  ),
+                                  AnimatedOpacity(
+                                    duration: const Duration(milliseconds: 250),
+                                    opacity: (isSwitchedToNextTab) ? 0 : 1,
+                                    child: Container(
+                                      height: 40,
+                                      width: 40,
+                                      decoration: BoxDecoration(
+                                        shape: BoxShape.circle,
+                                        color: MyColors.blackColor
+                                            .withOpacity(0.3),
+                                      ),
+                                      child: Center(
+                                        child: Image.asset(
+                                          "images/icon_next_song.png",
+                                          height: 16,
+                                          width: 16,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
                               ),
-                              GestureDetector(
-                                onTap: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) =>
-                                          const AlbumRadioScreen(),
-                                    ),
-                                  );
-                                },
+                              AnimatedOpacity(
+                                duration: const Duration(milliseconds: 250),
+                                opacity: (isSwitchedToNextTab) ? 0 : 1,
                                 child: Image.asset(
-                                  "images/icon_add_to_quoue.png",
+                                  'images/icon_heart.png',
                                   color: Colors.white,
                                 ),
                               ),
                             ],
                           ),
                         ),
+                        Positioned(
+                          top: 260,
+                          right: 0,
+                          left: 0,
+                          child: AnimatedPadding(
+                            duration: const Duration(milliseconds: 300),
+                            padding: EdgeInsets.only(
+                                left: (isSwitchedToNextTab) ? 50 : 0),
+                            child: Column(
+                              children: [
+                                SliderTheme(
+                                  data: const SliderThemeData(
+                                    trackHeight: 2,
+                                    thumbShape: RoundSliderThumbShape(
+                                        enabledThumbRadius: 6.0),
+                                    overlayShape: RoundSliderOverlayShape(
+                                        overlayRadius: 0.0),
+                                  ),
+                                  child: AnimatedContainer(
+                                    duration: const Duration(milliseconds: 300),
+                                    width: MediaQuery.of(context).size.width,
+                                    child: Slider(
+                                      min: 0,
+                                      max: 100,
+                                      activeColor: const Color.fromARGB(
+                                          255, 230, 229, 229),
+                                      inactiveColor: const Color.fromARGB(
+                                          255, 148, 147, 147),
+                                      value: _currentNumber,
+                                      onChanged: (onChanged) {
+                                        setState(() {
+                                          _currentNumber = onChanged;
+                                        });
+                                      },
+                                    ),
+                                  ),
+                                ),
+                                const Padding(
+                                  padding: EdgeInsets.symmetric(horizontal: 3),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Padding(
+                                        padding: EdgeInsets.only(left: 3),
+                                        child: Text(
+                                          "0:55",
+                                          style: TextStyle(
+                                            fontFamily: "AM",
+                                            fontSize: 12,
+                                            color: Color.fromARGB(
+                                                255, 230, 229, 229),
+                                          ),
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: EdgeInsets.only(right: 2),
+                                        child: Text(
+                                          "2:45",
+                                          style: TextStyle(
+                                            fontFamily: "AM",
+                                            fontSize: 12,
+                                            color: Color.fromARGB(
+                                                255, 230, 229, 229),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
                       ],
                     ),
                   ),
                 ),
-                SliverToBoxAdapter(
-                  child: OpenContainer(
-                    transitionType: ContainerTransitionType.fade,
-                    transitionDuration: const Duration(seconds: 1),
-                    closedColor: Colors.transparent,
-                    openColor: Colors.transparent,
-                    openElevation: 0.0,
-                    closedElevation: 0.0,
-                    middleColor: Colors.transparent,
-                    closedBuilder: (context, action) {
-                      return const _LyricsSection();
-                    },
-                    openBuilder: (context, action) {
-                      return const LyricsScreen();
-                    },
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class _SongActionButtons extends StatefulWidget {
-  const _SongActionButtons();
-
-  @override
-  State<_SongActionButtons> createState() => _SongActionButtonsState();
-}
-
-class _SongActionButtonsState extends State<_SongActionButtons> {
-  bool isPaused = true;
-  bool isInRepeat = true;
-  bool isShuffleOn = false;
-  @override
-  Widget build(BuildContext context) {
-    return SliverToBoxAdapter(
-      child: Padding(
-        padding: const EdgeInsets.only(top: 20),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            GestureDetector(
-              onTap: () {
-                setState(() {
-                  isShuffleOn = !isShuffleOn;
-                });
-              },
-              child: (isShuffleOn)
-                  ? Image.asset(
-                      'images/icon_shuffle_on.png',
-                      height: 22,
-                      width: 22,
-                    )
-                  : Image.asset("images/icon_shuffle_off.png"),
-            ),
-            Image.asset("images/icon_back_song.png"),
-            GestureDetector(
-              onTap: () {
-                setState(() {
-                  isPaused = !isPaused;
-                });
-              },
-              child: (isPaused)
-                  ? const PauseButton(
-                      height: 67,
-                      iconHeight: 26,
-                      width: 67,
-                      color: MyColors.whiteColor,
-                    )
-                  : const PlayButton(
-                      color: MyColors.whiteColor,
-                      height: 67,
-                      width: 67,
-                    ),
-            ),
-            Image.asset("images/icon_next_song.png"),
-            GestureDetector(
-              onTap: () {
-                setState(() {
-                  isInRepeat = !isInRepeat;
-                });
-              },
-              child: (isInRepeat)
-                  ? Image.asset("images/icon_repeat_on.png")
-                  : Image.asset(
-                      'images/icon_restart_off.png',
-                      height: 29,
-                      width: 29,
-                    ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class _LyricsSection extends StatelessWidget {
-  const _LyricsSection();
-
-  @override
-  Widget build(BuildContext context) {
-    return Stack(
-      alignment: AlignmentDirectional.center,
-      children: [
-        Padding(
-          padding: const EdgeInsets.only(top: 20, bottom: 30),
-          child: Container(
-            width: MediaQuery.of(context).size.width,
-            height: MediaQuery.of(context).size.width,
-            decoration: const BoxDecoration(
-              color: Colors.blue,
-              borderRadius: BorderRadius.all(
-                Radius.circular(8),
               ),
-            ),
-          ),
-        ),
-        const Positioned(
-          top: 33,
-          left: 15,
-          child: Text(
-            "Lyrics",
-            style: TextStyle(
-              fontFamily: "AM",
-              fontSize: 18,
-              fontWeight: FontWeight.w600,
-              color: MyColors.whiteColor,
-            ),
-          ),
-        ),
-        Positioned(
-          top: 33,
-          right: 15,
-          child: Container(
-            height: 28,
-            decoration: BoxDecoration(
-              color: MyColors.darGreyColor.withOpacity(0.6),
-              borderRadius: const BorderRadius.all(
-                Radius.circular(15),
-              ),
-            ),
-            child: Center(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 10),
-                child: Row(
-                  children: [
-                    const Text(
-                      "MORE",
-                      style: TextStyle(
-                        fontFamily: "AM",
-                        fontSize: 10,
-                        color: MyColors.whiteColor,
-                        fontWeight: FontWeight.w400,
-                      ),
-                    ),
-                    const SizedBox(
-                      width: 8,
-                    ),
-                    Image.asset("images/icon_bigger_size.png"),
-                  ],
-                ),
-              ),
-            ),
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 30),
-          child: SizedBox(
-            height: 300,
-            width: MediaQuery.of(context).size.width,
-            child: const SingleChildScrollView(
-              child: Column(
-                children: [
-                  Text(
-                    """2 AM, they ran out of lemonade 
-So I shot that vodka straight, anyway    
-She came in, missin' bottle off the shelf""",
-                    style: TextStyle(
-                      color: MyColors.whiteColor,
-                      fontFamily: "AB",
-                      fontSize: 24,
-                    ),
-                  ),
-                  Text(
-                    """
-I can't drink this by myself, sit with me, babe
-Then I started laughin'
-Like it was funny, but it really ain't funny, uh
-""",
-                    style: TextStyle(
-                      color: MyColors.blackColor,
-                      fontFamily: "AB",
-                      fontSize: 24,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ),
-      ],
-    );
-  }
-}
-
-class _SongInfo extends StatefulWidget {
-  const _SongInfo({super.key});
-
-  @override
-  State<_SongInfo> createState() => _SongInfoState();
-}
-
-class _SongInfoState extends State<_SongInfo> {
-  double _currentNumber = 25;
-  @override
-  Widget build(BuildContext context) {
-    return SliverToBoxAdapter(
-      child: Column(
-        children: [
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(right: 25),
-                    child: SizedBox(
-                      width: MediaQuery.of(context).size.width - 95,
-                      height: 30,
-                      child: const Text(
-                        "Enough is Enough",
-                        style: TextStyle(
-                          fontWeight: FontWeight.w700,
-                          fontFamily: "AM",
-                          color: MyColors.whiteColor,
-                          fontSize: 22,
-                        ),
-                      ),
-                      // child: Marquee(
-                      //   text: 'From Me to You - Mono / Remastered',
-                      //   style: const TextStyle(
-                      //       fontWeight: FontWeight.w700,
-                      //       fontFamily: "AM",
-                      //       color: MyColors.whiteColor,
-                      //       fontSize: 22),
-                      //   scrollAxis: Axis.horizontal,
-                      //   crossAxisAlignment: CrossAxisAlignment.start,
-                      //   blankSpace: 25.0,
-                      //   velocity: 60.0,
-                      //   pauseAfterRound: const Duration(seconds: 5),
-                      //   startPadding: 5.0,
-                      //   accelerationDuration: const Duration(seconds: 1),
-                      //   accelerationCurve: Curves.linear,
-                      //   decelerationDuration: const Duration(milliseconds: 500),
-                      //   decelerationCurve: Curves.easeOut,
-                      // ),
-                    ),
-                  ),
-                  const Text(
-                    "Post Maone",
-                    style: TextStyle(
-                      fontFamily: "AM",
-                      fontSize: 16,
-                      color: MyColors.whiteColor,
-                    ),
-                  ),
-                ],
-              ),
-              Image.asset("images/icon_heart.png"),
             ],
           ),
-          const SizedBox(
-            height: 10,
-          ),
-          SliderTheme(
-            data: const SliderThemeData(
-              trackHeight: 4,
-              thumbShape: RoundSliderThumbShape(enabledThumbRadius: 6.0),
-              overlayShape: RoundSliderOverlayShape(overlayRadius: 0.0),
-            ),
-            child: SizedBox(
-              width: MediaQuery.of(context).size.width,
-              child: Slider(
-                min: 0,
-                max: 100,
-                activeColor: const Color.fromARGB(255, 230, 229, 229),
-                inactiveColor: const Color.fromARGB(255, 148, 147, 147),
-                value: _currentNumber,
-                onChanged: (onChanged) {
-                  setState(() {
-                    _currentNumber = onChanged;
-                  });
-                },
+          Positioned(
+            top: 70,
+            left: 0,
+            right: 0,
+            child: Padding(
+              padding: const EdgeInsets.only(left: 20),
+              child: Row(
+                children: [
+                  GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        isOnPlaying = !isOnPlaying;
+                        isSwitchedToNextTab = !isSwitchedToNextTab;
+                      });
+                    },
+                    child: Container(
+                      height: 30,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
+                        color:
+                            (isOnPlaying) ? Colors.white : Colors.transparent,
+                      ),
+                      child: Center(
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 15),
+                          child: Text(
+                            "Playing",
+                            style: TextStyle(
+                              fontFamily: "AM",
+                              fontSize: 16,
+                              fontWeight: FontWeight.w700,
+                              color:
+                                  (isOnPlaying) ? Colors.black : Colors.white,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        isOnPlaying = !isOnPlaying;
+                        isSwitchedToNextTab = !isSwitchedToNextTab;
+                      });
+                    },
+                    child: Container(
+                      height: 30,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(15),
+                        color:
+                            (!isOnPlaying) ? Colors.white : Colors.transparent,
+                      ),
+                      child: Center(
+                          child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 20),
+                        child: Text(
+                          "Lyrics",
+                          style: TextStyle(
+                            fontFamily: "AM",
+                            fontSize: 16,
+                            fontWeight: FontWeight.w700,
+                            color: (!isOnPlaying) ? Colors.black : Colors.white,
+                          ),
+                        ),
+                      )),
+                    ),
+                  ),
+                ],
               ),
-            ),
-          ),
-          const SizedBox(
-            height: 6,
-          ),
-          const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 3),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  "0:55",
-                  style: TextStyle(
-                    fontFamily: "AM",
-                    fontSize: 12,
-                    color: Color.fromARGB(255, 230, 229, 229),
-                  ),
-                ),
-                Text(
-                  "2:45",
-                  style: TextStyle(
-                    fontFamily: "AM",
-                    fontSize: 12,
-                    color: Color.fromARGB(255, 230, 229, 229),
-                  ),
-                ),
-              ],
             ),
           ),
         ],
-      ),
-    );
-  }
-}
-
-class _SongCover extends StatelessWidget {
-  const _SongCover();
-
-  @override
-  Widget build(BuildContext context) {
-    return SliverToBoxAdapter(
-      child: Padding(
-        padding: const EdgeInsets.only(bottom: 35),
-        child: Image.asset(
-          "images/home/AUSTIN.jpg",
-          width: MediaQuery.of(context).size.width,
-          height: MediaQuery.of(context).size.width,
-        ),
       ),
     );
   }
@@ -454,50 +447,51 @@ class _Header extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SliverToBoxAdapter(
-      child: Padding(
-        padding: const EdgeInsets.only(top: 30, bottom: 50),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            GestureDetector(
-              onTap: () {
-                Navigator.pop(context);
-              },
-              child: Image.asset(
-                "images/icon_arrow_down.png",
-                color: Colors.white,
-              ),
+    return Padding(
+      padding: const EdgeInsets.only(top: 30, right: 20, left: 20),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          GestureDetector(
+            onTap: () {
+              Navigator.pop(context);
+            },
+            child: const Icon(
+              Icons.keyboard_arrow_down,
+              color: Colors.white,
             ),
-            const Text(
-              "Enough is Enough",
-              style: TextStyle(
-                fontFamily: "AM",
-                fontWeight: FontWeight.w400,
-                color: MyColors.whiteColor,
-              ),
+          ),
+          GestureDetector(
+            onTap: () {
+              Navigator.push(
+                context,
+                PageRouteBuilder(
+                  transitionDuration: const Duration(milliseconds: 250),
+                  pageBuilder: (context, animation, secondaryAnimation) =>
+                      const ListeningOn(),
+                  transitionsBuilder:
+                      (context, animation, secondaryAnimation, child) {
+                    const begin = Offset(0.0, 1.0);
+                    const end = Offset.zero;
+
+                    final tween = Tween(begin: begin, end: end);
+                    final offsetAnimation = animation.drive(tween);
+                    return SlideTransition(
+                      position: offsetAnimation,
+                      child: child,
+                    );
+                  },
+                ),
+              );
+            },
+            child: Image.asset(
+              'images/icon_listen.png',
+              height: 20,
+              width: 20,
+              color: Colors.white,
             ),
-            GestureDetector(
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const SongControlScreen(
-                      trackName: "Enough is Enough",
-                      singer: "Post Malone",
-                      color: Color(0xff8b9a63),
-                      albumImage: "AUSTIN.jpg",
-                    ),
-                  ),
-                );
-              },
-              child: Image.asset(
-                'images/icon_more.png',
-                color: MyColors.whiteColor,
-              ),
-            ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

@@ -6,6 +6,7 @@ import 'package:spotify_clone/ui/library_screen.dart';
 import 'package:spotify_clone/ui/search_category_screen.dart';
 import 'package:spotify_clone/ui/search_screen.dart';
 import 'package:spotify_clone/ui/setting_screen.dart';
+import 'package:spotify_clone/ui/track_view_screen.dart';
 
 class AppNavigation {
   AppNavigation._();
@@ -48,6 +49,16 @@ class AppNavigation {
                     name: "Setting",
                     builder: (context, state) {
                       return SettingScreen(
+                        key: state.pageKey,
+                      );
+                    },
+                  ),
+                  GoRoute(
+                    path: "trackview",
+                    name: "trackview",
+                    parentNavigatorKey: _rootNavigatorKey,
+                    builder: (context, state) {
+                      return TrackViewScreen(
                         key: state.pageKey,
                       );
                     },
