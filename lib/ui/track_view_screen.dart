@@ -85,8 +85,8 @@ class _TrackViewScreenState extends State<TrackViewScreen> {
               AnimatedPositioned(
                 duration: const Duration(milliseconds: 200),
                 top: (isSwitchedToNextTab)
-                    ? (MediaQuery.of(context).size.height * 0.5)
-                    : (MediaQuery.of(context).size.height * 0.4),
+                    ? (MediaQuery.of(context).size.height * 0.6)
+                    : (MediaQuery.of(context).size.height * 0.5),
                 right: 0,
                 left: 0,
                 child: AnimatedOpacity(
@@ -376,7 +376,7 @@ class _TrackViewScreenState extends State<TrackViewScreen> {
             ],
           ),
           Positioned(
-            top: 70,
+            top: 90,
             left: 0,
             right: 0,
             child: Padding(
@@ -419,6 +419,7 @@ class _TrackViewScreenState extends State<TrackViewScreen> {
                       setState(() {
                         isOnPlaying = !isOnPlaying;
                         isSwitchedToNextTab = !isSwitchedToNextTab;
+                        shadowSwitcher = false;
                       });
                     },
                     child: Container(
@@ -459,7 +460,7 @@ class _Header extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(top: 30, right: 20, left: 20),
+      padding: const EdgeInsets.only(top: 50, right: 20, left: 20),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [

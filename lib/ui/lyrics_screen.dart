@@ -14,10 +14,11 @@ class LyricsScreen extends StatelessWidget {
           _Header(),
           SizedBox(height: 20),
           _Lyrics(),
-          SizedBox(
-            height: 20,
+          Spacer(),
+          Padding(
+            padding: EdgeInsets.only(bottom: 20),
+            child: _ActionButtons(),
           ),
-          _ActionButtons(),
         ],
       ),
     );
