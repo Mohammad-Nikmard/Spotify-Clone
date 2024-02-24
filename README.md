@@ -13,3 +13,28 @@ This is an enormous spotify application ui that has been written with dart. Supp
  - **Scanner** : As an additional feature an scanner has been handled and added to the ui to make the project even more near to reality.
  - **Other Features** : user can route to setting, library and profile screen.
 
+
+## Project Structure 
+The project follows bloc architecture for the separation of layers to keep everything clean:
+
+ - BLoC : To handle the logic and send different states for the unique event being received.
+ - Data : To handle 3 important layers when working with local data :
+    - Model : which is the entity of the app.
+    - DataSource : To keep a list of local data (works just like usecases).
+    - Repositoy : To get data from datasource and handle whether an error occurred or the list has been taken (similar to adapter layer).
+ - UI : Infrastructure layer that is aware of the bloc and can send certain events to it.
+
+
+## Dependancies 
+  - auto_size_text (for the dynamic text size)
+  - animations (for switching smothly beetween pages)
+  - flutter_barcode_scanner (for scanner)
+  - video_player (to handle background video of track screen)
+
+
+## Project Setup 
+To run the application do the following :
+
+ 1. Clone the repository or download it.
+ 2. Open the project in Android Studio / VScode.
+ 3. Build and run the app on an Android emulator or physical device by your choice.
