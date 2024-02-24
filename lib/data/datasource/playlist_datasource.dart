@@ -74,7 +74,7 @@ class PLaylistLocalDatasource extends PlaylistDatasource {
           PLaylistTrack("upbeat/Classic.jpg", "MKTO ", "Classic"),
           PLaylistTrack("upbeat/Me-Levanté.jpg", "Dave Bolaño", "Me Levanté"),
           PLaylistTrack(
-              "upbeat/eel-It-Still.jpg", "Portugal. The Man", "Feel It Still"),
+              "upbeat/Feel-It-Still.jpg", "Portugal. The Man", "Feel It Still"),
         ],
       );
     } else if (mix == "Chill") {
@@ -117,7 +117,7 @@ class PLaylistLocalDatasource extends PlaylistDatasource {
           PLaylistTrack(
               "2010/Cruel-Summer.jpg", "Taylor Swift", "Cruel Summer"),
           PLaylistTrack(
-              "The-Night-We-Met.jpg", "Lord Huron", "The Night We Met"),
+              "2010/The-Night-We-Met.jpg", "Lord Huron", "The Night We Met"),
           PLaylistTrack("2010/Starboy.jpg", "The Weeknd", "Starboy"),
           PLaylistTrack("2010/No-Role-Modelz.jpg", "J. Cole", "No Role Modelz"),
           PLaylistTrack("2010/One-Dance.jpg", "Drake", "One Dance"),

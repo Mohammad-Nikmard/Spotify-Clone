@@ -32,14 +32,12 @@ class ChoosePodcastScreen extends StatelessWidget {
                               SizedBox(
                                 height: 75,
                                 width: 245,
-                                child: Flexible(
-                                  child: Text(
-                                    "Now choose some podcasts.",
-                                    style: TextStyle(
-                                      fontFamily: "AB",
-                                      fontSize: 26,
-                                      color: MyColors.whiteColor,
-                                    ),
+                                child: Text(
+                                  "Now choose some podcasts.",
+                                  style: TextStyle(
+                                    fontFamily: "AB",
+                                    fontSize: 26,
+                                    color: MyColors.whiteColor,
                                   ),
                                 ),
                               ),
@@ -122,7 +120,7 @@ class _PodcastList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SliverPadding(
-      padding: const EdgeInsets.only(left: 12, right: 12, bottom: 40),
+      padding: const EdgeInsets.only(left: 12, right: 12, bottom: 90),
       sliver: SliverGrid(
         delegate: SliverChildBuilderDelegate(
           (context, index) {

@@ -198,14 +198,12 @@ class _CreateNameScreenState extends State<CreateNameScreen> {
                 children: [
                   const SizedBox(
                     width: 290,
-                    child: Flexible(
-                      child: Text(
-                        "Share my registration data with Spotify's content providers for marketing purposes.",
-                        style: TextStyle(
-                          fontFamily: "AM",
-                          fontSize: 12,
-                          color: MyColors.whiteColor,
-                        ),
+                    child: Text(
+                      "Share my registration data with Spotify's content providers for marketing purposes.",
+                      style: TextStyle(
+                        fontFamily: "AM",
+                        fontSize: 12,
+                        color: MyColors.whiteColor,
                       ),
                     ),
                   ),

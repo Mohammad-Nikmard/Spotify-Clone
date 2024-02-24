@@ -31,7 +31,7 @@ class _PodcastAvatarWidgetState extends State<PodcastAvatarWidget> {
               children: [
                 Container(
                   height: 100,
-                  width: 100,
+                  width: 95,
                   decoration: BoxDecoration(
                     color: MyColors.greenColor,
                     borderRadius: const BorderRadius.all(

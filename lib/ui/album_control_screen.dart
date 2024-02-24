@@ -14,90 +14,86 @@ class AlbumControlScreen extends StatelessWidget {
       body: CustomScrollView(
         slivers: [
           SliverToBoxAdapter(
-            child: Expanded(
-              flex: 4,
-              child: Container(
-                decoration: BoxDecoration(
-                  border: Border.all(
-                    width: 0,
-                    color: MyColors.blackColor,
-                  ),
-                  gradient: LinearGradient(
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                    colors: [
-                      album.colorPallete[0],
-                      MyColors.blackColor,
-                    ],
-                  ),
+            child: Container(
+              height: 390,
+              decoration: BoxDecoration(
+                border: Border.all(
+                  width: 0,
+                  color: MyColors.blackColor,
                 ),
-                child: _Header(
-                  album: album,
+                gradient: LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  colors: [
+                    album.colorPallete[0],
+                    MyColors.blackColor,
+                  ],
                 ),
+              ),
+              child: _Header(
+                album: album,
               ),
             ),
           ),
           SliverToBoxAdapter(
-            child: Expanded(
-              flex: 6,
-              child: Container(
-                decoration: BoxDecoration(
-                  border: Border.all(
-                    width: 0,
-                    color: MyColors.blackColor,
-                  ),
+            child: Container(
+              height: MediaQuery.of(context).size.height,
+              decoration: BoxDecoration(
+                border: Border.all(
+                  width: 0,
                   color: MyColors.blackColor,
                 ),
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 25),
-                  child: Column(
-                    children: [
-                      const SizedBox(
-                        height: 30,
-                      ),
-                      const _AlbumChip(text: "Like", image: "icon_heart.png"),
-                      const _AlbumChip(
-                          text: "View artist", image: "icon_view_artist.png"),
-                      GestureDetector(
+                color: MyColors.blackColor,
+              ),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 25),
+                child: Column(
+                  children: [
+                    const SizedBox(
+                      height: 30,
+                    ),
+                    const _AlbumChip(text: "Like", image: "icon_heart.png"),
+                    const _AlbumChip(
+                        text: "View artist", image: "icon_view_artist.png"),
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const ShareSongScreen(),
+                          ),
+                        );
+                      },
+                      child: const _AlbumChip(
+                          text: "Share", image: "icon_share.png"),
+                    ),
+                    const _AlbumChip(
+                        text: "Like all songs", image: "icon_heart.png"),
+                    const _AlbumChip(
+                        text: "Add to playlist",
+                        image: "icon_add_to_playlist.png"),
+                    const _AlbumChip(
+                        text: "Add to queue", image: "icon_add_to_quoue.png"),
+                    const _AlbumChip(
+                        text: "Go to radio", image: "icon_radio.png"),
+                    const SizedBox(height: 35),
+                    Center(
+                      child: GestureDetector(
                         onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const ShareSongScreen(),
-                            ),
-                          );
+                          Navigator.pop(context);
                         },
-                        child: const _AlbumChip(
-                            text: "Share", image: "icon_share.png"),
-                      ),
-                      const _AlbumChip(
-                          text: "Like all songs", image: "icon_heart.png"),
-                      const _AlbumChip(
-                          text: "Add to playlist",
-                          image: "icon_add_to_playlist.png"),
-                      const _AlbumChip(
-                          text: "Add to queue", image: "icon_add_to_quoue.png"),
-                      const _AlbumChip(
-                          text: "Go to radio", image: "icon_radio.png"),
-                      const SizedBox(height: 35),
-                      Center(
-                        child: GestureDetector(
-                          onTap: () {
-                            Navigator.pop(context);
-                          },
-                          child: const Text(
-                            "Close",
-                            style: TextStyle(
-                              fontFamily: "AM",
-                              fontSize: 16,
-                              color: MyColors.whiteColor,
-                            ),
+                        child: const Text(
+                          "Close",
+                          style: TextStyle(
+                            fontFamily: "AM",
+                            fontSize: 16,
+                            color: MyColors.whiteColor,
                           ),
                         ),
                       ),
-                      const SizedBox(height: 100),
-                    ],
-                  ),
+                    ),
+                    const SizedBox(height: 100),
+                  ],
                 ),
               ),
             ),
